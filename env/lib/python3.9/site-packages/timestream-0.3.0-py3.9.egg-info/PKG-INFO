@@ -1,0 +1,24 @@
+Metadata-Version: 1.1
+Name: timestream
+Version: 0.3.0
+Summary: 
+timestream: Utilities and a python library for manipulating timelapses in the
+            TimeStream format
+
+Home-page: https://github.com/borevitzlab/timestreamlib
+Author: Kevin Murray
+Author-email: spam@kdmurray.id.au
+License: UNKNOWN
+Description: UNKNOWN
+Keywords: timestream,timelapse,photography,video
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
