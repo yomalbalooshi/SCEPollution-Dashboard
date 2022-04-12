@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import boto3
-import timestream
+import aws_cdk.aws_timestream as timestream
 import sys, traceback
 from botocore.config import Config
 from timeit import default_timer as timer
