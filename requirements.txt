@@ -4,3 +4,4 @@ sqlparse==0.4.2
 boto3==1.21.38
 timestream==0.3.0
 matplotlib==3.5.1
+opencv-python==4.5.5.64
