@@ -2,4 +2,4 @@ Django==2.2
 pytz==2022.1
 sqlparse==0.4.2
 boto3==1.21.38
-timestream 0.3.0
+timestream==0.3.0
