@@ -1,7 +1,6 @@
 from django.shortcuts import render
 import boto3
 
-
 DB_NAME = "dummyDB"
 
 TBL_NAME = "sensorReadings"
