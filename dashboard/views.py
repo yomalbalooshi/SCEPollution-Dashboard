@@ -12,7 +12,7 @@ TBL_NAME = "sensorReadings"
 
 def index(request):
     return render(request, "dashboard/index.html")
-client = boto3.client('timestream-query')
+client = boto3.client('timestream-query', region_name='us-east-1' )
 def qu():
     response = client.query(QueryString = 'SELECT * FROM "dummyDB"."sensorReadings" WHERE time between ago(15m) and now() ORDER BY time DESC LIMIT 10 ')
     return render(response, "dashboard/index.html")
