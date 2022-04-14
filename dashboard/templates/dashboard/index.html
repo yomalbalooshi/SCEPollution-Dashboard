@@ -33,8 +33,51 @@
           })
         });
       </script>
+      <button onClick="embedDashboard()">QuickSightEmbedding</button> 
+      <script>
+        function embedDashboard() {
+                var containerDiv = document.getElementById("dashboardContainer");
+                var options = {
+                    url: "https://us-east-1.quicksight.aws.amazon.com/embed/875ddbe6dff74b3ba169028262bc68cc/dashboards/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a?isauthcode=true&identityprovider=quicksight&code=AYABeCc9W84AikqecuJ97KnzVowAAAABAAdhd3Mta21zAEthcm46YXdzOmttczp1cy1lYXN0LTE6MjU5NDgwNDYyMTMyOmtleS81NGYwMjdiYy03MDJhLTQxY2YtYmViNS0xNDViOTExNzFkYzMAuAECAQB4EeOLgrUr51nsHbjCawUUKjOqEm284CNxqOjvtm6TGiwBmoK4yA-NTYKFE6t5wXb5WAAAAH4wfAYJKoZIhvcNAQcGoG8wbQIBADBoBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDDu46xrNsYpQRB03MgIBEIA7yDOVUGI-2k-wrae-zdQ1kQBzdTwjyyKSbxDuELckZ6-wkHktCOkq2dD4rPzaDUwRoNBvqPzF9-oAtl4CAAAAAAwAABAAAAAAAAAAAAAAAAAAkkC6NF4AaK0OYOvCCKc36P____8AAAABAAAAAAAAAAAAAAABAAAAnl--z4jpaHEOAx8OKXw-027t2tcRo9NDaJe5KJ6b7gfFbo-BLXZkY95FsQXX2IbsVONzs80q6qLCXMUousCEumITw-yle4tbwYpywEZ65YgXYkW9iImyPApPTwMLIBTjRktIXzijDUDzqfDgCKXsW6mYaFkwHvXgD7mOJcNObG7B-rtIxCk2IoKWQDovDZki1NYuhOjfXzZrx-lisga5Wxl1t7bbxKh7V6Zm6Xzpyw%3D%3D",
+                    container: containerDiv,
+                    parameters: {
+                        country: 'United States'
+                    },
+                    scrolling: "no",
+                    height: "700px",
+                    width: "1000px"
+                };
+                dashboard = QuickSightEmbedding.embedDashboard(options);
+                dashboard.on('error', onError);
+                dashboard.on('load', onDashboardLoad);
+            }
+
+
+      </script>
        <div>
         <h5>cities table goes here</h5>
+       </div>
+       <div>
+        <button onClick="buttnClick()">Click Me</button> 
+        <script> 
+        function buttnClick(){ 
+	        fetch("/res",{method:'GET'}) 
+	        .then((data)=>{ 
+	        console.log(data.text) 
+        }) 
+} 
+</script> 
+       </div>
+       <div>
+        <button onClick="btnClick()">Click</button> 
+        <script> 
+        function btnClick(){ 
+	        fetch('/test',{method:'GET'}) 
+	        .then((data)=>{ 
+	        console.log(data.text) 
+        }) 
+} 
+</script> 
        </div>
     </body>
 </html>
