@@ -1,0 +1,11 @@
+MANIFEST.in
+README.md
+setup.cfg
+setup.py
+tests.md
+voluptuous.py
+voluptuous.egg-info/PKG-INFO
+voluptuous.egg-info/SOURCES.txt
+voluptuous.egg-info/dependency_links.txt
+voluptuous.egg-info/requires.txt
+voluptuous.egg-info/top_level.txt
