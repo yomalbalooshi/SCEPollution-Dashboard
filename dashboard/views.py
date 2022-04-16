@@ -15,7 +15,7 @@ def index(request):
     return render(request, "dashboard/index.html")
 client = boto3.client('timestream-query', region_name='us-east-1' )
 def qu():
-    response = client.query(QueryString = 'SELECT * FROM "dummyDB"."sensorReadings" WHERE AQI=100 ')
+    response = client.query(QueryString = 'SELECT city, intersectionId FROM dummyDB."sensorReadings" WHERE time>=ago(24h) group by city, intersectionId')
     print(response)
 
 def st():
