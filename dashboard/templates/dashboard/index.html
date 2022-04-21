@@ -19,26 +19,12 @@
        <span><h5>Date picker goes here</h5></span> 
       
        <div id="map" class="map"></div>
-       <script type="text/javascript">
-        var map = new ol.Map({
-          target: 'map',
-          layers: [
-            new ol.layer.Tile({
-              source: new ol.source.OSM()
-            })
-          ],
-          view: new ol.View({
-            center: ol.proj.fromLonLat([37.41, 8.82]),
-            zoom: 4
-          })
-        });
-      </script>
-<iframe
+ <!--<iframe
     width="960"
     height="720"
     src="https://us-east-1.quicksight.aws.amazon.com/sn/embed/share/accounts/234810267545/dashboards/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a?directory_alias=samplepollutionquicksight">
 </iframe>
-      <!--<script>
+     <script>
         function embedDashboard() {
                 var containerDiv = document.getElementById("dashboardContainer");
                 var options = {
@@ -71,12 +57,15 @@
         }) 
 } 
 </script> 
-       </div> -->
+       </div> 
 <iframe
     width="960"
     height="720"
     src="https://us-east-1.quicksight.aws.amazon.com/sn/embed/share/accounts/234810267545/dashboards/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a?directory_alias=samplepollutionquicksight">
-</iframe>
-       
+</iframe>-->
+<script src='{% static "js/map.js" %}'>
+</script>
+
+<script>  </script>
     </body>
 </html>
