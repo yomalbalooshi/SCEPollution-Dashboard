@@ -1,0 +1,98 @@
+ {"type":"FeatureCollection", "features":[
+
+
+    {"type": "Feature",
+        "properties":{
+        "coordinateType":"city",
+        "cityID":"0705bc80-e847-4a93-8220-a346719b12b5",
+        "avgAQI":"106",
+        "sumOfVehicles": "9463758",
+        "avgWaittime":"128",
+       "city": "Manama", 
+       "cityType": "res" },
+       "geometry": {
+       "coordinates": [50.5861,26.2230],
+       "type": "Point"
+     }
+       
+     }, 
+   
+   
+   
+     {"type": "Feature",
+         "properties":{
+          "coordinateType":"city",
+         "cityID":"dd50114f-75d3-468b-806c-a4288c33369c",
+       "city": "Muharraq", 
+   "avgAQI":"107",
+   "sumOfVehicles": "4879402",
+   "avgWaittime":"20",
+   "cityType": "res"},
+       "geometry": {
+       "coordinates": [50.6177,26.2575],
+       "type": "Point"
+     }
+       
+     }, 
+       {"type": "Feature",
+           "properties":{
+            "coordinateType":"city",
+           "cityID":"b7d8655c-81de-41c2-87a3-79e713ed2df4",
+       "city": "Madinat Hamad",
+       "avgAQI":"106",
+       "sumOfVehicles": "6573974",
+       "avgWaittime":"198",
+        "cityType": "res"},
+       "geometry": {
+       "coordinates": [50.4990,26.1140],
+       "type": "Point"
+     }
+       
+     }, 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+       {"type": "Feature",
+           "properties":{
+            "coordinateType":"city",
+           "cityID":"1ddb1587-2888-4bb9-9fc7-4ffe91b272bf",
+       "city": "Sitra", 
+   "avgAQI":"106",
+   "sumOfVehicles": "9573842",
+   "avgWaittime":"157",
+   "cityType": "ind"},
+       "geometry": {
+       "coordinates": [50.6206,26.1547],
+       "type": "Point"
+     }
+       
+     }, 
+   
+   
+   
+   
+   
+   
+     {"type": "Feature",
+         "properties":{
+          "coordinateType":"city",
+         "cityID":"c4d173b0-2872-4306-83b7-e8785d48e59b",
+       "city": "Sitra",
+   "avgAQI":"106",
+   "sumOfVehicles": "5505126",
+   "avgWaittime":"258",
+   "cityType": "res" },
+       "geometry": {
+       "coordinates": [50.6146,26.1631],
+       "type": "Point"
+     }
+       
+     }
+     ]}

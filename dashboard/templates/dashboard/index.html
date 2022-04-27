@@ -3,69 +3,64 @@
     <head>
         {% load static %}
         <link rel='stylesheet' href='{% static "css/theme.css" %}'>
-        <style>
-            .map {
-              height: 400px;
-              width: 100%;
-            }
-          </style>
-          <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <title>Dashboard</title>
+
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="#">Log out</a>
-          </nav>
+            <a class="navbar-brand" href="#">Log out</a>
+        </nav>
        <span><h5>Date picker goes here</h5></span> 
+      <div style="background-color:rgb(170,211,223);">
+         <div id='map' class="map">
+    </div></div>
+    <div id="SidePanel" class="citySidePanel" style="right:-350px;">
+        <div class="circle"><i class="material-icons" onclick="hideSidePanel()">clear</i></div>
+      <p id="SidePanelTitle"></p> 
+      <p id="SidePanelAQI"></p> 
+      <p id="SidePanelWaitTime"></p>
+      <p id="SidePanelNoOfVehicles"></p>
+      <div id="AQIChart">Average AQI of 24 Hours goes here</div>
+      <button id="AddToCompareButton">Add to Compare</button><br>
+      <a id="SeeDetails" onclick="SeeDetailsPage()">See Details</a>
+
+    </div>  
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>See details Page</p>
+        </div>
       
-       <div id="map" class="map"></div>
- <!--<iframe
-    width="960"
-    height="720"
-    src="https://us-east-1.quicksight.aws.amazon.com/sn/embed/share/accounts/234810267545/dashboards/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a?directory_alias=samplepollutionquicksight">
-</iframe>
-     <script>
-        function embedDashboard() {
-                var containerDiv = document.getElementById("dashboardContainer");
-                var options = {
-                    url: "https://us-east-1.quicksight.aws.amazon.com/embed/875ddbe6dff74b3ba169028262bc68cc/dashboards/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a?isauthcode=true&identityprovider=quicksight&code=AYABeCc9W84AikqecuJ97KnzVowAAAABAAdhd3Mta21zAEthcm46YXdzOmttczp1cy1lYXN0LTE6MjU5NDgwNDYyMTMyOmtleS81NGYwMjdiYy03MDJhLTQxY2YtYmViNS0xNDViOTExNzFkYzMAuAECAQB4EeOLgrUr51nsHbjCawUUKjOqEm284CNxqOjvtm6TGiwBmoK4yA-NTYKFE6t5wXb5WAAAAH4wfAYJKoZIhvcNAQcGoG8wbQIBADBoBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDDu46xrNsYpQRB03MgIBEIA7yDOVUGI-2k-wrae-zdQ1kQBzdTwjyyKSbxDuELckZ6-wkHktCOkq2dD4rPzaDUwRoNBvqPzF9-oAtl4CAAAAAAwAABAAAAAAAAAAAAAAAAAAkkC6NF4AaK0OYOvCCKc36P____8AAAABAAAAAAAAAAAAAAABAAAAnl--z4jpaHEOAx8OKXw-027t2tcRo9NDaJe5KJ6b7gfFbo-BLXZkY95FsQXX2IbsVONzs80q6qLCXMUousCEumITw-yle4tbwYpywEZ65YgXYkW9iImyPApPTwMLIBTjRktIXzijDUDzqfDgCKXsW6mYaFkwHvXgD7mOJcNObG7B-rtIxCk2IoKWQDovDZki1NYuhOjfXzZrx-lisga5Wxl1t7bbxKh7V6Zm6Xzpyw%3D%3D",
-                    container: containerDiv,
-                    parameters: {
-                        country: 'United States'
-                    },
-                    scrolling: "no",
-                    height: "700px",
-                    width: "1000px"
-                };
-                dashboard = QuickSightEmbedding.embedDashboard(options);
-                dashboard.on('error', onError);
-                dashboard.on('load', onDashboardLoad);
-            }
+      </div>
+    <div id="maplegend"></div>
 
-
-      </script> -->
        <div>
-        <h5>cities table goes here</h5>
+           <h5>cities table goes here</h5>
        </div>
-       <!--<div>
-        <button onClick="buttnClick()">Click Me</button> 
-        <script> 
-        function buttnClick(){ 
-	        fetch("/res",{method:'GET'}) 
-	        .then((data)=>{ 
-	        console.log(data.text) 
-        }) 
-} 
-</script> 
-       </div> 
-<iframe
-    width="960"
-    height="720"
-    src="https://us-east-1.quicksight.aws.amazon.com/sn/embed/share/accounts/234810267545/dashboards/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a?directory_alias=samplepollutionquicksight">
-</iframe>-->
-<script src='{% static "js/map.js" %}'>
-</script>
 
-<script>  </script>
+       <div class="overlay-container" id="overlay-container">
+           <!---<span class="overlay-text" id="FeatureCityID"></span><br>
+           <span class="overlay-text" id="FeatureIntersectionID"></span><br>
+       ---></div>
+
+
+       <button onClick="buttnClick()">Console TS Query</button>
+       <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
+       <script src='{% static "js/map.js" %}'></script>
+       <script>
+        var intersectionfile = "{% static 'GeoJSON/intersections.GeoJSON' %}";
+        var cityfile = "{% static 'GeoJSON/cities.GeoJSON' %}";
+        intersectionspinonline = "{% static 'images/needlepin.svg' %}"; 
+        intersectionspinoffline = "{% static 'images/needlepinoffline.svg' %}";      
+        goodpin = "{% static 'images/good.svg' %}";
+        unhealthysgpin = "{% static 'images/unhealthysg.svg' %}";
+        unhealthypin = "{% static 'images/unhealthy.svg' %}";     
+        veryunhealthypin = "{% static 'images/veryunhealthy.svg' %}";
+        hazarduospin = "{% static 'images/Hazarduos.svg' %}";
+        moderatepin = "{% static 'images/moderate.svg' %}";</script> 
+
     </body>
 </html>

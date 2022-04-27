@@ -11,6 +11,172 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  width: 20px; /* Full width */
+  height: 400px; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: #1A294A; /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 20%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: rgb(86, 86, 86);
+  text-decoration: none;
+  cursor: pointer;
+}
+ #maplegend{
+  z-index:3; 
+  position:absolute;
+  top:670px;
+ left:10px;
+  background: rgb(102,245,66);
+background: linear-gradient(90deg, rgba(102,245,66,1) 0%, rgba(255,247,28,1) 22%, rgba(255,142,28,1) 41%, rgba(245,25,10,1) 59%, rgba(143,10,245,1) 80%, rgba(105,9,9,1) 100%);
+width:350px;
+height:10px; 
+}
+ .circle{
+  position:absolute;
+  padding-left: 10px;
+  width:60px;
+  height:44px;
+  font-size:16px;
+  background-color:#1A284A;
+  border-radius: 20%;
+  color:#f1f1f2;
+  display:flex;
+  justify-content:left;
+  align-items:center;
+  top:0px;
+  left:-35px;
+  z-index:3;
+ }
+ #SeeDetails{
+   position: absolute;
+   top: 500px;
+    right: 20px;
+    font-weight: 100;
+    color: #DBDFEA;
+    font-size: 15px;
+
+ }
+ #AddToCompareButton{
+   background-color:#3A496D ;
+   color:#DBDFEA ;
+   font-weight: 100;
+   border: none;
+   border-radius: 18px;
+   height: 40px;
+   width: 235px;
+   padding-left: 40px;
+   padding-right: 40px;
+   margin: 20px;
+   
+ }
+ #AQIChart{
+   background-color: #3A496D;
+   width: 240px;
+   height: 135px;
+   margin: 17px;
+   margin-top: 30px;
+   padding: 40px;
+   font-weight: 200;
+   text-align: center;
+ }
+ #SidePanelNoOfVehicles{
+  margin: 20px;
+  font-weight: 200;
+ }
+ #SidePanelWaitTime{
+  margin: 20px;
+   font-weight: 200;
+ }
+#SidePanelAQI{
+  font-size: 35px;
+  text-align: center;
+  padding: 4px;
+  border-radius: 18px;
+  margin-left: 20px;
+   margin-right: 20px;
+}
+ #SidePanelTitle{
+   color: #ffffff;
+   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+   margin-left: 20px;
+   margin-right: 20px;
+   margin-top: 10px;
+   font-size: 120%;
+   font-weight: 200;
+   text-align: center;
+   padding-bottom: 9px;
+    }
+ .citySidePanel{
+  transition: 0.5s;
+  background-color: #1A284A;
+  color: white;
+  position: absolute;
+  top: 125px;
+  right: 5px;
+  width: 270px;
+  height: 540px;
+  border-radius: 16px;
+
+ }
+ .map{
+  height: 600px;
+  width: 100%;
+}
+.intersectionPopUpTableData{
+  font-weight: 300;
+  font-size: 11px;
+}
+.intersectionPopUpTableHeader{
+  font-weight: 300;
+}
+#intersectionPopUpTable{
+  padding-right: 10%;
+  padding-left: 10%;
+  margin-bottom: 7px;
+  margin-top: 7px;
+  width: 180px;
+}
+.overlay-container{
+  background-color: #1A284A;
+  width: 200px;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+font-weight: 200;
+  border-radius: 6px;
+  padding-right: 20%;
+  padding-left: 20%;
+  position:absolute;
+  z-index:1;
+  bottom:12px;
+  right: -100px;
+}
+
+
  @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
  :root {
    --bs-blue: #2a9fd6;
@@ -77,7 +243,7 @@
      scroll-behavior: smooth;
    }
  }
- 
+
  body {
    margin: 0;
    font-family: var(--bs-body-font-family);
