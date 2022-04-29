@@ -6,7 +6,6 @@ from botocore.config import Config
 import sys, traceback
 from timeit import default_timer as timer
 import numpy as np
-import pandas as pd
 import os
 from collections import defaultdict, namedtuple
 import argparse
@@ -171,7 +170,7 @@ def flatModelToDataframe(items):
                 c_type = c_info['Type']
                 return_val[c_name].append(parseDatum(c_type, data))
 
-    df = pd.DataFrame(return_val)
+    df = return_val
     return df
 
 ## Execute the passed query using the client and return the result
