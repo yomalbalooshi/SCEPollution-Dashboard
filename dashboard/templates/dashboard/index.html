@@ -13,6 +13,7 @@
           <script src="https://unpkg.com/amazon-quicksight-embedding-sdk@1.18.1/dist/quicksight-embedding-js-sdk.min.js"></script>
           {% block content %}
           {%for u in url%}
+          <p>{{u}}</p>
           <script type="text/javascript" >
             var dashboard;
            //var QuickSightEmbedding = require("amazon-quicksight-embedding-sdk");
@@ -118,17 +119,17 @@
 </script> 
        </div> 
 
-<!--
+
 <iframe
        width="960"
        height="720"
-       src="https://us-east-1.quicksight.aws.amazon.com/sn/embed/share/accounts/234810267545/dashboards/597408e3-5d0a-4098-82ec-95efd73035ed?directory_alias=samplepollutionquicksight">
+       src="{{u}}">
 </iframe>
-<iframe
+<!--<iframe
     width="960"
     height="720"
     src="https://us-east-1.quicksight.aws.amazon.com/sn/embed/share/accounts/234810267545/dashboards/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a?directory_alias=samplepollutionquicksight">
-</iframe>-->
-       
+</iframe>
+       -->
     </body>
 </html>
