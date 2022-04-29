@@ -5,8 +5,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("", views.index, name='index'),
-    path('test', views.test, name="test"),
+    path('qu', views.qu, name="qu"),
     path('res', views.res, name='res'),
+    path('url', views.url, name='url')
+   # path('generateEmbedUrlForAnonymousUser', views.generateEmbedUrlForAnonymousUser, name='generateEmbedUrlForAnonymousUser')
+    
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

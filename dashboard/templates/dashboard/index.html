@@ -10,13 +10,48 @@
             }
           </style>
           <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
+          <script src="https://unpkg.com/amazon-quicksight-embedding-sdk@1.18.1/dist/quicksight-embedding-js-sdk.min.js"></script>
+          {% block content %}
+          {%for u in url%}
+          <script type="text/javascript" >
+            var dashboard;
+           //var QuickSightEmbedding = require("amazon-quicksight-embedding-sdk");
+            
+            function embedDashboard() {
+  
+                var containerDiv = document.getElementById("embeddingContainer");
+              
+                var options = {
+                    // replace this dummy url with the one generated via embedding API
+                    url: "{{u}}",
+                    container: containerDiv,
+                    scrolling: "no",
+                    height: "700px",
+                    width: "1000px",
+                    footerPaddingEnabled: true
+  
+                };
+                dashboard = QuickSightEmbedding.embedDashboard(options);
+                console.log("Embed");
+            }
+  
+            function test() { console.log("testttt");}
+        </script>
+        {%endfor%}
+        {% endblock %}
         <title>Dashboard</title>
+    
+        
     </head>
-    <body>
+    <body onload="embedDashboard()">
+      
+      
+    
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">Log out</a>
           </nav>
        <span><h5>Date picker goes here</h5></span> 
+       
       
        <div id="map" class="map"></div>
        <script type="text/javascript">
@@ -32,8 +67,8 @@
             zoom: 4
           })
         });
-      </script>
-
+      </script> 
+<div id="embeddingContainer"></div>
       <!--<script>
         function embedDashboard() {
                 var containerDiv = document.getElementById("dashboardContainer");
@@ -57,19 +92,33 @@
        <div>
         <h5>cities table goes here</h5>
        </div>
-       <!--<div>
+
+       <div>
+        <script  type="text/javascript">
+          var cities = response;
+          document.write('Length: ' + cities.length);
+
+        </script>
+        
+
         <button onClick="buttnClick()">Click Me</button> 
+        
         <script> 
+
         function buttnClick(){ 
-	        fetch("/res",{method:'GET'}) 
+	        fetch("/url",{method:'GET'}) 
 	        .then((data)=>{ 
-	        console.log(data.text) 
-        }) 
+          
+
+
+	        console.log("Embeded" + data) 
+          
+        });  
 } 
 </script> 
-       </div> -->
+       </div> 
 
-
+<!--
 <iframe
        width="960"
        height="720"
@@ -79,7 +128,7 @@
     width="960"
     height="720"
     src="https://us-east-1.quicksight.aws.amazon.com/sn/embed/share/accounts/234810267545/dashboards/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a?directory_alias=samplepollutionquicksight">
-</iframe>
+</iframe>-->
        
     </body>
 </html>
