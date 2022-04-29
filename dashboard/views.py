@@ -259,18 +259,6 @@ def executeQuery(client, query, timing = False, logFile = None):
                 logFile.write("{}\n".format(timingMsg))
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(prog = 'TimestreamQuery', description='Execute a query on Amazon Timestream.')
-
-    parser.add_argument('--endpoint', '-e', action = "store", required = True, help="Specify the service endpoint. E.g. 'us-east-1'")
-    parser.add_argument('--profile', action = "store", type = str, default= None, help = "The AWS Config profile to use.")
-
-    args = parser.parse_args()
-    print(args)
-
-    client = createQueryClient(args.endpoint, profile=args.profile)
-    result = executeQuery(client, """SELECT now()""", timing=True)
-    print(str(result))
 
 import json
 import boto3
