@@ -26,26 +26,16 @@ def index(request):
 
     return render(request, "dashboard/index.html", {'url':[url]})
 
-client = boto3.client('timestream-query', region_name='us-east-1' )
-paginator = client.get_paginator('query')
-response = client.query(QueryString = 'SELECT city, intersectionId FROM dummyDB."sensorReadings" group by city, intersectionId')
-
-
-def __init__(self, client):
-        self.client = client
-        self.paginator = client.get_paginator('query')
-#pageIterator = paginator.paginate(QueryString=query)
-
 def url(request):
     url = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/597408e3-5d0a-4098-82ec-95efd73035ed"], {'Dashboard': {'InitialDashboardId': '597408e3-5d0a-4098-82ec-95efd73035ed'}})
     return render(request, "dashboard/index.html", {'url':[url]})
 
-
+"""
 def qu():
     response = client.query(QueryString = 'SELECT city, intersectionId FROM dummyDB."sensorReadings" group by city, intersectionId')
     
  
-    #result_str = executeQuery(client, """SELECT city, intersectionId FROM dummyDB."sensorReadings" group by city, intersectionId""", timing=True)
+    #result_str = executeQuery(client, SELECT city, intersectionId FROM dummyDB."sensorReadings" group by city, intersectionId, timing=True)
     #print(str(result_str))
     #res2 = str(result_str)
     #resp_dict = json.loads(res2)
@@ -59,14 +49,14 @@ def qu():
     print(url,url2)
     HTTPResponse(url)
 
-"""def run_query(self, query):
+def run_query(self, query):
         try:
             pageIterator = paginator.paginate(QueryString=query)
             for page in pageIterator:
                 self.__parse_query_result(page)
         except Exception as err:
             print("Exception while running query:", err)
-            traceback.print_exc(file=sys.stderr) """
+            traceback.print_exc(file=sys.stderr) 
 
 def st():
     print("Hello")
@@ -159,9 +149,9 @@ def parseRowData(c_types, data):
     return datum_dict
 
 def flatModelToDataframe(items):
-    """
+    
     Translate a Timestream query SDK result into a Pandas dataframe.
-    """
+    
     return_val = defaultdict(list)
     for obj in items:
         for row in obj.get('Rows'):
@@ -257,7 +247,7 @@ def executeQuery(client, query, timing = False, logFile = None):
             print(timingMsg)
             if logFile != None:
                 logFile.write("{}\n".format(timingMsg))
-
+"""
 
 
 import json
