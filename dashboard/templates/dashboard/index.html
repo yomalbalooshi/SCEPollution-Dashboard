@@ -16,30 +16,32 @@
           <p>{{u}}</p>
           <script type="text/javascript" >
             var dashboard;
-           //var QuickSightEmbedding = require("amazon-quicksight-embedding-sdk");
+           var QuickSightEmbedding = require("amazon-quicksight-embedding-sdk");
             
             function embedDashboard() {
   
                 var containerDiv = document.getElementById("embeddingContainer");
-              
+                var url2 = "{{u}}"
                 var options = {
                     // replace this dummy url with the one generated via embedding API
-                    url: "{{u}}",
+                    url: url2.replace('&amp;', '&'),
                     container: containerDiv,
                     scrolling: "no",
                     height: "700px",
                     width: "1000px",
                     footerPaddingEnabled: true
+                    
   
                 };
+                console.log("{{u}}");
                 dashboard = QuickSightEmbedding.embedDashboard(options);
-                console.log("Embed");
+                console.log("Embed222");
+                console.log(options);
             }
   
             function test() { console.log("testttt");}
         </script>
-        {%endfor%}
-        {% endblock %}
+        
         <title>Dashboard</title>
     
         
@@ -107,7 +109,7 @@
         <script> 
 
         function buttnClick(){ 
-	        fetch("/url",{method:'GET'}) 
+	        fetch("/res",{method:'GET'}) 
 	        .then((data)=>{ 
           
 
@@ -120,11 +122,13 @@
        </div> 
 
 
-<iframe
+<!-- <iframe
        width="960"
        height="720"
-       src="{{u}}">
-</iframe>
+       src={{u}}>
+</iframe> -->
+{%endfor%}
+{% endblock %}
 <!--<iframe
     width="960"
     height="720"

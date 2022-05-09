@@ -22,17 +22,20 @@ TBL_NAME = "sensorReadings"
 
 
 def index(request):
+    #url = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/597408e3-5d0a-4098-82ec-95efd73035ed"], {'Dashboard': {'InitialDashboardId': '59e9a534-0605-47f4-8fe4-110f2646150a'}})
     url = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/59e9a534-0605-47f4-8fe4-110f2646150a"], {'Dashboard': {'InitialDashboardId': '59e9a534-0605-47f4-8fe4-110f2646150a'}})
+
+    print(url)
 
     return render(request, "dashboard/index.html", {'url':[url]})
 
 def url(request):
-    url = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/597408e3-5d0a-4098-82ec-95efd73035ed"], {'Dashboard': {'InitialDashboardId': '597408e3-5d0a-4098-82ec-95efd73035ed'}})
-    return render(request, "dashboard/index.html", {'url':[url]})
+    #url = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/597408e3-5d0a-4098-82ec-95efd73035ed"], {'Dashboard': {'InitialDashboardId': '59e9a534-0605-47f4-8fe4-110f2646150a'}})
+    return render(request, url)
 
-"""
+
 def qu():
-    response = client.query(QueryString = 'SELECT city, intersectionId FROM dummyDB."sensorReadings" group by city, intersectionId')
+    #response = client.query(QueryString = 'SELECT city, intersectionId FROM dummyDB."sensorReadings" group by city, intersectionId')
     
  
     #result_str = executeQuery(client, SELECT city, intersectionId FROM dummyDB."sensorReadings" group by city, intersectionId, timing=True)
@@ -41,14 +44,12 @@ def qu():
     #resp_dict = json.loads(res2)
    # print(result_str)
     #print("Next")
-    print(response['Rows'])
-    HTTPResponse(response['Rows'])
-    url = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/59e9a534-0605-47f4-8fe4-110f2646150a"], {'Dashboard': {'InitialDashboardId': '59e9a534-0605-47f4-8fe4-110f2646150a'}})
-    url2 = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/597408e3-5d0a-4098-82ec-95efd73035ed"], {'Dashboard': {'InitialDashboardId': '597408e3-5d0a-4098-82ec-95efd73035ed'}})
+    #url = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/59e9a534-0605-47f4-8fe4-110f2646150a"], {'Dashboard': {'InitialDashboardId': '59e9a534-0605-47f4-8fe4-110f2646150a'}})
+    url = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/597408e3-5d0a-4098-82ec-95efd73035ed"], {'Dashboard': {'InitialDashboardId': '597408e3-5d0a-4098-82ec-95efd73035ed'}})
 
-    print(url,url2)
+    print(url)
     HTTPResponse(url)
-
+"""
 def run_query(self, query):
         try:
             pageIterator = paginator.paginate(QueryString=query)
@@ -57,21 +58,22 @@ def run_query(self, query):
         except Exception as err:
             print("Exception while running query:", err)
             traceback.print_exc(file=sys.stderr) 
-
+"""
 def st():
     print("Hello")
 
 def test(request):
-    #res = st()
+    url = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/597408e3-5d0a-4098-82ec-95efd73035ed"], {'Dashboard': {'InitialDashboardId': '597408e3-5d0a-4098-82ec-95efd73035ed'}})
     #res = run_query(client,'SELECT city, intersectionId FROM dummyDB."sensorReadings" WHERE time>=ago(24h) group by city, intersectionId')
-    return HttpResponse(res)
+    return HttpResponse(url)
+
 # Create your views here.
 def res(request):
     result = qu()
     #result = run_query(client,'SELECT city, intersectionId FROM dummyDB."sensorReadings" WHERE time>=ago(24h) group by city, intersectionId')
 
     return HttpResponse(result)
-
+"""
 ## Timestream
 
 def createQueryClient(region, profile = None):
