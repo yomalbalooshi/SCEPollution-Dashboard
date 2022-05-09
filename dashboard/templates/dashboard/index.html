@@ -24,7 +24,7 @@
                 var url2 = "{{u}}"
                 var options = {
                     // replace this dummy url with the one generated via embedding API
-                    url: url2.replace('&amp;', '&'),
+                    url: url2.replaceAll('&amp;', '&'),
                     container: containerDiv,
                     scrolling: "no",
                     height: "700px",
