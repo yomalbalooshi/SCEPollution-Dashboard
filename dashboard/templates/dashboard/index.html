@@ -22,9 +22,10 @@
   
                 var containerDiv = document.getElementById("embeddingContainer");
                 var url2 = "{{u}}"
+                var url3 = url2.concat('#p.Cities=Sitra');
                 var options = {
                     // replace this dummy url with the one generated via embedding API
-                    url: url2.replaceAll('&amp;', '&'),
+                    url: url3.replaceAll('&amp;', '&'),
                     container: containerDiv,
                     scrolling: "no",
                     height: "700px",
