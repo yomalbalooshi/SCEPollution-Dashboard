@@ -9,20 +9,28 @@
               width: 100%;
             }
           </style>
+          <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+          <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
           <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
           <script src="https://unpkg.com/amazon-quicksight-embedding-sdk@1.18.1/dist/quicksight-embedding-js-sdk.min.js"></script>
           {% block content %}
           {%for u in url%}
           <p>{{u}}</p>
           <script type="text/javascript" >
+            var startDate;
+            var endDate;
             var dashboard;
-           var QuickSightEmbedding = require("amazon-quicksight-embedding-sdk");
+            var QuickSightEmbedding = require("amazon-quicksight-embedding-sdk");
             
             function embedDashboard() {
   
                 var containerDiv = document.getElementById("embeddingContainer");
                 var url2 = "{{u}}"
-                var url3 = url2.concat('#p.Cities=Manama');
+                var url3 = url2.concat('#p.Cities=Manama&p.startdatetime=', startDate, '&p.enddatetime=', endDate);
+                document.getElementById("s").innerHTML = url3;
+
                 var options = {
                     // replace this dummy url with the one generated via embedding API
                     url: url3.replaceAll('&amp;', '&'),
@@ -40,16 +48,34 @@
                 console.log(options);
             }
   
-            function test() { console.log("testttt");}
+            function test() { console.log("testttt");
+          }
         </script>
         
         <title>Dashboard</title>
     
         
     </head>
-    <body onload="embedDashboard()">
+    <body>
       
-      
+      <input type="text" name="daterange" value=" " id = "date"/>
+      <button type="submit" onclick="embedDashboard()">embed</button>
+
+        <script>
+          
+        $(function() {
+          $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+          }, function(start, end, label) {
+            startDate = start.format('YYYY/MM/DD');
+            endDate = end.format('YYYY/MM/DD');
+            document.getElementById("s").innerHTML = startDate;
+            document.getElementById("e").innerHTML = endDate;
+
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+          });
+        });
+        </script>
     
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">Log out</a>
@@ -94,6 +120,10 @@
 
       </script> -->
        <div>
+        
+        <p id ="s"></p>
+        <p id ="e"></p>
+
         <h5>cities table goes here</h5>
        </div>
 
