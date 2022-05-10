@@ -117,7 +117,7 @@ def generateEmbedUrlForAnonymousUser(accountId, quicksightNamespace, authorizedR
             Namespace = quicksightNamespace,
             AuthorizedResourceArns = authorizedResourceArns,
             ExperienceConfiguration = experienceConfiguration,
-            SessionLifetimeInMinutes = 60000
+            SessionLifetimeInMinutes = 600
         )
             
         return response['EmbedUrl']
