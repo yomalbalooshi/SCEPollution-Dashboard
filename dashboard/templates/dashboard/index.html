@@ -101,7 +101,10 @@
             endDate = end.format('YYYY/MM/DD');
             document.getElementById("s").innerHTML = startDate;
             document.getElementById("e").innerHTML = endDate;
-            for(dashboard in dashboards)
+           
+            
+
+            for(var dashboard of  dashboards)
             {
               dashboard.setParameters({startdatetime: startDate, enddatetime: endDate});
             }
