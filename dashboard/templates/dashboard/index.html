@@ -24,19 +24,40 @@
           <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
           <script src="https://unpkg.com/amazon-quicksight-embedding-sdk@1.18.1/dist/quicksight-embedding-js-sdk.min.js"></script>
           {% block content %}
+
           {%for u in url%}
           <p>{{u}}</p>
+          {%endfor%}
+          {% endblock %}
+
+    
           <script type="text/javascript" >
             var startDate;
             var endDate;
-            var dashboard;
+            var dashboards = [];
             var QuickSightEmbedding = require("amazon-quicksight-embedding-sdk");
-            
-            function embedDashboard() {
+            function mainEmbed(){ 
+              EmbedAQI();
+              EmbedComp();
+            }
+            function EmbedAQI()
+            {
+            {% block content1 %}
+            embedDashboard("{{AqiDashboard.url}}","{{AqiDashboard.con}}");
+            {% endblock %}
+            }
+            function EmbedComp()
+            {
+            {% block content2 %}
+            embedDashboard("{{CompDashboard.url}}","{{CompDashboard.con}}");
+            {% endblock %}
+            }
+            function embedDashboard(url,container) {
+
              
   
-                var containerDiv = document.getElementById("embeddingContainer");
-                var url2 = "{{u}}"
+                var containerDiv = document.getElementById(container);
+                var url2 = url;
                 //var url3 = url2.concat('#p.Cities=Manama&p.startdatetime=', startDate, '&p.enddatetime=', endDate);
                 //document.getElementById("s").innerHTML = url3;
 
@@ -51,8 +72,8 @@
                     
   
                 };
-                console.log("{{u}}");
-                dashboard = QuickSightEmbedding.embedDashboard(options);
+                console.log(options.url);
+                dashboards.push(QuickSightEmbedding.embedDashboard(options));
                 console.log("Embed222");
                 console.log(options);
             }
@@ -60,17 +81,15 @@
             function test() { console.log("testttt");
           }
         </script>
-        {%endfor%}
-        {% endblock %}
+      
         
         <title>Dashboard</title>
     
         
     </head>
-    <body onload="embedDashboard()" >
+    <body onload="mainEmbed()" >
       
       <input type="text" name="daterange" value=" " id = "date"/>
-      <button type="submit" onclick="embedDashboard()">embed</button>
       {% load static %}
         <script>
           
@@ -82,8 +101,10 @@
             endDate = end.format('YYYY/MM/DD');
             document.getElementById("s").innerHTML = startDate;
             document.getElementById("e").innerHTML = endDate;
-            dashboard.setParameters({startdatetime: startDate, enddatetime: endDate, Cities: "Manama"});
-            
+            for(dashboard in dashboards)
+            {
+              dashboard.setParameters({startdatetime: startDate, enddatetime: endDate});
+            }
             
 
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
@@ -112,7 +133,8 @@
           })
         });
       </script> 
-<div id="embeddingContainer"></div>
+<div id="embeddingContainerAQI"></div>
+<div id="embeddingContainerComp"></div>
        <div>
         
         <p id ="s"></p>

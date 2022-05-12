@@ -23,10 +23,11 @@ TBL_NAME = "sensorReadings"
 
 def index(request):
     url= generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a"], {'Dashboard': {'InitialDashboardId': '4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a'}})
+    url2= generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/1c7ee848-d22b-46e9-a4fe-7e4feab20acf"], {'Dashboard': {'InitialDashboardId': '1c7ee848-d22b-46e9-a4fe-7e4feab20acf'}})
 
     print(url)
 
-    return render(request, "dashboard/index.html", {'url':[url]})
+    return render(request, "dashboard/index.html", {'AqiDashboard':{'url': url , 'con': 'embeddingContainerAQI'}, 'CompDashboard':{'url': url2 , 'con': 'embeddingContainerComp'}})
 
 def url(request):
     url= generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a"], {'Dashboard': {'InitialDashboardId': '4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a'}})
