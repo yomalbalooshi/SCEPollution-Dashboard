@@ -91,6 +91,10 @@
    -webkit-tap-highlight-color: rgba(9, 14, 72, 0);
  }
  
+ quicksight-embedding-iframe {
+    background-color: transparent;
+  }
+
  hr {
    margin: 1rem 0;
    color: inherit;
