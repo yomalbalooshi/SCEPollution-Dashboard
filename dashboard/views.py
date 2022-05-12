@@ -22,16 +22,19 @@ TBL_NAME = "sensorReadings"
 
 
 def index(request):
-    url = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a"], {'Dashboard': {'InitialDashboardId': '4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a'}})
-    #url = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/1c7ee848-d22b-46e9-a4fe-7e4feab20acf"], {'Dashboard': {'InitialDashboardId': '1c7ee848-d22b-46e9-a4fe-7e4feab20acf'}})
+    url= generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a"], {'Dashboard': {'InitialDashboardId': '4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a'}})
 
     print(url)
 
     return render(request, "dashboard/index.html", {'url':[url]})
 
 def url(request):
-    #url = generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/597408e3-5d0a-4098-82ec-95efd73035ed"], {'Dashboard': {'InitialDashboardId': '59e9a534-0605-47f4-8fe4-110f2646150a'}})
-    return render(request, url)
+    url= generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a"], {'Dashboard': {'InitialDashboardId': '4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a'}})
+
+    print(url)
+
+    return render(request, "dashboard/index.html", {'url':[url]})
+
 
 
 def qu():
