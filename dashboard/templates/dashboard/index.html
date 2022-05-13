@@ -38,7 +38,10 @@
           <script type="text/javascript" >
             var startDate;
             var endDate;
-            var dashboards = [];
+            var dashboards = {
+              embeddingContainerAQI: "",
+              embeddingContainerComp:""
+            };
             var QuickSightEmbedding = require("amazon-quicksight-embedding-sdk");
             function mainEmbed(){ 
               EmbedAQI();
@@ -77,7 +80,8 @@
   
                 };
                 console.log(options.url);
-                dashboards.push(QuickSightEmbedding.embedDashboard(options));
+                //dashboards.push(QuickSightEmbedding.embedDashboard(options));
+                dashboards[container] = QuickSightEmbedding.embedDashboard(options);
                 console.log("Embed222");
                 console.log(options);
             }
@@ -112,11 +116,9 @@
             {
               dashboard.setParameters({startdatetime: startDate, enddatetime: endDate});
             }
-            for(var dashboard of  dashboards)
-            {
-              dashboard.setParameters({Cities: "Manama"});
-            }
-            
+            //for(var dashboard of  dashboards){dashboard.setParameters({Cities: "Manama"});}
+            dashboard[embeddingContainerAQI].setParameters({Cities: "Manama"});
+            dashboard[embeddingContainerComp].setParameters({Cities:[ "Manama" , "Sitra" ]});
 
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
           });
