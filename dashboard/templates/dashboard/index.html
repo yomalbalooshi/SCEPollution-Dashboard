@@ -117,8 +117,8 @@
               dashboard.setParameters({startdatetime: startDate, enddatetime: endDate});
             }
             //for(var dashboard of  dashboards){dashboard.setParameters({Cities: "Manama"});}
-            dashboard[embeddingContainerAQI].setParameters({Cities: "Manama"});
-            dashboard[embeddingContainerComp].setParameters({Cities:[ "Manama" , "Sitra" ]});
+            dashboards[embeddingContainerAQI].setParameters({Cities: "Manama"});
+            dashboards[embeddingContainerComp].setParameters({Cities:[ "Manama" , "Sitra" ]});
 
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
           });
