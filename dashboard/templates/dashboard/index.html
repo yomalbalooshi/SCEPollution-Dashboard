@@ -110,12 +110,13 @@
             document.getElementById("s").innerHTML = startDate;
             document.getElementById("e").innerHTML = endDate;
            
-            
+            console.log(dashboards["embeddingContainerAQI"]);
+            console.log(dashboards["embeddingContainerComp"]);
 
             //for(var dashboard of  dashboards){dashboard.setParameters({startdatetime: startDate, enddatetime: endDate});}
             //for(var dashboard of  dashboards){dashboard.setParameters({Cities: "Manama"});}
-            dashboards[embeddingContainerAQI].setParameters({Cities: "Manama"}, {startdatetime: startDate, enddatetime: endDate});
-            dashboards[embeddingContainerComp].setParameters({Cities:[ "Manama" , "Sitra" ]}, {startdatetime: startDate, enddatetime: endDate});
+            dashboards["embeddingContainerAQI"].setParameters({Cities: "Manama"}, {startdatetime: startDate, enddatetime: endDate});
+            dashboards["embeddingContainerComp"].setParameters({Cities:[ "Manama" , "Sitra" ]}, {startdatetime: startDate, enddatetime: endDate});
 
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
           });
