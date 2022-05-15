@@ -7,16 +7,22 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <title>Dashboard</title>
-
+        <script>
+        </script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Log out</a>
         </nav>
        <span><h5>Date picker goes here</h5></span> 
+
+    <!--- Map Container ---->
       <div style="background-color:rgb(170,211,223);">
          <div id='map' class="map">
     </div></div>
+
+    <!--- Side Panel Skeleton ---->
+
     <div id="SidePanel" class="citySidePanel" style="right:-350px;">
         <div class="circle"><i class="material-icons" onclick="hideSidePanel()">clear</i></div>
       <p id="SidePanelTitle"></p> 
@@ -26,41 +32,83 @@
       <div id="AQIChart">Average AQI of 24 Hours goes here</div>
       <button id="AddToCompareButton">Add to Compare</button><br>
       <a id="SeeDetails" onclick="SeeDetailsPage()">See Details</a>
-
     </div>  
-    <div id="myModal" class="modal">
+
+
+    <!--- See Details Modal ---->
+    <div id="intersectionModal" class="modal">
+
+        <!-- Modal content -->
         <div class="modal-content">
-          <span class="close">&times;</span>
-          <p>See details Page</p>
+            <span id="intersectionModalClose" class="close">&times;</span>
+            <div id="aqitrafficchart">AQI Traffic flow graph goes here</div>
+            <div id="SeeDetailsTable">
+              
+            </div>
         </div>
-      
       </div>
-    <div id="maplegend"></div>
 
-       <div>
-           <h5>cities table goes here</h5>
-       </div>
 
+
+
+  <!--- Comparison Modal ---->
+      <div id="comparisonModal" class="modal">
+        <!-- Modal content -->
+        <div id="comparisonModal" class="modal-content">
+          <span id="cspan" class="close">&times;</span>
+          Comparison Pop Up
+        </div>
+      </div>
+
+
+
+<div id="mainDashboardTrialDiv"></div>
+      
+   <!--- <div id="maplegend"></div>---->
        <div class="overlay-container" id="overlay-container">
            <!---<span class="overlay-text" id="FeatureCityID"></span><br>
            <span class="overlay-text" id="FeatureIntersectionID"></span><br>
        ---></div>
+       <button id="comparsionButton" onClick="showComparisonModal()">show Comparison Modal</button>
+       <button id="pan-to-london" onclick="buttnClickPan()">Pan to London</button>
+       <button onClick="buttnClick()">DocDB Call</button>
+   
+   <div id="trialId">
+      </div>
+   
+  <!---Main Dashboard Table Div---->     
+      <div id="mainDashboardCitiesTable">
+      </div>
 
 
-       <button onClick="buttnClick()">Console TS Query</button>
+  <!--- Comparison Footer Container
+  ---->
+<div id="comparisonFooterDiv">
+  <div id="comparisonFooterContent">div for comparison function</div>
+</div>
+
+
+
+
        <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
        <script src='{% static "js/map.js" %}'></script>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
        <script>
-        var intersectionfile = "{% static 'GeoJSON/intersections.GeoJSON' %}";
-        var cityfile = "{% static 'GeoJSON/cities.GeoJSON' %}";
-        intersectionspinonline = "{% static 'images/needlepin.svg' %}"; 
-        intersectionspinoffline = "{% static 'images/needlepinoffline.svg' %}";      
-        goodpin = "{% static 'images/good.svg' %}";
-        unhealthysgpin = "{% static 'images/unhealthysg.svg' %}";
-        unhealthypin = "{% static 'images/unhealthy.svg' %}";     
-        veryunhealthypin = "{% static 'images/veryunhealthy.svg' %}";
-        hazarduospin = "{% static 'images/Hazarduos.svg' %}";
-        moderatepin = "{% static 'images/moderate.svg' %}";</script> 
-
+       window.onload=initpage;
+    function initpage(){
+    getMainDashboardElements();
+    initmap();}
+        var intersectionfile = "{% get_media_prefix %}GeoJSON/intersections.GeoJSON";
+        var cityfile = "{% get_media_prefix %}GeoJSON/intersections.GeoJSON";
+        var cityfile = "{% get_media_prefix %}GeoJSON/cities.GeoJSON";
+        var intersectionspinonline = "{% static 'images/needlepin.svg' %}"; 
+        var intersectionspinoffline = "{% static 'images/needlepinoffline.svg' %}";      
+        var goodpin = "{% static 'images/good.svg' %}";
+        var unhealthysgpin = "{% static 'images/unhealthysg.svg' %}";
+        var unhealthypin = "{% static 'images/unhealthy.svg' %}";     
+        var veryunhealthypin = "{% static 'images/veryunhealthy.svg' %}";
+        var hazarduospin = "{% static 'images/Hazarduos.svg' %}";
+        var moderatepin = "{% static 'images/moderate.svg' %}";
+        </script> 
     </body>
 </html>

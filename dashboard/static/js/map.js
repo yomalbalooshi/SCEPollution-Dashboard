@@ -1,10 +1,164 @@
-window.onload=initmap;
-/*window.onload=initpage
-initpage(){
-fetch("/GeoJSONDataCreation",{method:'GET'});
-initmap();  
+var map;
+var view;
+var overlayLayer; //pop up above intersection markers
+var tempcord;
+var intersectionJSON;
+var seeDetailsArray;
+var IntersectionDetailsArray;
+// Get the modal
+var intersectionmodal = document.getElementById("intersectionModal");
+// Get the button that opens the modal
+var btn = document.getElementById("SeeDetails");
+// Get the <span> element that closes the modal
+var intersectionspan = document.getElementById("intersectionModalClose");
+// When the user clicks on the button, open the modal
+// Get the modal
+var comparisonmodal = document.getElementById("comparisonModal");
+// Get the button that opens the modal
+var cbtn = document.getElementById("comparsionButton");
+// Get the <span> element that closes the modal
+var cspan = document.getElementById("cspan");
+// When the user clicks on the button, open the modal
+function  showComparisonModal(){
+  comparisonmodal.style.display = "block";
 }
-*/
+
+
+function buttnClickPan(tempcord){ //Panning+Zooming+Showing Overlay of intersection marker from See Details Page
+intersectionmodal.style.display = "none";
+var pixel = map.getPixelFromCoordinate(tempcord);
+  view.animate({
+    center: ol.proj.fromLonLat(tempcord),
+    duration: 2000,
+    zoom:18,
+  });
+  feat=map.getFeaturesAtPixel(pixel);
+  showOverlaypop(feat,tempcord);
+}
+function AQITextColor(aqi){ //AQI color gradient
+        if(aqi>0&&aqi<=50){
+           AQIColor='rgb(102, 245, 66)';
+        }
+        else if(aqi>=51&&aqi<=100){
+           AQIColor='rgb(255, 247, 28)';
+        }
+        else if(aqi>=101&&aqi<=150){
+           AQIColor='rgb(255, 142, 28)';
+        }
+        else if(aqi>=151&&aqi<=200){
+           AQIColor='rgb(245, 25, 10)';
+        }
+        else if(aqi>=201&&aqi<=300){
+           AQIColor='rgb(143, 10, 245)';
+        }
+        else if(aqi>=301){
+           AQIColor='rgb(105, 9, 9)';
+        } 
+        return AQIColor;
+}
+
+function printSensorStatus(sensorsArray){ //change sensor status circles' colors
+  sensorstr='';
+  for (let i = 0; i < sensorsArray.length; i++) {
+    if(sensorsArray[i].sensorStatus=="offline")
+    sensorstr+="<div class='dot' style='background-color:red;' title='Sensor ID: "+sensorsArray[i].sensorID+"'></div>";
+    if(sensorsArray[i].sensorStatus=="online")
+    sensorstr+="<div class='dot' style='background-color:#3ec742;' title='Sensor ID: "+sensorsArray[i].sensorID+"'></div>";
+  }
+  return sensorstr;
+}
+async function fetchFilterText(cityID) { //take JSON file and filter it for see details
+  seeDetailsArray=[];
+    let response = await fetch(intersectionfile);
+    intersectionJSON = await response.json();
+    var JSONfeatures = intersectionJSON['features'];
+    let datatru=JSONfeatures;
+    for (let i = 0; i < datatru.length; i++) {
+      if(datatru[i].properties.cityID==cityID)
+        seeDetailsArray.push(datatru[i]);
+}
+var vehicledictionary={};
+var vehiclepercdictionary={};
+var sdstring='';
+sdstring +='<table id="SeeDetailsTableContent"><tr><th class="seeDetailsHeader">Intersection</th><th class="seeDetailsHeader">AQI</th><th class="seeDetailsHeader">Sensors Status</th><th class="seeDetailsHeader">Wait Time</th><th class="seeDetailsHeader">Vehicle %</th><th class="seeDetailsHeader">Common Vehicle Type</th><th class="seeDetailsHeader">Show On Map</th></tr>';
+for (let i = 0; i < seeDetailsArray.length; i++) {
+      vehicledictionary== new Array();
+      vehiclepercdictionary== new Array();
+       
+      const Car = {Cars:(Math.trunc(seeDetailsArray[i].properties.sumOfCars))};
+      const Bus = {Busses:Math.trunc(seeDetailsArray[i].properties.sumOfBusses)};
+      const Truck = {Trucks:Math.trunc(seeDetailsArray[i].properties.sumOfTrucks)};
+      vehicledictionary={
+    ...Car,
+    ...Bus,
+    ...Truck};
+    const PercCar = {PercCar:((Math.trunc(seeDetailsArray[i].properties.sumOfCars))/Math.trunc(seeDetailsArray[i].properties.sumOfVehicles)*100).toFixed(3)};
+    const PercBus = {PercBus:((Math.trunc(seeDetailsArray[i].properties.sumOfBusses))/Math.trunc(seeDetailsArray[i].properties.sumOfVehicles)*100).toFixed(3)};
+    const PercTruck = {PercTruck:((Math.trunc(seeDetailsArray[i].properties.sumOfTrucks))/Math.trunc(seeDetailsArray[i].properties.sumOfVehicles)*100).toFixed(3)};
+    vehiclepercdictionary={
+    ...PercCar,
+    ...PercBus,
+    ...PercTruck};
+      console.log(vehicledictionary);
+      console.log(vehiclepercdictionary);
+      var coordinatesarray =[seeDetailsArray[i].geometry.coordinates[0],seeDetailsArray[i].geometry.coordinates[1]];
+      console.log(coordinatesarray.toString());
+      sdstring+="<tr>";
+      sdstring+="<td class='seeDetailsData'>"+(i+1)+"</td>";
+      sdstring+="<td class='seeDetailsData' style='color:"+AQITextColor(Math.trunc(seeDetailsArray[i].properties.averageAQI))+"'>"+Math.trunc(seeDetailsArray[i].properties.averageAQI)+"</td>";
+      sdstring+="<td class='seeDetailsData'>"+printSensorStatus(seeDetailsArray[i].properties.sensors)+"</td>";
+      sdstring+="<td class='seeDetailsData'>"+Math.round(((parseFloat(seeDetailsArray[i].properties.averageWaittime)/60) + Number.EPSILON) * 100) / 100 +" Minute(s)</td>";
+      sdstring+="<td class='seeDetailsData'><div class='seeDetailsvehiclePercentageMainBar'><div class='sdsumOfBusses' style='flex-basis:"+vehiclepercdictionary['PercBus']+"%' title='Approx. "+vehiclepercdictionary['PercBus']+"% Busses'></div><div class='sdsumOfTrucks'  style='flex-basis:"+vehiclepercdictionary['PercTruck']+"%' title='Approx. "+vehiclepercdictionary['PercTruck']+"% Trucks'></div><div class='sdsumOfCars'  style='flex-basis:"+vehiclepercdictionary['PercCar']+"%' title='Approx. "+vehiclepercdictionary['PercCar']+"% Cars'></div></div></td>";
+      sdstring+="<td class='seeDetailsData'>"+Object.keys(vehicledictionary).reduce(function(a, b){ return vehicledictionary[a] > vehicledictionary[b] ? a : b })+"</td>";
+      sdstring+="<td><button class='showonmapbutton' onclick='buttnClickPan(["+seeDetailsArray[i].geometry.coordinates[0]+","+seeDetailsArray[i].geometry.coordinates[1]+"])'>Show</td>";
+      sdstring+="</tr>";
+}
+const SeeDetailsTable=document.getElementById('SeeDetailsTable');
+sdstring+="</table>";
+SeeDetailsTable.innerHTML=sdstring;
+return 1;
+}
+
+function generateSeeDetailsInfo(cityID){
+  fetchFilterText(cityID).then(generateSeeDetailsTable(seeDetailsArray));
+}
+function generateSeeDetailsTable(seeDetailsArray){ //temp 
+  console.log(seeDetailsArray);
+
+}
+
+function showOverlaypop(feature,cord){
+  let clickedFeatureCityID=feature.get('cityID');
+  let clickedFeatureIntersectionID=feature.get('intersectionId');
+  let clickedCoordinate = cord;
+  overlayLayer.setPosition(clickedCoordinate);
+ 
+  function createtable(){
+    i=0;
+    tstring='';
+    tstring+='<table id="intersectionPopUpTable"><tr><th class="intersectionPopUpTableHeader">Sensor ID</th><th class="intersectionPopUpTableHeader">Status</th></tr>';
+    const sensorsArray=feature.get('sensors');
+    var noOfSensors=sensorsArray.length;
+    var statuscolor
+    while(i<noOfSensors){
+      if(sensorsArray[i]['sensorStatus']=="offline"){
+        statuscolor="style='color:red'";
+      }
+      else if(sensorsArray[i]['sensorStatus']=="online"){
+        statuscolor="style='color:#3ec742'";
+      }
+    tstring+= '<tr><td class="intersectionPopUpTableData">0'+(i+1)+'</td><td class="intersectionPopUpTableData"'+statuscolor+'>'+sensorsArray[i]["sensorStatus"]+'</td></tr>';
+    i++;
+  }  
+  tstring+='</table>';
+  console.log(tstring);
+
+  const overlaytable=document.getElementById('overlay-container');
+  overlaytable.innerHTML=tstring;
+  }
+  createtable(); 
+}
+
 
 function hideSidePanel(){
   document.getElementById("SidePanel").style.right="-350px";
@@ -16,13 +170,14 @@ document.getElementById("SidePanel").style.right="5px";
 
 function initmap(){
   //render base map
-
-  const map = new ol.Map({
-    view: new ol.View({
-      center: ol.proj.fromLonLat([50.538699,26.180643]),
-      zoom: 11,
-      minZoom:11,
-    }),
+  
+view =new ol.View({
+  center: ol.proj.fromLonLat([50.538699,26.180643]),
+  zoom: 11,
+  minZoom:11,
+});
+  map = new ol.Map({
+    view: view,
     layers:[
       new ol.layer.Tile({
         source: new ol.source.OSM()
@@ -30,7 +185,17 @@ function initmap(){
     ],
     target: 'map'
   })
-
+/*var source = new ol.source.XYZ({
+  url: 'https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=177eb2f425eb49b385fffa16cc32440d' });
+  const map = new ol.Map({
+    view: view,
+    layers:[
+      new ol.layer.Tile({
+        source: source
+      })
+    ],
+    target: 'map'
+  }) */
 //city source
 var citysource = new ol.source.Vector({
   'projection': map.getView().getProjection(),
@@ -44,7 +209,7 @@ var intersectionsource = new ol.source.Vector({
   'url': intersectionfile
 });
 //render heatmap
-//customized gradient
+//customized gradient for heatmap
 const rainbow = [
   'rgba(102, 245, 66, 1.0)',
   'rgba(255, 247, 28, 1.0)',
@@ -56,19 +221,12 @@ const rainbow = [
 
 const htlayer = new ol.layer.Heatmap({
   source: intersectionsource,
-  blur: 30,
+  blur: 35,
   gradient: rainbow,
-  radius: 25,
+  radius: 20,
   opacity:2,
   weight: function (feature) {
-    // 2012_Earthquakes_Mag5.kml stores the magnitude of each earthquake in a
-    // standards-violating <magnitude> tag in each Placemark.  We extract it from
-    // the Placemark's name instead.
-    var pinaqi = feature.get('avgAQI');
-    console.log(pinaqi);
-    const magnitude = (Number(160)/500);
-    return magnitude;
-    
+    return feature.get("magnitude");
   },
 });
 map.addLayer(htlayer);
@@ -86,7 +244,7 @@ var intersectionspinfunction =function(feature){
 
   var retstyle=new ol.style.Style({
     image: new ol.style.Icon(({
-      scale: [0.16, 0.16],
+      scale: [0.17, 0.17],
       src: picstring
     }))
   })
@@ -103,7 +261,7 @@ var intersectionsMarkerLayer = new ol.layer.Vector({
 map.addLayer(intersectionsMarkerLayer);
 //change style of city pin based on AQI
 var cityStyleFunction=function(feature){
-  var aqi=feature.get('avgAQI');
+  var aqi=Number(feature.get('averageAQI'));
   var picstring;
   if(aqi>0&&aqi<=50){
     picstring=goodpin;
@@ -144,46 +302,22 @@ map.addLayer(citiesMarkerLayer);
 
 //Function to show pop up when intersection marker is clicked
 const overlayContainerElement = document.querySelector('.overlay-container');
-const overlayLayer = new ol.Overlay({
+overlayLayer = new ol.Overlay({
   element: overlayContainerElement
+
 })
 map.addOverlay(overlayLayer);
 const overlayFeatureCityID=document.getElementById('FeatureCityID');
 const overlayFeatureIntersectionID=document.getElementById('FeatureIntersectionID');
+
+
+
 map.on('click',function(e){
   overlayLayer.setPosition(undefined);
     map.forEachFeatureAtPixel(e.pixel, function(feature,layer){
     if(feature.get('coordinateType')=='intersection'){
-      let clickedFeatureCityID=feature.get('cityID');
-    let clickedFeatureIntersectionID=feature.get('intersectionId');
-    let clickedCoordinate = e.coordinate;
-    overlayLayer.setPosition(clickedCoordinate);
-   
-    
-    function createtable(){
-      i=0;
-      tstring='';
-      tstring+='<table id="intersectionPopUpTable"><tr><th class="intersectionPopUpTableHeader">Sensor ID</th><th class="intersectionPopUpTableHeader">Status</th></tr>';
-      const sensorsArray=feature.get('sensors');
-      var noOfSensors=feature.get('noOfSensors');
-      var statuscolor
-      while(i<noOfSensors){
-        if(sensorsArray[i]['sensorStatus']=="offline"){
-          statuscolor="style='color:red'";
-        }
-        else if(sensorsArray[i]['sensorStatus']=="online"){
-          statuscolor="style='color:green'";
-        }
-      tstring+= '<tr><td class="intersectionPopUpTableData">0'+(i+1)+'</td><td class="intersectionPopUpTableData"'+statuscolor+'>'+sensorsArray[i]["sensorStatus"]+'</td></tr>';
-      i++;
-    }  
-    tstring+='</table>';
-    console.log(tstring);
-
-    const overlaytable=document.getElementById('overlay-container');
-    overlaytable.innerHTML=tstring;
-    }
-    createtable(); }
+      showOverlaypop(feature,e.coordinate);
+     }
   },
   {
     layerFilter: function(layerCandidate){ //ensures that pop up only appears when intersection layer is accessed
@@ -192,6 +326,11 @@ map.on('click',function(e){
   })
 })
 
+view.on('change:resolution',function(e){
+  if (view.getZoom()<13){
+    overlayLayer.setPosition(undefined);
+  }
+} )
 
 //function to show side panel when city marker is clicked
 map.on('click',function(e){
@@ -203,14 +342,14 @@ map.on('click',function(e){
       const SidePanelWaitTime=document.getElementById('SidePanelWaitTime');
       const SidePanelNoOfVehicles=document.getElementById('SidePanelNoOfVehicles');
       let clickedFeatureCityName=feature.get('city');
-      let clickedFeatureCityAQI=feature.get('avgAQI');
-      let clickedFeatureCityWaitTime=feature.get('avgWaittime');
+      let clickedFeatureCityAQI=Math.trunc(feature.get('averageAQI'));
+      let clickedFeatureCityWaitTime=Number(feature.get('averageWaittime'));
       let clickedFeatureNoOfVehicles=feature.get('sumOfVehicles');
       var AQIBorder='';
       var AQIColor='';
 
       function avgAQIElement(){
-        var aqi=feature.get('avgAQI');
+        var aqi=Number(feature.get('averageAQI'));
         if(aqi>0&&aqi<=50){
            AQIBorder='4px solid rgb(102, 245, 66)';
            AQIColor='rgb(102, 245, 66)';
@@ -251,8 +390,10 @@ map.on('click',function(e){
       SidePanelAQI.innerHTML=clickedFeatureCityAQI;
 
       SidePanelWaitTime.innerHTML="Average Wait Time: "+ Math.round(((clickedFeatureCityWaitTime/60) + Number.EPSILON) * 100) / 100 + " Minutes"
-      SidePanelNoOfVehicles.innerHTML="Total Number of Cars: "+clickedFeatureNoOfVehicles
+      SidePanelNoOfVehicles.innerHTML="Sum of Vehicles: "+clickedFeatureNoOfVehicles
+      
       showSidePanel();
+      generateSeeDetailsInfo(feature.get('cityID'));
       } 
   },
   {
@@ -264,34 +405,43 @@ map.on('click',function(e){
 
 } 
 
-// Get the modal
-var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("SeeDetails");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
 function  SeeDetailsPage(){
-  modal.style.display = "block";
+  intersectionmodal.style.display = "block";
+}
+// When the user clicks on <span> (x), close the modal
+intersectionspan.onclick = function() {
+  intersectionmodal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == intersectionmodal) {
+    intersectionmodal.style.display = "none";
+  }
 }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
+cspan.onclick = function() {
+  comparisonmodal.style.display = "none";
 }
-
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+  if (event.target == comparisonmodal) {
+    comparisonmodal.style.display = "none";
   }
 }
-  function buttnClick(){ 
-    fetch("/res",{method:'GET'}) 
-    .then((data)=>{ 
-    console.log(data.text) 
-}) 
+  function getMainDashboardElements(){ //used to get Main table and GeoJSON files
+    var mainDashboardCitiesTableDiv = document.getElementById('mainDashboardCitiesTable');
+	        fetch("/res",{method:'GET',mode: "no-cors",}) 
+	        .then((response) => { return response.text(); })
+            .then((content) => { 
+              mainDashboardCitiesTableDiv.innerHTML = content; });
+
 } 
+function buttnClick(){ //used to test DocDB Connection
+  var mainDashboardTrialDiv = document.getElementById('mainDashboardTrialDiv');
+  fetch("/doccall",{method:'GET',mode: "no-cors",})
+  .then((response) => { return response.text(); })
+            .then((content) => { 
+              mainDashboardTrialDiv.innerHTML = content; });
+}
