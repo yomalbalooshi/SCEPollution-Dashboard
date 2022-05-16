@@ -16,6 +16,8 @@ import pymongo
 import sys
 from pathlib import Path
 import os
+from botocore.exceptions import ClientError
+
 
 DB_NAME = "dummySensorDB"
 TBL_NAME = "sensorReadings"
@@ -25,7 +27,10 @@ cityQuery='Select city,  ROUND(avg(AQI),0) as averageAQI,cityType, ROUND(avg(wai
 intersectionQuery='Select city, cityType, ROUND(avg(AQI),0) as averageAQI, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars,intersectionId from dummySensorDB."sensorReadings" Group by city,intersectionId,cityType'
 
 def index(request):
-    return render(request, "dashboard/index.html")
+   url= generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a"], {'Dashboard': {'InitialDashboardId': '4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a'}})
+   url2= generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/1c7ee848-d22b-46e9-a4fe-7e4feab20acf"], {'Dashboard': {'InitialDashboardId': '1c7ee848-d22b-46e9-a4fe-7e4feab20acf'}})
+
+   return render(request, "dashboard/index.html", {'AqiDashboard':{'url': url , 'con': 'embeddingContainerAQI'}, 'CompDashboard':{'url': url2 , 'con': 'embeddingContainerComp'}})
 
 def mainTimestreamQueryCall(query): #Used to receive timestream Query results
     response = client.query(QueryString = query)
@@ -236,6 +241,7 @@ def tableCreationHTML(ts_query): #Main dashboard table generation
   sumOfVehicles=0
   vehiclesPercArray={}
   city=''
+  cityType=''
   for lis in tsqueryJSON:
        jsontrial+="<tr class='MainTableRow'>"
        for key,val in lis.items():
@@ -244,8 +250,10 @@ def tableCreationHTML(ts_query): #Main dashboard table generation
              city=val
            if(key=='cityType'):
              if(val=='res'):
+              cityType = val
               jsontrial+="<td class='MainTableRowData'>"+'Residential'+"</td>"
              if(val=='ind'):
+              cityType = val
               jsontrial+="<td class='MainTableRowData'>"+'Industrial'+"</td>"
            if(key=='averageAQI'):
             jsontrial+="<td class='MainTableRowData' style='color:"+aqiColorGenerator(float(val))+"';>"+str(int(float(val)))+"</td>"
@@ -265,7 +273,7 @@ def tableCreationHTML(ts_query): #Main dashboard table generation
        vehiclesPercArray['percOfBusses']=round((float(vehiclesSumArray.get("Busses"))/float(sumOfVehicles))*100, 3)
        jsontrial+="<td class='MainTableRowData'><div class='vehiclePercentageMainBar'><div class='sumOfBusses' style='flex-basis:"+str(vehiclesPercArray['percOfBusses'])+"%' title='Approx. "+str(vehiclesPercArray['percOfBusses'])+"% Busses'></div><div class='sumOfTrucks'  style='flex-basis:"+str(vehiclesPercArray['percOfTrucks'])+"%' title='Approx. "+str(vehiclesPercArray['percOfTrucks'])+"% Trucks'></div><div class='sumOfCars'  style='flex-basis:"+str(vehiclesPercArray['percOfCars'])+"%' title='Approx. "+str(vehiclesPercArray['percOfCars'])+"% Cars'></div></div></td>"
        jsontrial+="<td class='MainTableRowData'>"+str(fin_max)+"</td>"
-       jsontrial+="<td><button class='AddToCompareTableButton' value='"+city+"'>Add to Compare</button></td>"
+       jsontrial+="<td><button class='AddToCompareTableButton' value='"+city+cityType+"' onClick='Add(value)'>Add to Compare</button></td>"
        jsontrial+="</tr>"
        vehiclesSumArray.clear()  
   jsontrial+="</table>"
@@ -278,3 +286,25 @@ def res(request):
     #tsIntersectoinQuery=mainTimestreamQueryCall(intersectionQuery)
     #intersectionFileGeneration(tsIntersectoinQuery)
     return HttpResponse(result)
+
+
+# Create QuickSight and STS clients
+qs = boto3.client('quicksight',region_name='us-east-1')
+sts = boto3.client('sts')
+
+def generateEmbedUrlForAnonymousUser(accountId, quicksightNamespace, authorizedResourceArns, experienceConfiguration):
+    try:
+        response = qs.generate_embed_url_for_anonymous_user(
+            AwsAccountId = accountId,
+            Namespace = quicksightNamespace,
+            AuthorizedResourceArns = authorizedResourceArns,
+            ExperienceConfiguration = experienceConfiguration,
+            SessionLifetimeInMinutes = 600
+        )
+            
+        return response['EmbedUrl']
+        
+    except ClientError as e:
+        print(e)
+        return "Error generating embeddedURL: " + str(e)
+
