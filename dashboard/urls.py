@@ -5,12 +5,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("", views.index, name='index'),
-    path("", views.index, name='index'),
-    path('qu', views.qu, name="qu"),
-   path('res', views.res, name='res'),
-    path('url', views.url, name='url')
-   # path('generateEmbedUrlForAnonymousUser', views.generateEmbedUrlForAnonymousUser, name='generateEmbedUrlForAnonymousUser')
-    
+    path('res', views.res, name='res'),
+    path('doccall', views.doccall, name='doccall'),
+    #path('GeoJSONDataCreation', views.GeoJSONDataCreation, name='GeoJSONDataCreation'),
+    #path('appendToGeoJSON', views.appendToGeoJSON, name='appendToGeoJSON'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

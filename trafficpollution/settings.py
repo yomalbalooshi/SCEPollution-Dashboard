@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-d9&=f=_%w&*g9u2p!=1#9ow^m!1w=l3dma8oz4d!^-gw5!gnls
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sampleapplication-env.eba-twxctcqf.us-east-1.elasticbeanstalk.com','trafficpollution.hamadsuniverse.com','10.0.143.8','10.0.145.84', '127.0.0.1', 'sampleapplication-env-1.eba-twxctcqf.us-east-1.elasticbeanstalk.com' ]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -113,7 +113,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+# Base url to serve media files
+MEDIA_URL = '/media/'
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'dashboard/media/')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 

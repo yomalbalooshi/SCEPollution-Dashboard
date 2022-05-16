@@ -3,177 +3,112 @@
     <head>
         {% load static %}
         <link rel='stylesheet' href='{% static "css/theme.css" %}'>
-        <style>
-            .map {
-              height: 400px;
-              width: 100%;
-            }
-          </style>
-          <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js">
-            $('input[name="daterange"]').ajax({
-              url: "url",
-              type: "get",
-              success: function(response){
-              $('#blurg').html(response).fadeIn(1500);
-   }
-});
-          </script>
-          <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-          <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
-          <script src="https://unpkg.com/amazon-quicksight-embedding-sdk@1.18.1/dist/quicksight-embedding-js-sdk.min.js"></script>
-          {% block content %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-          {%for u in url%}
-          <p>{{u}}</p>
-          {%endfor%}
-          {% endblock %}
-
-          <style>
-          quicksight-embedding-iframe {
-            background-color: transparent;
-            }
-            </style>
-          <script type="text/javascript" >
-            var startDate;
-            var endDate;
-            var dashboards = {
-              embeddingContainerAQI: "",
-              embeddingContainerComp:""
-            };
-            var QuickSightEmbedding = require("amazon-quicksight-embedding-sdk");
-            function mainEmbed(){ 
-              EmbedAQI();
-              EmbedComp();
-            }
-            function EmbedAQI()
-            {
-            {% block content1 %}
-            embedDashboard("{{AqiDashboard.url}}","{{AqiDashboard.con}}");
-            {% endblock %}
-            }
-            function EmbedComp()
-            {
-            {% block content2 %}
-            embedDashboard("{{CompDashboard.url}}","{{CompDashboard.con}}");
-            {% endblock %}
-            }
-            function embedDashboard(url,container) {
-
-             
-  
-                var containerDiv = document.getElementById(container);
-                var url2 = url;
-                //var url3 = url2.concat('#p.Cities=Manama&p.startdatetime=', startDate, '&p.enddatetime=', endDate);
-                //document.getElementById("s").innerHTML = url3;
-
-                var options = {
-                    // replace this dummy url with the one generated via embedding API
-                    url: url2.replaceAll('&amp;', '&'),
-                    container: containerDiv,
-                    scrolling: "no",
-                    height: "AutoFit",
-                    width: "1000px",
-                    footerPaddingEnabled: true
-                    
-  
-                };
-                console.log(options.url);
-                //dashboards.push(QuickSightEmbedding.embedDashboard(options));
-                dashboards[container] = QuickSightEmbedding.embedDashboard(options);
-                console.log("Embed222");
-                console.log(options);
-            }
-  
-            function test() { console.log("testttt");
-          }
-        </script>
-      
-        
         <title>Dashboard</title>
-    
-        
-    </head>
-    <body onload="mainEmbed()" >
-      
-      <input type="text" name="daterange" value=" " id = "date"/>
-      {% load static %}
         <script>
-          
-        $(function() {
-          $('input[name="daterange"]').daterangepicker({
-            opens: 'left'
-          }, function(start, end, label) {
-            startDate = start.format('YYYY/MM/DD');
-            endDate = end.format('YYYY/MM/DD');
-            document.getElementById("s").innerHTML = startDate;
-            document.getElementById("e").innerHTML = endDate;
-           
-            console.log(dashboards["embeddingContainerAQI"]);
-            console.log(dashboards["embeddingContainerComp"]);
-
-            //for(var dashboard of  dashboards){dashboard.setParameters({startdatetime: startDate, enddatetime: endDate});}
-            //for(var dashboard of  dashboards){dashboard.setParameters({Cities: "Manama"});}
-            dashboards["embeddingContainerAQI"].setParameters({Cities: "Manama", startdatetime: startDate, enddatetime: endDate});
-            dashboards["embeddingContainerComp"].setParameters({Cities:[ "Manama" , "Sitra" ], startdatetime: startDate, enddatetime: endDate});
-
-            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-          });
-        });
         </script>
-    
+    </head>
+    <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="#">Log out</a>
-          </nav>
+            <a class="navbar-brand" href="#">Log out</a>
+        </nav>
        <span><h5>Date picker goes here</h5></span> 
-       
+
+    <!--- Map Container ---->
+      <div style="background-color:rgb(170,211,223);">
+         <div id='map' class="map">
+    </div></div>
+
+    <!--- Side Panel Skeleton ---->
+
+    <div id="SidePanel" class="citySidePanel" style="right:-350px;">
+        <div class="circle"><i class="material-icons" onclick="hideSidePanel()">clear</i></div>
+      <p id="SidePanelTitle"></p> 
+      <p id="SidePanelAQI"></p> 
+      <p id="SidePanelWaitTime"></p>
+      <p id="SidePanelNoOfVehicles"></p>
+      <div id="AQIChart">Average AQI of 24 Hours goes here</div>
+      <button id="AddToCompareButton">Add to Compare</button><br>
+      <a id="SeeDetails" onclick="SeeDetailsPage()">See Details</a>
+    </div>  
+
+
+    <!--- See Details Modal ---->
+    <div id="intersectionModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span id="intersectionModalClose" class="close">&times;</span>
+            <div id="aqitrafficchart">AQI Traffic flow graph goes here</div>
+            <div id="SeeDetailsTable">
+              
+            </div>
+        </div>
+      </div>
+
+
+
+
+  <!--- Comparison Modal ---->
+      <div id="comparisonModal" class="modal">
+        <!-- Modal content -->
+        <div id="comparisonModal" class="modal-content">
+          <span id="cspan" class="close">&times;</span>
+          Comparison Pop Up
+        </div>
+      </div>
+
+
+
+<div id="mainDashboardTrialDiv"></div>
       
-       <div id="map" class="map"></div>
-       <script type="text/javascript">
-        var map = new ol.Map({
-          target: 'map',
-          layers: [
-            new ol.layer.Tile({
-              source: new ol.source.OSM()
-            })
-          ],
-          view: new ol.View({
-            center: ol.proj.fromLonLat([37.41, 8.82]),
-            zoom: 4
-          })
-        });
-      </script> 
-<div id="embeddingContainerAQI"></div>
-<div id="embeddingContainerComp"></div>
-       <div>
-        
-        <p id ="s"></p>
-        <p id ="e"></p>
-
-        <h5>cities table goes here</h5>
-       </div>
-
-       <div>
-      
-        <button onClick="buttnClick()">Click Me</button> 
-        
-        <script> 
-
-        function buttnClick(){ 
-	        fetch("/res",{method:'GET'}) 
-	        .then((data)=>{ 
-          
+   <!--- <div id="maplegend"></div>---->
+       <div class="overlay-container" id="overlay-container">
+           <!---<span class="overlay-text" id="FeatureCityID"></span><br>
+           <span class="overlay-text" id="FeatureIntersectionID"></span><br>
+       ---></div>
+       <button id="comparsionButton" onClick="showComparisonModal()">show Comparison Modal</button>
+       <button id="pan-to-london" onclick="buttnClickPan()">Pan to London</button>
+       <button onClick="buttnClick()">DocDB Call</button>
+   
+   <div id="trialId">
+      </div>
+   
+  <!---Main Dashboard Table Div---->     
+      <div id="mainDashboardCitiesTable">
+      </div>
 
 
-	        console.log("Embeded" + data) 
-          
-        });  
-} 
-</script> 
-       </div> 
+  <!--- Comparison Footer Container
+  ---->
+<div id="comparisonFooterDiv">
+  <div id="comparisonFooterContent">div for comparison function</div>
+</div>
 
 
 
+
+       <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
+       <script src='{% static "js/map.js" %}'></script>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+       <script>
+       window.onload=initpage;
+    function initpage(){
+    getMainDashboardElements();
+    initmap();}
+        var intersectionfile = "{% get_media_prefix %}GeoJSON/intersections.GeoJSON";
+        var cityfile = "{% get_media_prefix %}GeoJSON/intersections.GeoJSON";
+        var cityfile = "{% get_media_prefix %}GeoJSON/cities.GeoJSON";
+        var intersectionspinonline = "{% static 'images/needlepin.svg' %}"; 
+        var intersectionspinoffline = "{% static 'images/needlepinoffline.svg' %}";      
+        var goodpin = "{% static 'images/good.svg' %}";
+        var unhealthysgpin = "{% static 'images/unhealthysg.svg' %}";
+        var unhealthypin = "{% static 'images/unhealthy.svg' %}";     
+        var veryunhealthypin = "{% static 'images/veryunhealthy.svg' %}";
+        var hazarduospin = "{% static 'images/Hazarduos.svg' %}";
+        var moderatepin = "{% static 'images/moderate.svg' %}";
+        </script> 
     </body>
 </html>

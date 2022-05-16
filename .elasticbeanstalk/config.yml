@@ -5,13 +5,13 @@ global:
   application_name: sampleApplication
   branch: null
   default_ec2_keyname: aws-eb
-  default_platform: Python 3.8
+  default_platform: Python 3.9
   default_region: us-east-1
   include_git_submodules: true
   instance_profile: null
   platform_name: null
   platform_version: null
-  profile: eb-cli
+  profile: default
   repository: null
   sc: null
   workspace_type: Application
