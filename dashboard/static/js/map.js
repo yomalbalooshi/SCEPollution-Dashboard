@@ -412,9 +412,9 @@ map.on('click',function(e){
 } 
 
 
-function  SeeDetailsPage(){
-  intersectionmodal.style.display = "block";
-}
+//function  SeeDetailsPage(){
+//  intersectionmodal.style.display = "block";
+//}
 // When the user clicks on <span> (x), close the modal
 intersectionspan.onclick = function() {
   intersectionmodal.style.display = "none";
