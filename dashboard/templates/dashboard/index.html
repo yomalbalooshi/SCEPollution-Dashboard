@@ -28,6 +28,14 @@
               list.appendChild(entry);
             }
           }
+
+          /*$(function() {
+           $('input[name="datepicker"]').daterangepicker({
+             opens: 'left'
+            }, function(start, end, label) {
+         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+          });
+        });*/
         </script>
         {% block content %}
 
@@ -35,17 +43,24 @@
         <p>{{u}}</p>
         {%endfor%}
         {% endblock %}
-        <script>
+        <script type="text/javascript">
+
+          function test() {
+            document.getElementById("test").innerHTML= "HELLO";
+            console.log("testtt");
+            
+          }
           var startDate;
             var endDate;
             var dashboards = {
               embeddingContainerAQI: "",
               embeddingContainerComp:""
             };
-            var QuickSightEmbedding = require("amazon-quicksight-embedding-sdk");
+            var QuickSightEmbedding //= require("amazon-quicksight-embedding-sdk");
             function mainEmbed(){ 
               EmbedAQI();
               EmbedComp();
+              console.log("Embed Main");
             }
             function EmbedAQI()
             {
@@ -82,29 +97,21 @@
                 console.log(options.url);
                 //dashboards.push(QuickSightEmbedding.embedDashboard(options));
                 dashboards[container] = QuickSightEmbedding.embedDashboard(options);
-                console.log("Embed222");
+                console.log("Embed Dashboard");
                 console.log(options);
             }
         </script>
     </head>
     <body>
+      <script type="text/javascript" src="/Fun.js"></script>
       <input type="text" name="datepicker" value=" " id = "date"/>
-
-      <script>
-        $(function() {
-           $('input[name="datepicker"]').daterangepicker({
-             opens: 'left'
-            }, function(start, end, label) {
-         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-          });
-        });
-</script>
    
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Log out</a>
         </nav>
 
        <span><h5>Date picker goes here!!! </h5></span> 
+      <!---  <div><button onClick=(mainEmbed())>Test</button> <p id="test"> </p></div>---->
 
 
     <!--- Map Container ---->
@@ -124,7 +131,7 @@
       <button id="AddToCompareButton">Add to Compare</button><br>
       <a id="SeeDetails" onclick="SeeDetailsPage()">See Details</a>
     </div>  
-
+    
 
     <!--- See Details Modal ---->
     <div id="intersectionModal" class="modal">
@@ -145,7 +152,7 @@
   <!--- Comparison Modal ---->
       <div id="comparisonModal" class="modal">
         <!-- Modal content -->
-        <div id="comparisonModal" class="modal-content">
+        <div id="comparisonModal2" class="modal-content">
           <span id="cspan" class="close">&times;</span>
           Comparison Pop Up
         </div>
@@ -192,7 +199,8 @@
        window.onload=initpage;
     function initpage(){
     getMainDashboardElements();
-    initmap();}
+    initmap();
+    mainEmbed();}
         var intersectionfile = "{% get_media_prefix %}GeoJSON/intersections.GeoJSON";
         var cityfile = "{% get_media_prefix %}GeoJSON/intersections.GeoJSON";
         var cityfile = "{% get_media_prefix %}GeoJSON/cities.GeoJSON";
@@ -206,12 +214,6 @@
         var moderatepin = "{% static 'images/moderate.svg' %}";
         </script> 
 
-<link rel="stylesheet" type="text/css" href="css/lightpick.css">
-...
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<script src="lightpick.js"></script>
-<script>
-    var picker = new Lightpick({ field: document.getElementById('datepicker') });
-</script>
+
     </body>
 </html>
