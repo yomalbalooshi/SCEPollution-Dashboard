@@ -361,6 +361,8 @@ map.on('click',function(e){
       var SidePanelAQIChart=document.getElementById('AQIChart');
       document.getElementById("SeeDetailsLink").value=feature.get('city')+ " - " +feature.get('cityType');
       console.log("valueofseedetails:"+document.getElementById("SeeDetailsLink").value);
+      document.getElementById("AddToCompareButton").value=feature.get('city')+ " - " +feature.get('cityType');
+
       let clickedFeatureCityName=feature.get('city');
       let clickedFeatureCityAQI=Math.trunc(feature.get('averageAQI'));
       let clickedFeatureCityWaitTime=Number(feature.get('averageWaittime'));
