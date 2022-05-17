@@ -24,6 +24,7 @@
         <script type="text/javascript">
 
           var cities = [];
+          var c = ""
           function Add(city) {
             console.log(city);
             var city = city;
@@ -33,12 +34,13 @@
               const list = document.getElementById('comp');
               var s = city.length-3;
               var cityFinal = city.substring(0,s);
-              dashboards["comparisonModal2"].setParameters({Cities:cities});
               const entry = document.createElement('li');
               entry.appendChild(document.createTextNode(cityFinal));
+              c = c.concat(cityFinal, ",");
               list.appendChild(entry);
             }
-           
+            console.log(c);
+
           }
 
           function test() {
@@ -95,6 +97,15 @@
                 dashboards[container] = QuickSightEmbedding.embedDashboard(options);
                 console.log("Embed Dashboard");
                 console.log(options);
+            }
+
+            function  showComparisonModal(){
+              comparisonmodal.style.display = "block";
+              console.log(c);
+              dashboards["comparisonModal2"].setParameters({Cities:[ c ]});
+              
+
+
             }
         </script>
     </head>

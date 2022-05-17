@@ -19,9 +19,9 @@ var cbtn = document.getElementById("comparsionButton");
 // Get the <span> element that closes the modal
 var cspan = document.getElementById("cspan");
 // When the user clicks on the button, open the modal
-function  showComparisonModal(){
-  comparisonmodal.style.display = "block";
-}
+//function  showComparisonModal(){
+//  comparisonmodal.style.display = "block";
+//}
 
 
 function buttnClickPan(tempcord){ //Panning+Zooming+Showing Overlay of intersection marker from See Details Page
