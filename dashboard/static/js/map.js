@@ -359,7 +359,7 @@ map.on('click',function(e){
       var SidePanelWaitTime=document.getElementById('SidePanelWaitTime');
       var SidePanelNoOfVehicles=document.getElementById('SidePanelNoOfVehicles');
       var SidePanelAQIChart=document.getElementById('AQIChart');
-      document.getElementById("SeeDetailsLink").value=feature.get('city')+"-"+feature.get('cityType');
+      document.getElementById("SeeDetailsLink").value=feature.get('city')+ " - " +feature.get('cityType');
       console.log("valueofseedetails:"+document.getElementById("SeeDetailsLink").value);
       let clickedFeatureCityName=feature.get('city');
       let clickedFeatureCityAQI=Math.trunc(feature.get('averageAQI'));
@@ -422,7 +422,7 @@ function GenerateAQIGraph(AQIList){
     }}
     avgAQIElement();
    SidePanelAQIChart.innerHTML=GenerateAQIGraph(clickedFeatureAvgAQIList);
-      SidePanelTitle.innerHTML=clickedFeatureCityName+' - '+cityTypeFunction();
+      SidePanelTitle.innerHTML=clickedFeatureCityName+" - "+cityTypeFunction();
       SidePanelAQI.innerHTML=clickedFeatureCityAQI;
 
       SidePanelWaitTime.innerHTML="Average Wait Time: "+ Math.round(((clickedFeatureCityWaitTime/60) + Number.EPSILON) * 100) / 100 + " Minutes"

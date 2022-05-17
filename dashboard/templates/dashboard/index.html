@@ -110,9 +110,10 @@
               console.log("Embed");
             }
 
-            function  SeeDetailsPage(){
+            function  SeeDetailsPage(city){
               intersectionmodal.style.display = "block";
-              dashboards["aqitrafficchart"].setParameters({CityNametype: "Manama - res", startdatetime: startDate, enddatetime: endDate});
+              console.log(city);
+              dashboards["aqitrafficchart"].setParameters({CityNametype: city, startdatetime: startDate, enddatetime: endDate});
 
             }
         </script>
@@ -123,7 +124,7 @@
             <a class="navbar-brand" href="#">Log out</a>
         </nav>
 
-       <span><h5>Date picker goes here!!! </h5></span> 
+       <span></span> 
       <!---  <div><button onClick=(mainEmbed())>Test</button> <p id="test"> </p></div>---->
       <input type="text" name="daterange" value="" />
       <script>//$('input[name="daterange"]').daterangepicker();</script>
@@ -166,8 +167,8 @@
  
   
   </div>
-      <button id="AddToCompareButton">Add to Compare</button><br>
-      <a id="SeeDetailsLink" onclick="SeeDetailsPage()">See Details</a>
+      <button id="AddToCompareButton" onClick="showComparisonModal(value)">Add to Compare</button><br>
+      <a id="SeeDetailsLink" value = " " onClick="SeeDetailsPage(value)">See Details</a>
     </div>  
     
 
