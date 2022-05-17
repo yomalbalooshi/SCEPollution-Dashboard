@@ -30,16 +30,18 @@ href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
 
 
 
-function buttnClickPan(tempcord){ //Panning+Zooming+Showing Overlay of intersection marker from See Details Page
+function buttnClickPan(sensorarray,tempcord){//Panning+Zooming+Showing Overlay of intersection marker from See Details Page
 intersectionmodal.style.display = "none";
-var pixel = map.getPixelFromCoordinate(tempcord);
+ var sarray=sensorarray;
+  var carray=ol.proj.fromLonLat(tempcord);
   view.animate({
-    center: ol.proj.fromLonLat(tempcord),
-    duration: 2000,
-    zoom:18,
+    zoom:16,
+    center: carray,
+    duration: 1000,
+    callback: showOverlaypop(sarray,carray),
   });
-  feat=map.getFeaturesAtPixel(pixel);
-  showOverlaypop(feat,tempcord);
+  
+  
 }
 function AQITextColor(aqi){ //AQI color gradient
         if(aqi>0&&aqi<=50){
@@ -90,7 +92,6 @@ sdstring +='<table id="SeeDetailsTableContent"><tr><th class="seeDetailsHeader">
 for (let i = 0; i < seeDetailsArray.length; i++) {
       vehicledictionary== new Array();
       vehiclepercdictionary== new Array();
-       
       const Car = {Cars:(Math.trunc(seeDetailsArray[i].properties.sumOfCars))};
       const Bus = {Busses:Math.trunc(seeDetailsArray[i].properties.sumOfBusses)};
       const Truck = {Trucks:Math.trunc(seeDetailsArray[i].properties.sumOfTrucks)};
@@ -105,10 +106,12 @@ for (let i = 0; i < seeDetailsArray.length; i++) {
     ...PercCar,
     ...PercBus,
     ...PercTruck};
-      console.log(vehicledictionary);
-      console.log(vehiclepercdictionary);
+      var sensorsarray=seeDetailsArray[i].properties.sensors;
+      var sJSON=JSON.stringify(sensorsarray);
+      console.log(sensorsarray);
+      console.log(sJSON);
       var coordinatesarray =[seeDetailsArray[i].geometry.coordinates[0],seeDetailsArray[i].geometry.coordinates[1]];
-      console.log(coordinatesarray.toString());
+      console.log(coordinatesarray);
       sdstring+="<tr>";
       sdstring+="<td class='seeDetailsData'>"+(i+1)+"</td>";
       sdstring+="<td class='seeDetailsData' style='color:"+AQITextColor(Math.trunc(seeDetailsArray[i].properties.averageAQI))+"'>"+Math.trunc(seeDetailsArray[i].properties.averageAQI)+"</td>";
@@ -116,7 +119,7 @@ for (let i = 0; i < seeDetailsArray.length; i++) {
       sdstring+="<td class='seeDetailsData'>"+Math.round(((parseFloat(seeDetailsArray[i].properties.averageWaittime)/60) + Number.EPSILON) * 100) / 100 +" Minute(s)</td>";
       sdstring+="<td class='seeDetailsData'><div class='seeDetailsvehiclePercentageMainBar'><div class='sdsumOfBusses' style='flex-basis:"+vehiclepercdictionary['PercBus']+"%' title='Approx. "+vehiclepercdictionary['PercBus']+"% Busses'></div><div class='sdsumOfTrucks'  style='flex-basis:"+vehiclepercdictionary['PercTruck']+"%' title='Approx. "+vehiclepercdictionary['PercTruck']+"% Trucks'></div><div class='sdsumOfCars'  style='flex-basis:"+vehiclepercdictionary['PercCar']+"%' title='Approx. "+vehiclepercdictionary['PercCar']+"% Cars'></div></div></td>";
       sdstring+="<td class='seeDetailsData'>"+Object.keys(vehicledictionary).reduce(function(a, b){ return vehicledictionary[a] > vehicledictionary[b] ? a : b })+"</td>";
-      sdstring+="<td><button class='showonmapbutton' onclick='buttnClickPan(["+seeDetailsArray[i].geometry.coordinates[0]+","+seeDetailsArray[i].geometry.coordinates[1]+"])'>Show</td>";
+      sdstring+="<td><button class='showonmapbutton' onclick='buttnClickPan("+sJSON+",["+coordinatesarray+"])'>Show</td>";
       sdstring+="</tr>";
 }
 const SeeDetailsTable=document.getElementById('SeeDetailsTable');
@@ -133,36 +136,41 @@ function generateSeeDetailsTable(seeDetailsArray){ //temp
 
 }
 
-function showOverlaypop(feature,cord){
-  let clickedFeatureCityID=feature.get('cityID');
-  let clickedFeatureIntersectionID=feature.get('intersectionId');
-  let clickedCoordinate = cord;
-  overlayLayer.setPosition(clickedCoordinate);
- 
-  function createtable(){
+  function createSensorOverlaytable(sen){
+    console.log("from table: "+JSON.stringify(sen));
     i=0;
     tstring='';
     tstring+='<table id="intersectionPopUpTable"><tr><th class="intersectionPopUpTableHeader">Sensor ID</th><th class="intersectionPopUpTableHeader">Status</th></tr>';
-    const sensorsArray=feature.get('sensors');
+    var sensorsjsonArray=JSON.stringify(sen);
+    var sensorsArray=JSON.parse(sensorsjsonArray);
+    console.log("from sensorarray: "+sensorsArray[i]["sensorStatus"]);
     var noOfSensors=sensorsArray.length;
     var statuscolor
     while(i<noOfSensors){
-      if(sensorsArray[i]['sensorStatus']=="offline"){
+      if(sensorsArray[i]["sensorStatus"]=="offline"){
         statuscolor="style='color:red'";
       }
-      else if(sensorsArray[i]['sensorStatus']=="online"){
+      else if(sensorsArray[i]["sensorStatus"]=="online"){
         statuscolor="style='color:#3ec742'";
       }
     tstring+= '<tr><td class="intersectionPopUpTableData">0'+(i+1)+'</td><td class="intersectionPopUpTableData"'+statuscolor+'>'+sensorsArray[i]["sensorStatus"]+'</td></tr>';
+   console.log(i);
     i++;
   }  
   tstring+='</table>';
-  console.log(tstring);
-
   const overlaytable=document.getElementById('overlay-container');
   overlaytable.innerHTML=tstring;
   }
-  createtable(); 
+  
+function showOverlaypop(featuresensorsarray,coord){
+  var sarraytemp=featuresensorsarray;
+  createSensorOverlaytable(sarraytemp);
+  var featurecoord=coord;
+  overlayLayer.setPosition(featurecoord);
+  console.log("from overlay project:");
+  console.log(featurecoord);
+  console.log(sarraytemp);
+   
 }
 
 
@@ -182,18 +190,10 @@ view =new ol.View({
   zoom: 11,
   minZoom:11,
 });
-  map = new ol.Map({
-    view: view,
-    layers:[
-      new ol.layer.Tile({
-        source: new ol.source.OSM()
-      })
-    ],
-    target: 'map'
-  })
-/*var source = new ol.source.XYZ({
+
+var source = new ol.source.XYZ({
   url: 'https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=177eb2f425eb49b385fffa16cc32440d' });
-  const map = new ol.Map({
+  map = new ol.Map({
     view: view,
     layers:[
       new ol.layer.Tile({
@@ -201,7 +201,7 @@ view =new ol.View({
       })
     ],
     target: 'map'
-  }) */
+  }) 
 //city source
 var citysource = new ol.source.Vector({
   'projection': map.getView().getProjection(),
@@ -322,7 +322,7 @@ map.on('click',function(e){
   overlayLayer.setPosition(undefined);
     map.forEachFeatureAtPixel(e.pixel, function(feature,layer){
     if(feature.get('coordinateType')=='intersection'){
-      showOverlaypop(feature,e.coordinate);
+      showOverlaypop(feature.get('sensors'),feature.getGeometry().getCoordinates());
      }
   },
   {
@@ -333,7 +333,7 @@ map.on('click',function(e){
 })
 
 view.on('change:resolution',function(e){
-  if (view.getZoom()<13){
+  if (view.getZoom()<=12){
     overlayLayer.setPosition(undefined);
   }
 } )
@@ -343,16 +343,33 @@ map.on('click',function(e){
     map.forEachFeatureAtPixel(e.pixel, function(feature,layer){
     if(feature.get('coordinateType')=='city'){
 
-      const SidePanelTitle=document.getElementById('SidePanelTitle');
-      const SidePanelAQI=document.getElementById('SidePanelAQI');
-      const SidePanelWaitTime=document.getElementById('SidePanelWaitTime');
-      const SidePanelNoOfVehicles=document.getElementById('SidePanelNoOfVehicles');
+      var SidePanelTitle=document.getElementById('SidePanelTitle');
+      var SidePanelAQI=document.getElementById('SidePanelAQI');
+      var SidePanelWaitTime=document.getElementById('SidePanelWaitTime');
+      var SidePanelNoOfVehicles=document.getElementById('SidePanelNoOfVehicles');
+      var SidePanelAQIChart=document.getElementById('AQIChart');
       let clickedFeatureCityName=feature.get('city');
       let clickedFeatureCityAQI=Math.trunc(feature.get('averageAQI'));
       let clickedFeatureCityWaitTime=Number(feature.get('averageWaittime'));
       let clickedFeatureNoOfVehicles=feature.get('sumOfVehicles');
+      let clickedFeatureAvgAQIList=feature.get('avgHourlyAQI');
       var AQIBorder='';
       var AQIColor='';
+
+function GenerateAQIGraph(AQIList){
+  renderstring='';
+  barhourstring='';
+  var barHeight=0;
+  for (let i = 0; i < AQIList.length; i++) {
+    barHeight=(Number(AQIList[i]['averageAQI'])/500)*100;
+    barcolor=AQITextColor(Number(AQIList[i]['averageAQI']));
+    barhourstring=AQIList[i]['hourOfDay']+":00:00 and "+AQIList[i]['hourOfDay']+":59:59";
+    renderstring+='<div class="singleBar"><div class="bar"><div class="value" style="height:'+barHeight+'%; background-color:'+barcolor+';" title="Average AQI between '+barhourstring+" is "+Number(AQIList[i]['averageAQI'])+'""></div></div></div>';
+    console.log(barHeight);
+  }
+  return renderstring;
+}
+
 
       function avgAQIElement(){
         var aqi=Number(feature.get('averageAQI'));
@@ -391,7 +408,7 @@ map.on('click',function(e){
         return "Industrial";
     }}
     avgAQIElement();
-   
+   SidePanelAQIChart.innerHTML=GenerateAQIGraph(clickedFeatureAvgAQIList);
       SidePanelTitle.innerHTML=clickedFeatureCityName+' - '+cityTypeFunction();
       SidePanelAQI.innerHTML=clickedFeatureCityAQI;
 
