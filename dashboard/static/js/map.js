@@ -87,6 +87,17 @@ async function fetchFilterText(cityID) { //take JSON file and filter it for see 
 }
 var vehicledictionary={};
 var vehiclepercdictionary={};
+var intersectionModalCityName=document.getElementById('intersectionModalCityName');
+var intersectionModalTimeRange=document.getElementById('intersectionModalTimeRange');
+function seeDetailsTypeFunction(){
+  if(seeDetailsArray[0].properties.cityType=="res"){
+      return "Residential";
+  }
+else if(seeDetailsArray[0].properties.cityType=="ind"){
+  return "Industrial";
+}}
+intersectionModalCityName.innerHTML=seeDetailsArray[0].properties.city+" - "+seeDetailsTypeFunction();
+intersectionModalTimeRange.innerHTML="TIMERANGE";
 var sdstring='';
 sdstring +='<table id="SeeDetailsTableContent"><tr><th class="seeDetailsHeader">Intersection</th><th class="seeDetailsHeader">AQI</th><th class="seeDetailsHeader">Sensors Status</th><th class="seeDetailsHeader">Wait Time</th><th class="seeDetailsHeader">Vehicle %</th><th class="seeDetailsHeader">Common Vehicle Type</th><th class="seeDetailsHeader">Show On Map</th></tr>';
 for (let i = 0; i < seeDetailsArray.length; i++) {
@@ -348,6 +359,8 @@ map.on('click',function(e){
       var SidePanelWaitTime=document.getElementById('SidePanelWaitTime');
       var SidePanelNoOfVehicles=document.getElementById('SidePanelNoOfVehicles');
       var SidePanelAQIChart=document.getElementById('AQIChart');
+      document.getElementById("SeeDetailsLink").value=feature.get('city')+"-"+feature.get('cityType');
+      console.log("valueofseedetails:"+document.getElementById("SeeDetailsLink").value);
       let clickedFeatureCityName=feature.get('city');
       let clickedFeatureCityAQI=Math.trunc(feature.get('averageAQI'));
       let clickedFeatureCityWaitTime=Number(feature.get('averageWaittime'));

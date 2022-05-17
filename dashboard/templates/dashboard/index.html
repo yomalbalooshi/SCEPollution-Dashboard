@@ -167,7 +167,7 @@
   
   </div>
       <button id="AddToCompareButton">Add to Compare</button><br>
-      <a id="SeeDetails" onclick="SeeDetailsPage()">See Details</a>
+      <a id="SeeDetailsLink" onclick="SeeDetailsPage()">See Details</a>
     </div>  
     
 
@@ -176,6 +176,10 @@
 
         <!-- Modal content -->
         <div class="modal-content">
+          <div id="intersectionModalTitle" class="intersectionModalTitle">
+            <div id="intersectionModalCityName" class="intersectionModalCityName"></div>
+              <div id="intersectionModalTimeRange" class="intersectionModalTimeRange"></div>
+               </div>
             <span id="intersectionModalClose" class="close">&times;</span>
             <div id="aqitrafficchart">AQI Traffic flow graph goes here</div>
             <div id="SeeDetailsTable">

@@ -24,9 +24,9 @@ TBL_NAME = "sensorReadings"
 client = boto3.client('timestream-query', region_name='us-east-1' )
 ts_query=''
 tsQueryStartDate='2021-10-22'
-tsQueryEndDate='2021-10-29'
+tsQueryEndDate='2021-10-22'
 cityQuery='Select city,  ROUND(avg(AQI),0) as averageAQI,cityType, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars from dummySensorDB."sensorReadings" where time BETWEEN TIMESTAMP \''+tsQueryStartDate+' 00:00:00.000000000\' AND TIMESTAMP \''+tsQueryEndDate+' 23:59:59.000000000\' Group by city,cityType ORDER BY averageAQI DESC'
-intersectionQuery='Select city, cityType, ROUND(avg(AQI),0) as averageAQI, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars,intersectionId from dummySensorDB."sensorReadings" where time BETWEEN TIMESTAMP \'2021-10-22 00:00:00.000000000\' AND TIMESTAMP \'2021-10-22 23:59:59.000000000\' Group by city,intersectionId,cityType'
+intersectionQuery='Select city, cityType, ROUND(avg(AQI),0) as averageAQI, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars,intersectionId from dummySensorDB."sensorReadings" where time BETWEEN TIMESTAMP \''+tsQueryStartDate+' 00:00:00.000000000\' AND TIMESTAMP \''+tsQueryEndDate+' 23:59:59.000000000\'  Group by city,intersectionId,cityType'
 
 def index(request):
    url= generateEmbedUrlForAnonymousUser("234810267545", "default", ["arn:aws:quicksight:us-east-1:234810267545:dashboard/4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a"], {'Dashboard': {'InitialDashboardId': '4c3cc90a-da1a-4fd8-8d7c-88f320b34e5a'}})
