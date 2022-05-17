@@ -17,7 +17,7 @@
        <span><h5>Date picker goes here</h5></span> 
 
     <!--- Map Container ---->
-      <div style="background-color:rgb(170,211,223);">
+      <div style="background-color:#a9d4f3;">
          <div id='map' class="map">
     </div></div>
 
@@ -29,11 +29,13 @@
       <p id="SidePanelAQI"></p> 
       <p id="SidePanelWaitTime"></p>
       <p id="SidePanelNoOfVehicles"></p>
-      <div id="AQIChart">Average AQI of 24 Hours goes here</div>
+      <div class="AQIChart" id="AQIChart">   
+ 
+  
+  </div>
       <button id="AddToCompareButton">Add to Compare</button><br>
       <a id="SeeDetails" onclick="SeeDetailsPage()">See Details</a>
     </div>  
-
 
     <!--- See Details Modal ---->
     <div id="intersectionModal" class="modal">
@@ -99,7 +101,6 @@
     getMainDashboardElements();
     initmap();}
         var intersectionfile = "{% get_media_prefix %}GeoJSON/intersections.GeoJSON";
-        var cityfile = "{% get_media_prefix %}GeoJSON/intersections.GeoJSON";
         var cityfile = "{% get_media_prefix %}GeoJSON/cities.GeoJSON";
         var intersectionspinonline = "{% static 'images/needlepin.svg' %}"; 
         var intersectionspinoffline = "{% static 'images/needlepinoffline.svg' %}";      

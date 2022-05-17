@@ -48,7 +48,6 @@
     margin: auto;
     height: 12px;
     display: flex;
-    background-color: red;
     justify-content:center;
   }
    .showonmapbutton{
@@ -279,16 +278,41 @@
      margin: 20px;
      
    }
-   #AQIChart{
-     background-color: #3A496D;
+   .AQIChart{
      width: 240px;
      height: 135px;
      margin: 17px;
      margin-top: 30px;
-     padding: 40px;
-     font-weight: 200;
+    display: flex;
+    align-content:stretch;
      text-align: center;
    }
+     .singleBar {
+      width:9%;
+      float:left;
+      margin-left:0.5%;
+      margin-right:0.5%;
+      border-radius:10px;}
+          .bar {
+        border-top-left-radius: 25px;
+        border-top-right-radius:25px;
+        position:relative;
+        height:135px;
+        background-color: #46587d;
+        overflow:hidden;
+        opacity: 0.6;
+        transition: 0.3s;
+          }
+          .bar:hover {opacity: 1;}
+          .value {
+          border-top-left-radius: 25px;
+          border-top-right-radius:25px;
+          position:absolute;
+          bottom:0;
+          width:100%;
+          color:#ffffff;
+        }
+  
    #SidePanelNoOfVehicles{
     margin: 20px;
     font-weight: 200;
@@ -351,13 +375,13 @@
     color: #fff;
     font-size: 12px;
     text-align: center;
-  font-weight: 200;
+    font-weight: 200;
     border-radius: 6px;
     padding-right: 20%;
     padding-left: 20%;
     position:absolute;
     z-index:1;
-    bottom:12px;
+    bottom:14px;
     right: -100px;
   }
   
