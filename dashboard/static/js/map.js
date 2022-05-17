@@ -22,6 +22,12 @@ var cspan = document.getElementById("cspan");
 //function  showComparisonModal(){
 //  comparisonmodal.style.display = "block";
 //}
+//daterangepicker
+src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"
+src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+
 
 
 function buttnClickPan(tempcord){ //Panning+Zooming+Showing Overlay of intersection marker from See Details Page

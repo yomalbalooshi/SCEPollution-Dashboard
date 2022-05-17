@@ -273,7 +273,7 @@ def tableCreationHTML(ts_query): #Main dashboard table generation
        vehiclesPercArray['percOfBusses']=round((float(vehiclesSumArray.get("Busses"))/float(sumOfVehicles))*100, 3)
        jsontrial+="<td class='MainTableRowData'><div class='vehiclePercentageMainBar'><div class='sumOfBusses' style='flex-basis:"+str(vehiclesPercArray['percOfBusses'])+"%' title='Approx. "+str(vehiclesPercArray['percOfBusses'])+"% Busses'></div><div class='sumOfTrucks'  style='flex-basis:"+str(vehiclesPercArray['percOfTrucks'])+"%' title='Approx. "+str(vehiclesPercArray['percOfTrucks'])+"% Trucks'></div><div class='sumOfCars'  style='flex-basis:"+str(vehiclesPercArray['percOfCars'])+"%' title='Approx. "+str(vehiclesPercArray['percOfCars'])+"% Cars'></div></div></td>"
        jsontrial+="<td class='MainTableRowData'>"+str(fin_max)+"</td>"
-       jsontrial+="<td><button class='AddToCompareTableButton' value='"+city+cityType+"' onClick='Add(value)'>Add to Compare</button></td>"
+       jsontrial+="<td><button class='AddToCompareTableButton' value='"+city+ " - " +cityType+"' onClick='Add(value)'>Add to Compare</button></td>"
        jsontrial+="</tr>"
        vehiclesSumArray.clear()  
   jsontrial+="</table>"
