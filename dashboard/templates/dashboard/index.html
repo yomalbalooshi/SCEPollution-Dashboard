@@ -33,11 +33,12 @@
               const list = document.getElementById('comp');
               var s = city.length-3;
               var cityFinal = city.substring(0,s);
-              dashboards["comparisonModal2"].setParameters({Cities:cityFinal});
+              dashboards["comparisonModal2"].setParameters({Cities:cities});
               const entry = document.createElement('li');
               entry.appendChild(document.createTextNode(cityFinal));
               list.appendChild(entry);
             }
+           
           }
 
           function test() {
