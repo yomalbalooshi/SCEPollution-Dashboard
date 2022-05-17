@@ -14,29 +14,6 @@
        
         <script>
           
-          var cities = [];
-          function Add(city) {
-            var city = city;
-            var i = cities.indexOf(city);
-            if (i == -1) {
-              cities.push(city);
-              const list = document.getElementById('comp');
-              var s = city.length-3;
-              var cityFinal = city.substring(0,s);
-              dashboards["embeddingContainerComp"].setParameters({Cities:cityFinal});
-              const entry = document.createElement('li');
-              entry.appendChild(document.createTextNode(cityFinal));
-              list.appendChild(entry);
-            }
-          }
-
-          /*$(function() {
-           $('input[name="datepicker"]').daterangepicker({
-             opens: 'left'
-            }, function(start, end, label) {
-         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-          });
-        });*/
         </script>
         {% block content %}
 
@@ -45,6 +22,23 @@
         {%endfor%}
         {% endblock %}
         <script type="text/javascript">
+
+          var cities = [];
+          function Add(city) {
+            console.log(city);
+            var city = city;
+            var i = cities.indexOf(city);
+            if (i == -1) {
+              cities.push(city);
+              const list = document.getElementById('comp');
+              var s = city.length-3;
+              var cityFinal = city.substring(0,s);
+              dashboards["comparisonModal2"].setParameters({Cities:cityFinal});
+              const entry = document.createElement('li');
+              entry.appendChild(document.createTextNode(cityFinal));
+              list.appendChild(entry);
+            }
+          }
 
           function test() {
             document.getElementById("test").innerHTML= "HELLO";
@@ -104,7 +98,6 @@
         </script>
     </head>
     <body>
-      <script type="text/javascript" src="/Fun.js"></script>
       <input type="text" name="datepicker" value=" " id = "date"/>
    
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
