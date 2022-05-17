@@ -21,8 +21,10 @@ DB_NAME = "dummySensorDB"
 TBL_NAME = "sensorReadings"
 client = boto3.client('timestream-query', region_name='us-east-1' )
 ts_query=''
-cityQuery='Select city,  ROUND(avg(AQI),0) as averageAQI,cityType, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars from dummySensorDB."sensorReadings" Group by city,cityType ORDER BY averageAQI DESC'
-intersectionQuery='Select city, cityType, ROUND(avg(AQI),0) as averageAQI, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars,intersectionId from dummySensorDB."sensorReadings" Group by city,intersectionId,cityType'
+tsQueryStartDate='2021-10-22'
+tsQueryEndDate='2021-10-29'
+cityQuery='Select city,  ROUND(avg(AQI),0) as averageAQI,cityType, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars from dummySensorDB."sensorReadings" where time BETWEEN TIMESTAMP \''+tsQueryStartDate+' 00:00:00.000000000\' AND TIMESTAMP \''+tsQueryEndDate+' 23:59:59.000000000\' Group by city,cityType ORDER BY averageAQI DESC'
+intersectionQuery='Select city, cityType, ROUND(avg(AQI),0) as averageAQI, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars,intersectionId from dummySensorDB."sensorReadings" where time BETWEEN TIMESTAMP \'2021-10-22 00:00:00.000000000\' AND TIMESTAMP \'2021-10-22 23:59:59.000000000\' Group by city,intersectionId,cityType'
 
 def index(request):
     return render(request, "dashboard/index.html")
@@ -123,19 +125,20 @@ def intersectionFileGeneration(queryDictList):
     
 def cityGeoJSONAppend(tscityquery):
     filename = os.path.join(settings.MEDIA_ROOT, "GeoJSON/cities.GeoJSON") 
-    f = default_storage.open(os.path.join(settings.MEDIA_ROOT, "GeoJSON/cities.GeoJSON"), 'w')
+    f = default_storage.open(os.path.join(settings.MEDIA_ROOT, "GeoJSON/cities.GeoJSON"), 'w+')
     filestring=''
     filestring+=str('{"type":"FeatureCollection", \n "features":\n [') #fixed GeoJSON start line
      #f.write('\n{"type": "Feature", \n"properties":')#start of an item in GeoJSON file
     cqueryinfo=json.loads(tscityquery)
     for i in cqueryinfo:
         filestring+=str('\n{"type": "Feature", \n"properties":{"coordinateType":"city",')#Fixed for each feature
-        docdbquerydict={}
+        nameTypeDict={}
         for k, v in i.items():
             filestring+=str('\n"'+k+'":'+'"'+v+'",') #prints each key+value in time stream query
             if k=='city' or k=='cityType':
-                docdbquerydict.update({k:v})
-        filestring+=str(docDBCityPrint(docdbquerydict))    
+                nameTypeDict.update({k:v})
+        filestring+='"avgHourlyAQI":'+str(AQITimestreamrequest(nameTypeDict))+","
+        filestring+=str(docDBCityPrint(nameTypeDict))    
         filestring+=str('},')#closes block of info for a feature
         #f.write(str(docDBQuery({"intersectionId":v}))) 
     filestring=filestring.rstrip(',')
@@ -186,7 +189,7 @@ def GeoJSONDataCreation(tsqueryresponse):
   return queryDictionaryList
 def intersectionGeoJSONAppend(tsquery):
     filename = os.path.join(settings.MEDIA_ROOT, "GeoJSON/intersections.GeoJSON") 
-    f = default_storage.open(os.path.join(settings.MEDIA_ROOT, "GeoJSON/intersections.GeoJSON"), 'w')
+    f = default_storage.open(os.path.join(settings.MEDIA_ROOT, "GeoJSON/intersections.GeoJSON"), 'w+')
     filestring=''
     filestring+=str('{"type":"FeatureCollection", \n "features":\n [') #fixed GeoJSON start line
      #f.write('\n{"type": "Feature", \n"properties":')#start of an item in GeoJSON file
@@ -209,7 +212,7 @@ def intersectionGeoJSONAppend(tsquery):
     f = default_storage.open(os.path.join(settings.MEDIA_ROOT, "GeoJSON/intersections.GeoJSON"), 'r')
     data = f.read()
     f.close()
-    return str(data+tsquery)
+    return str(data)
 
 def st():
     print("Hello")
@@ -278,3 +281,13 @@ def res(request):
     tsIntersectoinQuery=mainTimestreamQueryCall(intersectionQuery)
     intersectionFileGeneration(tsIntersectoinQuery)
     return HttpResponse(result)
+    
+def AQITimestreamrequest(nameTypeDict):
+    printresult=''
+    queryresult=''
+    city=nameTypeDict['city']
+    cityType=nameTypeDict['cityType']
+    query="Select ROUND(avg(AQI),0) as averageAQI, EXTRACT(hour from time) as hourOfDay from dummySensorDB.\"sensorReadings\" WHERE city='"+city+"' AND cityType='"+cityType+"' AND time BETWEEN TIMESTAMP '2021-08-09 00:00:00.000000000' AND TIMESTAMP '2021-08-10 00:00:00.000000000' Group by EXTRACT(hour from time) Order by hourOfDay ASC"
+    queryresult+=mainTimestreamQueryCall(query)
+    printresult=str(queryresult)
+    return printresult
