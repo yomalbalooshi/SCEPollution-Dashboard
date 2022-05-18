@@ -11,15 +11,33 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ .DashboardDatePicker{
+  margin-bottom:10px;
+  margin-left:10px;
+  height: 30px;
+  text-align:center;
+  width:260px;
+  padding-right:20px;
+  padding-left:20px;
+  padding-top:5px;
+  padding-bottom:5px;
+  color:#DBDFEA ;
+  border-radius: 18px;
+  background-color:#3A496D ;
+  border:none;
+}
+.DashboardDatePicker:focus{
+    outline: none !important;
+}
  #comparisonFooterContent{
   width: 90%;
   z-index: 1;
   background-color: #273457;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 20px;
   }
   #comparisonFooterDiv{
-  /*position: fixed;*/
+  position: fixed;
   bottom: 0;
   height: 4rem;
   margin: auto 0;
