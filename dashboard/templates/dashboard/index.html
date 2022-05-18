@@ -29,18 +29,16 @@
         {% endblock %}
         <script type="text/javascript">
 
-          var cities = [];
           var citiestoCompare = [];
           function Add(city) {
             console.log(city);
             var city = city;
-            var i = cities.indexOf(city);
+            var i = citiestoCompare.indexOf(city);
             if (i == -1) {
-              cities.push(city);
+              citiestoCompare.push(city);
               const list = document.getElementById('comp');
               const entry = document.createElement('li');
               entry.appendChild(document.createTextNode(city));
-              citiestoCompare.push(city);
               list.appendChild(entry);
             }
             //console.log(c);
@@ -117,6 +115,12 @@
               document.getElementById("intersectionModalTimeRange").innerHTML = startDate + " - " + endDate;
 
             }
+            function closeComp()
+            {
+              citiestoCompare = [];
+              document.getElementById('comp').innerHTML = '';
+
+            }
         </script>
     </head>
     <body>
@@ -182,7 +186,7 @@
             <div id="intersectionModalCityName" class="intersectionModalCityName"></div>
               <div id="intersectionModalTimeRange" class="intersectionModalTimeRange"><p id="intersectionModalTimeRange"></p></div>
                </div>
-            <span id="intersectionModalClose" class="close">&times;</span>
+            <span id="intersectionModalClose" class="close" onClick = >&times;</span>
             <div id="aqitrafficchart"></div>
             <div id="SeeDetailsTable">
               
