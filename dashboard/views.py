@@ -310,9 +310,9 @@ def tableCreationHTML(ts_query): #Main dashboard table generation
 def res(request):
     ts_query = mainTimestreamQueryCall(cityQuery)
     result= tableCreationHTML(ts_query)
-    cityFileGeneration(ts_query)
-    tsIntersectoinQuery=mainTimestreamQueryCall(intersectionQuery)
-    intersectionFileGeneration(tsIntersectoinQuery)
+    #cityFileGeneration(ts_query)
+   # tsIntersectoinQuery=mainTimestreamQueryCall(intersectionQuery)
+   # intersectionFileGeneration(tsIntersectoinQuery)
     return HttpResponse(result)
 
 

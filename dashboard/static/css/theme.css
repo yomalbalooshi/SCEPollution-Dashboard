@@ -39,9 +39,9 @@
   }
   #comparisonFooterDiv{
   position: fixed;
-  bottom: 0;
+  bottom: 0px;
   height: 5rem;
-  margin: auto 0;
+  margin:  5px;
   display: flex;
   justify-content: center;
   width: 100%;}
