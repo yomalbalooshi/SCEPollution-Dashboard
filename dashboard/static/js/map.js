@@ -463,6 +463,8 @@ cspan.onclick = function() {
   comparisonmodal.style.display = "none";
   citiestoCompare = [];
   document.getElementById('comp').innerHTML = '';
+  document.getElementById('comparisonFooterDiv').style.display = "none";
+
 
 
 }
@@ -472,6 +474,8 @@ window.onclick = function(event) {
     citiestoCompare = [];
     comparisonmodal.style.display = "none";
     document.getElementById('comp').innerHTML = '';
+    document.getElementById('comparisonFooterDiv').style.display = "none";
+
 
 
   }
