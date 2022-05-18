@@ -117,7 +117,7 @@
     font-weight: 300;
     font-size: large;
     text-align: center;
-   }
+    overflow: auto; }
    .modal {
     display: none;  /*Hidden by default */
     position: fixed; /* Stay in place */
