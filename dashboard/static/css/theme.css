@@ -40,7 +40,7 @@
   #comparisonFooterDiv{
   position: fixed;
   bottom: 0px;
-  height: 5rem;
+  height: auto;
   margin:  5px;
   display: flex;
   justify-content: center;
