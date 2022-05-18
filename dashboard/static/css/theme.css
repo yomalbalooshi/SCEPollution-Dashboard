@@ -21,7 +21,7 @@
   #comparisonFooterDiv{
   position: fixed;
   bottom: 0;
-  height: 4rem;
+  height: 40px;
   margin: auto 0;
   display: flex;
   justify-content: center;
