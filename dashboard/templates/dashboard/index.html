@@ -107,6 +107,24 @@
               dashboards["comparisonModal2"].setParameters({CityNametype: citiestoCompare, startdatetime: startDate, enddatetime: endDate});
               console.log("Embed");
             }
+            cspan.onclick = function() {
+             comparisonmodal.style.display = "none";
+             citiestoCompare = [];
+             document.getElementById('comp').innerHTML = '';
+
+
+            }
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function(event) {
+          if (event.target == comparisonmodal) {
+          comparisonmodal.style.display = "none";
+          citiestoCompare = [];
+          document.getElementById('comp').innerHTML = '';
+
+
+    
+        }
+        }
 
             function  SeeDetailsPage(city){
               intersectionmodal.style.display = "block";
@@ -115,12 +133,7 @@
               document.getElementById("intersectionModalTimeRange").innerHTML = startDate + " - " + endDate;
 
             }
-            function closeComp()
-            {
-              citiestoCompare = [];
-              document.getElementById('comp').innerHTML = '';
-
-            }
+           
         </script>
     </head>
     <body>
@@ -186,7 +199,7 @@
             <div id="intersectionModalCityName" class="intersectionModalCityName"></div>
               <div id="intersectionModalTimeRange" class="intersectionModalTimeRange"><p id="intersectionModalTimeRange"></p></div>
                </div>
-            <span id="intersectionModalClose" class="close" onClick = >&times;</span>
+            <span id="intersectionModalClose" class="close">&times;</span>
             <div id="aqitrafficchart"></div>
             <div id="SeeDetailsTable">
               

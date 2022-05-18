@@ -458,7 +458,7 @@ window.onclick = function(event) {
   }
 }
 
-// When the user clicks on <span> (x), close the modal
+/* When the user clicks on <span> (x), close the modal
 cspan.onclick = function() {
   comparisonmodal.style.display = "none";
 }
@@ -466,8 +466,9 @@ cspan.onclick = function() {
 window.onclick = function(event) {
   if (event.target == comparisonmodal) {
     comparisonmodal.style.display = "none";
+
   }
-}
+}*/
   function getMainDashboardElements(){ //used to get Main table and GeoJSON files
     var mainDashboardCitiesTableDiv = document.getElementById('mainDashboardCitiesTable');
 	        fetch("/res",{method:'GET',mode: "no-cors",}) 
