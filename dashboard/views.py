@@ -40,6 +40,9 @@ def mainTimestreamQueryCall(query): #Used to receive timestream Query results
     ts_json= json.dumps(rqst)
     return ts_json
 
+def daterange(request):
+    if request.method == "POST":
+      daterange = request.POST['data']
 
 def doccall(request): #queryCall for documentDB, Temporary
     t=''

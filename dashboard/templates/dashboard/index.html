@@ -151,16 +151,19 @@
             endDate = end.format('YYYY/MM/DD');
            
             console.log("date");
-            //console.log(dashboards["embeddingContainerComp"]);
-
-            //for(var dashboard of  dashboards){dashboard.setParameters({startdatetime: startDate, enddatetime: endDate});}
-            //for(var dashboard of  dashboards){dashboard.setParameters({Cities: "Manama"});}
-            //dashboards["embeddingContainerAQI"].setParameters({Cities: "Manama", startdatetime: startDate, enddatetime: endDate});
-            //dashboards["embeddingContainerComp"].setParameters({Cities:[ "Manama" , "Sitra" ], startdatetime: startDate, enddatetime: endDate});
 
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-          });
-        //});
+               
+    $.ajax({
+      type: "POST",
+      url: {% url 'daterange' %},
+      data: startDate , endDate,
+      success: function(result){
+        alert("Success");
+      }
+    });
+
+        
         </script>
    <!--- Map Container --->
       <div style="background-color:#a9d4f3;">

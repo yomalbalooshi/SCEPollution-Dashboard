@@ -8,6 +8,8 @@ urlpatterns = [
     path("", views.index, name='index'),
     path('res', views.res, name='res'),
     path('doccall', views.doccall, name='doccall'),
+    path('daterange/', views.daterange, name='daterange'),
+
     #path('GeoJSONDataCreation', views.GeoJSONDataCreation, name='GeoJSONDataCreation'),
     #path('appendToGeoJSON', views.appendToGeoJSON, name='appendToGeoJSON'),
 
