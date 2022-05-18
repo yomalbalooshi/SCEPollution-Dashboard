@@ -114,6 +114,7 @@
               intersectionmodal.style.display = "block";
               console.log(city);
               dashboards["aqitrafficchart"].setParameters({CityNametype: city, startdatetime: startDate, enddatetime: endDate});
+              document.getElementById("intersectionModalTimeRange").innerHTML = startDate + " - " + endDate;
 
             }
         </script>
