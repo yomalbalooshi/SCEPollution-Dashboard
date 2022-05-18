@@ -17,12 +17,18 @@ import sys
 from pathlib import Path
 import os
 from botocore.exceptions import ClientError
+import json
+from django.shortcuts import *
+from django.template import RequestContext
+
 
 
 DB_NAME = "dummySensorDB"
 TBL_NAME = "sensorReadings"
 client = boto3.client('timestream-query', region_name='us-east-1' )
 ts_query=''
+startDate=''
+endDate=''
 tsQueryStartDate='2021-10-22'
 tsQueryEndDate='2021-10-22'
 cityQuery='Select city,  ROUND(avg(AQI),0) as averageAQI,cityType, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars from dummySensorDB."sensorReadings" where time BETWEEN TIMESTAMP \''+tsQueryStartDate+' 00:00:00.000000000\' AND TIMESTAMP \''+tsQueryEndDate+' 23:59:59.000000000\' Group by city,cityType ORDER BY averageAQI DESC'
@@ -40,9 +46,25 @@ def mainTimestreamQueryCall(query): #Used to receive timestream Query results
     ts_json= json.dumps(rqst)
     return ts_json
 
-def daterange(request):
-    if request.method == "POST":
-      daterange = request.POST['data']
+
+def date(request):
+    #response_data = {}
+    if request.method == 'POST':
+      startDate = request.POST.get("start")
+      endDate = request.POST.get("end")
+      
+      #response_data['start'] = startDate
+      #response_data['end'] = endDate
+      #return HttpResponse(
+      #      json.dumps(response_data),
+      #      content_type="application/json"
+      #  )
+    #else:
+    #    return HttpResponse(
+    #        json.dumps({"nothing to see": "this isn't happening"}),
+    #        content_type="application/json"
+    #    )
+    return render(request, "dashboard/index.html")
 
 def doccall(request): #queryCall for documentDB, Temporary
     t=''

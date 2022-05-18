@@ -138,32 +138,93 @@
 
        <span></span> 
       <!---  <div><button onClick=(mainEmbed())>Test</button> <p id="test"> </p></div>---->
-      <input type="text" name="daterange" value="" class="DashboardDatePicker"/>
-      <script>//$('input[name="daterange"]').daterangepicker();</script>
+      <form  method="post" id="dateForm">
+        {% csrf_token %}
+      <input type="text" name="daterange" value="" id="daterange" class="DashboardDatePicker"/>
+      <input type="test" value="" hidden name="start" id="start"/>
+      <input type="test" value="" hidden name="end" id="end"/>
+
+      <input type="submit" value="Apply" />
+    </form>
+      
+      <script>//$('input[name="daterange2"]').daterangepicker();</script>
       
         <script>
-          
+          $(document).ready(function(){
+            
+          $('#dateForm').on('submit', function(e){
+            e.preventDefault();
+            console.log("function");
+
+          $.ajax({
+	        method:'POST',
+	        url:'date',
+	        data:{
+          start:$('#start').val(),
+	        end:$('#end').val(),
+	        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+          }, 
+          success: function() {
+
+          alert('Data Successfully Posted');
+	
+        },
+});
+
+});
+});
+        /*  $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+        $('#dateForm').on('submit', function(event){
+
+          event.preventDefault();
+          console.log("form submitted!")  // sanity check
+          create_post();
+        });
+        function create_post() {
+        console.log("create post is working!") // sanity check
+        console.log($('#start').val())
+        $.ajax({
+        url : "date", // the endpoint
+        type : "POST", // http method
+        data : { start : $('#start').val(), end : $('#end').val()}, // data sent with the post request
+
+        // handle a successful response
+        success : function(json) {
+            $('#start').val('');
+            $('#end').val(''); // remove the value from the input
+            console.log(json); // log the returned json to the console
+            console.log("success"); // another sanity check
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+};
+      //};*/
+
+
+       
         //$(function() {
-          $('input[name="daterange"]').daterangepicker({
+         $('input[name="daterange"]').daterangepicker({
             opens: 'left'
           }, function(start, end, label) {
             startDate = start.format('YYYY/MM/DD');
             endDate = end.format('YYYY/MM/DD');
-           
+            document.getElementById("start").value = startDate;
+            document.getElementById("end").value = endDate;
+
             console.log("date");
 
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
                
-    $.ajax({
-      type: "POST",
-      url: {% url 'daterange' %},
-      data: startDate , endDate,
-      success: function(result){
-        alert("Success");
-      }
-    });
 
-  });        
+  });    
         </script>
    <!--- Map Container --->
       <div style="background-color:#a9d4f3;">
