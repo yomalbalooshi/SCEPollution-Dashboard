@@ -458,17 +458,24 @@ window.onclick = function(event) {
   }
 }
 
-/* When the user clicks on <span> (x), close the modal
+// When the user clicks on <span> (x), close the modal
 cspan.onclick = function() {
   comparisonmodal.style.display = "none";
+  citiestoCompare = [];
+  document.getElementById('comp').innerHTML = '';
+
+
 }
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == comparisonmodal) {
+    citiestoCompare = [];
     comparisonmodal.style.display = "none";
+    document.getElementById('comp').innerHTML = '';
+
 
   }
-}*/
+}
   function getMainDashboardElements(){ //used to get Main table and GeoJSON files
     var mainDashboardCitiesTableDiv = document.getElementById('mainDashboardCitiesTable');
 	        fetch("/res",{method:'GET',mode: "no-cors",}) 
