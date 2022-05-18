@@ -107,28 +107,6 @@
               dashboards["comparisonModal2"].setParameters({CityNametype: citiestoCompare, startdatetime: startDate, enddatetime: endDate});
               console.log("Embed");
             }
-            cspan.onclick = function() {
-             citiestoCompare = [];
-             document.getElementById('comp').innerHTML = '';
-             comparisonmodal.style.display = "none";
-             console.log(citiestoCompare);
-             
-             console.log(citiestoCompare);
-
-
-
-            }
-          // When the user clicks anywhere outside of the modal, close it
-          window.onclick = function(event) {
-          if (event.target == comparisonmodal) {
-          comparisonmodal.style.display = "none";
-          citiestoCompare.remove();
-          document.getElementById('comp').innerHTML = '';
-
-
-    
-        }
-        }
 
             function  SeeDetailsPage(city){
               intersectionmodal.style.display = "block";
@@ -137,7 +115,14 @@
               document.getElementById("intersectionModalTimeRange").innerHTML = startDate + " - " + endDate;
 
             }
-           
+            function closeComp()
+            {
+              citiestoCompare = [];
+              document.getElementById('comp').innerHTML = '';
+              comparisonmodal.style.display = "none";
+
+
+            }
         </script>
     </head>
     <body>
@@ -203,7 +188,7 @@
             <div id="intersectionModalCityName" class="intersectionModalCityName"></div>
               <div id="intersectionModalTimeRange" class="intersectionModalTimeRange"><p id="intersectionModalTimeRange"></p></div>
                </div>
-            <span id="intersectionModalClose" class="close">&times;</span>
+            <span id="intersectionModalClose" class="close" onClick ="closeComp()" >&times;</span>
             <div id="aqitrafficchart"></div>
             <div id="SeeDetailsTable">
               
