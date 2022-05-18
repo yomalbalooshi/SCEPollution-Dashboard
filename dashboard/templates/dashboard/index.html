@@ -108,10 +108,11 @@
               console.log("Embed");
             }
             cspan.onclick = function() {
-             comparisonmodal.style.display = "none";
-             console.log(citiestoCompare);
              citiestoCompare = [];
              document.getElementById('comp').innerHTML = '';
+             comparisonmodal.style.display = "none";
+             console.log(citiestoCompare);
+             
              console.log(citiestoCompare);
 
 
@@ -121,7 +122,7 @@
           window.onclick = function(event) {
           if (event.target == comparisonmodal) {
           comparisonmodal.style.display = "none";
-          citiestoCompare = [];
+          citiestoCompare.remove();
           document.getElementById('comp').innerHTML = '';
 
 
