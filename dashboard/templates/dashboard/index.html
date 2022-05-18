@@ -40,6 +40,11 @@
               const entry = document.createElement('li');
               entry.appendChild(document.createTextNode(city));
               list.appendChild(entry);
+              document.getElementById('comparisonFooterDiv').display = "block";
+              var heightpx = document.getElementById('comparisonFooterDiv').style.height;
+              var hight = heightpx.replace("px", "")
+              document.getElementById('comparisonFooterDiv').style.height = (parseFloat(height)+10) + "px";
+
             }
             //console.log(c);
 
@@ -231,7 +236,7 @@
 
   <!--- Comparison Footer Container
   ---->
-<div id="comparisonFooterDiv">
+<div id="comparisonFooterDiv" display = "none">
   <div id="comparisonFooterContent" >div for comparison function
     <ul id="comp">
 
