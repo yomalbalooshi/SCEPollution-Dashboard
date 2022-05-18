@@ -154,16 +154,16 @@
 
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
                
-    /*$.ajax({
+    $.ajax({
       type: "POST",
       url: {% url 'daterange' %},
       data: startDate , endDate,
       success: function(result){
         alert("Success");
       }
-    });*/
+    });
 
-        
+  });        
         </script>
    <!--- Map Container --->
       <div style="background-color:#a9d4f3;">
