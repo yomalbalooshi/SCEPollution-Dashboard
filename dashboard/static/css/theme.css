@@ -19,7 +19,7 @@
   border-radius: 4px;
   }
   #comparisonFooterDiv{
-  position: fixed;
+  /*position: fixed;*/
   bottom: 0;
   height: 4rem;
   margin: auto 0;
