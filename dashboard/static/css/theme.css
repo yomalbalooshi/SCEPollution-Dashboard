@@ -43,6 +43,7 @@
   height: auto;
   margin:  5px;
   display: flex;
+  
   justify-content: center;
   width: 100%;}
   .sdsumOfCars{
@@ -71,7 +72,7 @@
   }
    .showonmapbutton{
     display: block;
-  margin: auto;
+    margin: auto;
      background-color:#222f51 ;
       text-align: center;
      border-radius: 10px;
