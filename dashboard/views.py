@@ -17,7 +17,24 @@ import sys
 from pathlib import Path
 import os
 from botocore.exceptions import ClientError
+import json
+from flask import request
+from flask import Flask, render_template
+app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/test', methods=['POST'])
+def test():
+    output = request.get_json()
+    print(output) # This is the output that was stored in the JSON within the browser
+    print(type(output))
+    result = json.loads(output) #this converts the json output to a python dictionary
+    print(result) # Printing the new dictionary
+    print(type(result))#this shows the json converted as a python dictionary
+    return result
 
 DB_NAME = "dummySensorDB"
 TBL_NAME = "sensorReadings"
@@ -41,8 +58,8 @@ def mainTimestreamQueryCall(query): #Used to receive timestream Query results
     return ts_json
 
 def daterange(request):
-    if request.method == "POST":
-      daterange = request.POST['data']
+    print(request.POST)
+    return render(request, "home.html")
 
 def doccall(request): #queryCall for documentDB, Temporary
     t=''

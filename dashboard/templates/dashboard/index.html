@@ -3,13 +3,19 @@
     <head>
         {% load static %}
         <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js">
-          $('input[name="daterange"]').ajax({
-            url: "url",
-            type: "get",
+         /* function setGetParameter()
+          {$('input[name="daterange"]').ajax({
+            url: "daterange",
+            type: "POST",
+            data: startDate, endDate, 
             success: function(response){
-            $('#blurg').html(response).fadeIn(1500);
+              alert("Success"); 
+              console.log("sub")
+            //$('#blurg').html(response).fadeIn(1500);
                  }
-          });
+            
+
+          });}*/
         </script>
         <link rel='stylesheet' href='{% static "css/theme.css" %}'>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css">
@@ -138,11 +144,42 @@
 
        <span></span> 
       <!---  <div><button onClick=(mainEmbed())>Test</button> <p id="test"> </p></div>---->
-      <input type="text" name="daterange" value="" class="DashboardDatePicker"/>
+      <input name="daterange" value="" class="DashboardDatePicker"/>
+
+      <button type="submit" onClick="myfunction();" value = "daterange">Apply</button>
+ 
       <script>//$('input[name="daterange"]').daterangepicker();</script>
       
         <script>
-          
+
+
+function myfunction() {
+
+
+const dict_values = {startDate, endDate} //Pass the javascript variables to a dictionary.
+const s = JSON.stringify(dict_values); // Stringify converts a JavaScript object or value to a JSON string
+console.log(s); // Prints the variables to console window, which are in the JSON format
+window.alert(s)
+$.ajax({
+    url:"/test",
+    type:"POST",
+    contentType: "application/json",
+    data: JSON.stringify(s)});
+
+}
+          /*function setGetParameter(){
+           
+  
+         $.ajax({
+           type: "POST",
+           url: {% url 'daterange' %},
+          data: startDate, endDate, 
+          success: function(result){
+          alert("Success");
+          }
+          });
+           console.log("sub")
+        }*/
         //$(function() {
           $('input[name="daterange"]').daterangepicker({
             opens: 'left'
@@ -154,14 +191,14 @@
 
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
                
-    $.ajax({
+    /*$.ajax({
       type: "POST",
       url: {% url 'daterange' %},
       data: startDate , endDate,
       success: function(result){
         alert("Success");
       }
-    });
+    });*/
 
   });        
         </script>
