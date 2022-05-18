@@ -38,9 +38,9 @@
   border-radius: 20px;
   }
   #comparisonFooterDiv{
-  /*position: fixed;*/
+  position: fixed;
   bottom: 0;
-  height: 4rem;
+  height: 5rem;
   margin: auto 0;
   display: flex;
   justify-content: center;
