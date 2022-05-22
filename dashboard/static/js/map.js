@@ -29,7 +29,6 @@ src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
 href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
 
 
-
 function buttnClickPan(sensorarray,tempcord){//Panning+Zooming+Showing Overlay of intersection marker from See Details Page
 intersectionmodal.style.display = "none";
  var sarray=sensorarray;

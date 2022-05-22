@@ -20,14 +20,17 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
         <title>Dashboard </title>
         <script src="https://unpkg.com/amazon-quicksight-embedding-sdk@1.18.1/dist/quicksight-embedding-js-sdk.min.js"></script>
-   
+        <script src='{% static "js/amazon-cognito-identity.min.js" %}'></script>
+
         {% block content %}
 
         {%for u in url%}
         <p>{{u}}</p>
         {%endfor%}
         {% endblock %}
+        
         <script type="text/javascript">
+         
 
           var citiestoCompare = [];
           function Add(city) {
@@ -129,13 +132,52 @@
 
             }*/
         </script>
+
     </head>
     <body>
+      
    
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Log out</a>
+            <a class="navbar-brand" href="#" onclick="logout()">Log out</a>
         </nav>
-
+        <script type="text/javascript">
+          function setCookie(key, value, expiry) {
+          var expires = new Date();
+          expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+          document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+          }
+          
+          function getCookie(key) {
+          var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+          return keyValue ? keyValue[2] : null;
+          }
+          
+          function eraseCookie(key) {
+          var keyValue = getCookie(key);
+          setCookie(key, keyValue, '-1');
+          }
+          const urlParams = new URLSearchParams(window.location.search); 
+          const myParam = urlParams.get('id_token');
+          if(myParam!=null) {
+            setCookie('token', myParam, 1);
+          }
+          else{
+            var idToken = getCookie('token');
+            if(idToken==null)
+            {
+              window.location.replace("https://trafficpollution.auth.us-east-1.amazoncognito.com/login?client_id=kuvkf63mkr44nkcc9e8t8vhc8&response_type=token&scope=aws.cognito.signin.user.admin&redirect_uri=https://trafficpollution.hamadsuniverse.com");
+            }
+          }
+  
+          function logout(){
+            eraseCookie('token');
+            alert("logout");
+            window.location.replace("/");
+            
+  
+          }
+  
+          </script>
        <span></span> 
       <!---  <div><button onClick=(mainEmbed())>Test</button> <p id="test"> </p></div>---->
       <form  method="post" id="dateForm">
