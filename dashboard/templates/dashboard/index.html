@@ -157,7 +157,7 @@
           setCookie(key, keyValue, '-1');
           }
           const urlParams = new URLSearchParams(window.location.search); 
-          const myParam = urlParams.get('id_token');
+          const myParam = urlParams.get('access_token');
           if(myParam!=null) {
             setCookie('token', myParam, 1);
           }
@@ -168,7 +168,7 @@
               window.location.replace("https://trafficpollution.auth.us-east-1.amazoncognito.com/login?client_id=kuvkf63mkr44nkcc9e8t8vhc8&response_type=token&scope=aws.cognito.signin.user.admin&redirect_uri=https://trafficpollution.hamadsuniverse.com");
             }
           }
-  
+
           function logout(){
             eraseCookie('token');
             alert("logout");
