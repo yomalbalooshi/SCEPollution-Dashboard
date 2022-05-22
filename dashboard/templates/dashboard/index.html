@@ -165,10 +165,10 @@
             var idToken = getCookie('token');
             if(idToken==null)
             {
-              window.location.replace("https://trafficpollution.auth.us-east-1.amazoncognito.com/login?client_id=kuvkf63mkr44nkcc9e8t8vhc8&response_type=token&scope=aws.cognito.signin.user.admin&redirect_uri=https://trafficpollution.hamadsuniverse.com");
+              window.location.replace("https://trafficpollution.auth.us-east-1.amazoncognito.com/login?client_id=kuvkf63mkr44nkcc9e8t8vhc8&response_type=token&scope=aws.cognito.signin.user.admin&redirect_uri=https://trafficpollution.hamadsuniverse.com/?");
             }
           }
-
+          https://trafficpollution.hamadsuniverse.com/#access_token=ttst
           function logout(){
             eraseCookie('token');
             alert("logout");
