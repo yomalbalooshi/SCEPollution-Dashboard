@@ -31,21 +31,28 @@
     outline: none !important;
 }
  #comparisonFooterContent{
-  width: 90%;
-  z-index: 999;
+  /*width: 90%;
+  z-index: 999;*/
+  margin: auto;
+  width: 50%;
   background-color: #273457;
   text-align: center;
+  display: flex;
   border-radius: 20px;
+  justify-content: center;
   }
   #comparisonFooterDiv{
   position: fixed;
   bottom: 0px;
   height: auto;
-  margin:  0px;
+  /*margin:  0px;*/
   display: flex;
-  
+  margin: auto;
+  width: 50%;
   justify-content: center;
-  width: 100%;}
+  position: absolute;
+  }
+
   .sdsumOfCars{
     background-color: #0082ad;
     flex-grow: 1;
