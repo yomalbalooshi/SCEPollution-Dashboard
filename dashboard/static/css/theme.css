@@ -44,7 +44,7 @@
   }
 
   #comparisonFooterDiv{
-  position: fixed;
+  position:absolute;   
   bottom: 0;
   height: auto;
   /*margin:  0px;*/
@@ -52,6 +52,7 @@
   margin: auto;
   vertical-align: bottom;
   width: 100%;
+  right:0;
   justify-content: center;
   
 
