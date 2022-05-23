@@ -29,6 +29,23 @@ src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
 href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
 
 
+view =new ol.View({
+  center: ol.proj.fromLonLat([50.538699,26.180643]),
+  zoom: 11,
+  minZoom:11,
+});
+
+var source = new ol.source.XYZ({
+  url: 'https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=177eb2f425eb49b385fffa16cc32440d' });
+  map = new ol.Map({
+    view: view,
+    layers:[
+      new ol.layer.Tile({
+        source: source
+      })
+    ],
+    target: 'map'
+  }) 
 
 function buttnClickPan(sensorarray,tempcord){//Panning+Zooming+Showing Overlay of intersection marker from See Details Page
 intersectionmodal.style.display = "none";
@@ -128,7 +145,7 @@ for (let i = 0; i < seeDetailsArray.length; i++) {
       sdstring+="<td class='seeDetailsData' style='color:"+AQITextColor(Math.trunc(seeDetailsArray[i].properties.averageAQI))+"'>"+Math.trunc(seeDetailsArray[i].properties.averageAQI)+"</td>";
       sdstring+="<td class='seeDetailsData'>"+printSensorStatus(seeDetailsArray[i].properties.sensors)+"</td>";
       sdstring+="<td class='seeDetailsData'>"+Math.round(((parseFloat(seeDetailsArray[i].properties.averageWaittime)/60) + Number.EPSILON) * 100) / 100 +" Minute(s)</td>";
-      sdstring+="<td class='seeDetailsData'><div class='seeDetailsvehiclePercentageMainBar'><div class='sdsumOfBusses' style='flex-basis:"+vehiclepercdictionary['PercBus']+"%' title='Approx. "+vehiclepercdictionary['PercBus']+"% Busses'></div><div class='sdsumOfTrucks'  style='flex-basis:"+vehiclepercdictionary['PercTruck']+"%' title='Approx. "+vehiclepercdictionary['PercTruck']+"% Trucks'></div><div class='sdsumOfCars'  style='flex-basis:"+vehiclepercdictionary['PercCar']+"%' title='Approx. "+vehiclepercdictionary['PercCar']+"% Cars'></div></div></td>";
+      sdstring+="<td class='seeDetailsData'><div class='seeDetailsvehiclePercentageMainBar'><div class='sdsumOfBusses' style='flex-basis:"+vehiclepercdictionary['PercBus']+"%' title='Approx. "+vehiclepercdictionary['PercBus']+"% Busses'></div><div class='sdsumOfTrucks'  style='flex-basis:"+vehiclepercdictionary['PercTruck']+"%' data-toggle='tooltip' data-placement='top' data-trigger='hover'  title='Approx. "+vehiclepercdictionary['PercTruck']+"% Trucks'></div><div class='sdsumOfCars'  style='flex-basis:"+vehiclepercdictionary['PercCar']+"%' title='Approx. "+vehiclepercdictionary['PercCar']+"% Cars'></div></div></td>";
       sdstring+="<td class='seeDetailsData'>"+Object.keys(vehicledictionary).reduce(function(a, b){ return vehicledictionary[a] > vehicledictionary[b] ? a : b })+"</td>";
       sdstring+="<td><button class='showonmapbutton' onclick='buttnClickPan("+sJSON+",["+coordinatesarray+"])'>Show</td>";
       sdstring+="</tr>";
@@ -196,7 +213,7 @@ document.getElementById("SidePanel").style.right="5px";
 function initmap(){
   //render base map
   
-view =new ol.View({
+ view =new ol.View({
   center: ol.proj.fromLonLat([50.538699,26.180643]),
   zoom: 11,
   minZoom:11,
@@ -213,6 +230,7 @@ var source = new ol.source.XYZ({
     ],
     target: 'map'
   }) 
+
 //city source
 var citysource = new ol.source.Vector({
   'projection': map.getView().getProjection(),
@@ -261,7 +279,7 @@ var intersectionspinfunction =function(feature){
 
   var retstyle=new ol.style.Style({
     image: new ol.style.Icon(({
-      scale: [0.17, 0.17],
+      scale: [0.45, 0.45],
       src: picstring
     }))
   })
@@ -278,29 +296,11 @@ var intersectionsMarkerLayer = new ol.layer.Vector({
 map.addLayer(intersectionsMarkerLayer);
 //change style of city pin based on AQI
 var cityStyleFunction=function(feature){
-  var aqi=Number(feature.get('averageAQI'));
   var picstring;
-  if(aqi>0&&aqi<=50){
-    picstring=goodpin;
-  }
-  else if(aqi>=51&&aqi<=100){
-    picstring=moderatepin;
-  }
-  else if(aqi>=101&&aqi<=150){
-    picstring=unhealthysgpin;
-  }
-  else if(aqi>=151&&aqi<=200){
-    picstring=unhealthypin;
-  }
-  else if(aqi>=201&&aqi<=300){
-    picstring=veryunhealthypin;
-  }
-  else if(aqi>=301){
-    picstring=hazarduospin;
-  }
+    picstring=citypin;
   var retstyle=new ol.style.Style({
     image: new ol.style.Icon(({
-      scale:[.13,.13],
+      scale:[.35,.35],
       src: picstring
     }))
   })
@@ -488,10 +488,4 @@ window.onclick = function(event) {
               mainDashboardCitiesTableDiv.innerHTML = content; });
 
 } 
-function buttnClick(){ //used to test DocDB Connection
-  var mainDashboardTrialDiv = document.getElementById('mainDashboardTrialDiv');
-  fetch("/doccall",{method:'GET',mode: "no-cors",})
-  .then((response) => { return response.text(); })
-            .then((content) => { 
-              mainDashboardTrialDiv.innerHTML = content; });
-}
+
