@@ -40,7 +40,10 @@
   text-align: center;
   display: flex;
   border-radius: 20px;
+  right:0;
   justify-content: center;
+  position:absolute;   
+  bottom: 0;
   }
 
   #comparisonFooterDiv{
