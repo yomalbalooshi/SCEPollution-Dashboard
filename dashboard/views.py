@@ -235,6 +235,7 @@ def GeoJSONDataCreation(tsqueryresponse):
       j+=1
     queryDictionaryList.append(tempdic.copy())
   return queryDictionaryList
+  
 def intersectionGeoJSONAppend(tsquery):
     filename = os.path.join(settings.MEDIA_ROOT, "GeoJSON/intersections.GeoJSON") 
     f = default_storage.open(os.path.join(settings.MEDIA_ROOT, "GeoJSON/intersections.GeoJSON"), 'w+')
