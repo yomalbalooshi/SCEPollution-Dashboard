@@ -34,7 +34,8 @@
   /*width: 90%;
   z-index: 999;*/
   margin: auto;
-  width: 50%;
+  vertical-align: bottom;
+  width: 100%;
   background-color: #273457;
   text-align: center;
   display: flex;
