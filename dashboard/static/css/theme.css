@@ -298,6 +298,19 @@
      padding-left: 40px;
      padding-right: 40px;
   }
+
+  .ShowCompButton{
+    background-color:#3A496D ;
+     color:#DBDFEA ;
+     font-size: 15px;
+     font-weight: 100;
+     border: none;
+     border-radius: 18px;
+     height: 35px;
+     width: 250px;
+     padding-left: 40px;
+     padding-right: 40px;
+  }
   
    #AddToCompareButton{
      background-color:#3A496D ;
