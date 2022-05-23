@@ -49,10 +49,10 @@
   /*margin:  0px;*/
   display: flex;
   margin: auto;
-  width: 80%;
+  width: 100%;
   justify-content: center;
   position: absolute;
-  left: 40px;
+
   }
 
   .sdsumOfCars{
