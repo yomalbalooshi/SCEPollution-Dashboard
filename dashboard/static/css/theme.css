@@ -43,7 +43,7 @@
   }
   #comparisonFooterDiv{
   position: fixed;
-  bottom: 0px;
+  bottom: 0;
   height: auto;
   /*margin:  0px;*/
   display: flex;
