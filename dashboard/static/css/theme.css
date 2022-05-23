@@ -49,6 +49,7 @@
   /*margin:  0px;*/
   display: flex;
   margin: auto;
+  vertical-align: bottom;
   width: 100%;
   justify-content: center;
   
