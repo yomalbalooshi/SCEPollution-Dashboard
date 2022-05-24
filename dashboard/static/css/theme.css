@@ -40,8 +40,6 @@
   background-color: #273457;
   text-align: center;
   display: flex;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
   border-radius: 20px;
   right:0;
   justify-content: center;
