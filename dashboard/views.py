@@ -235,7 +235,7 @@ def GeoJSONDataCreation(tsqueryresponse):
       j+=1
     queryDictionaryList.append(tempdic.copy())
   return queryDictionaryList
-  
+
 def intersectionGeoJSONAppend(tsquery):
     filename = os.path.join(settings.MEDIA_ROOT, "GeoJSON/intersections.GeoJSON") 
     f = default_storage.open(os.path.join(settings.MEDIA_ROOT, "GeoJSON/intersections.GeoJSON"), 'w+')
@@ -318,7 +318,7 @@ def tableCreationHTML(ts_query): #Main dashboard table generation
        vehiclesPercArray['percOfCars']=round((float(vehiclesSumArray.get("Cars"))/float(sumOfVehicles))*100, 3)
        vehiclesPercArray['percOfTrucks']=round((float(vehiclesSumArray.get("Trucks"))/float(sumOfVehicles))*100, 3)
        vehiclesPercArray['percOfBusses']=round((float(vehiclesSumArray.get("Busses"))/float(sumOfVehicles))*100, 3)
-       jsontrial+="<td class='MainTableRowData'><div class='vehiclePercentageMainBar'><div class='sumOfBusses' style='flex-basis:"+str(vehiclesPercArray['percOfBusses'])+"%' title='Approx. "+str(vehiclesPercArray['percOfBusses'])+"% Busses'></div><div class='sumOfTrucks'  style='flex-basis:"+str(vehiclesPercArray['percOfTrucks'])+"%' title='Approx. "+str(vehiclesPercArray['percOfTrucks'])+"% Trucks'></div><div class='sumOfCars'  style='flex-basis:"+str(vehiclesPercArray['percOfCars'])+"%' title='Approx. "+str(vehiclesPercArray['percOfCars'])+"% Cars'></div></div></td>"
+       jsontrial+="<td class='MainTableRowData'><div class='vehiclePercentageMainBar'><div class='sumOfBusses vehiclepart left' style='flex-basis:"+str(vehiclesPercArray['percOfBusses'])+"%' data-tip='Approx. "+str(vehiclesPercArray['percOfBusses'])+"% Busses'></div><div class='sumOfTrucks vehiclepart left'  style='flex-basis:"+str(vehiclesPercArray['percOfTrucks'])+"%' data-tip='Approx. "+str(vehiclesPercArray['percOfTrucks'])+"% Trucks'></div><div class='sumOfCars vehiclepart left'  style='flex-basis:"+str(vehiclesPercArray['percOfCars'])+"%' data-tip='Approx. "+str(vehiclesPercArray['percOfCars'])+"% Cars'></div></div></td>"
        jsontrial+="<td class='MainTableRowData'>"+str(fin_max)+"</td>"
        jsontrial+="<td><button class='AddToCompareTableButton' value='"+city+ " - " +cityType+"' onClick='Add(value)'>Add to Compare</button></td>"
        jsontrial+="</tr>"

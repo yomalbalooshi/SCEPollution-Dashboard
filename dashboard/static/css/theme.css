@@ -11,8 +11,142 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ /* width */
+::-webkit-scrollbar {
+  width: 10px;
+  }
+  
+  
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+  background: #555; border-radius: 10px;
+  }
+  
+  
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+  background: #888; border-radius: 10px;
+  }
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+  background: #888;
+  }
+
+
+  .value:before {
+    content: attr(data-tip); /* here's the magic */
+    position:fixed;
+    transform:translateY(-50%);
+    transform:translateX(-100%);
+   z-index:5;
+    white-space: nowrap;
+    width:auto;
+    padding:12px;
+    border-radius:10px;
+    background:#323D54;
+    color: #fff;
+    text-align:center;
+    display:none; /* hide by default */
+  }
+  
+  .value:hover:before {
+    display:block;
+  }
+  
+  .value.moveleft:before {
+    /* reset defaults */
+    left:initial;
+    margin:initial;
+    
+
+  }
+  .value:after {
+    content: "";
+    position:absolute;
+    display:none;
+  }
+  .value:hover:before, .value:hover:after {
+    display:block;
+  }
+
+  #loadingscreen{
+    background-color:#1A294A;
+    width:100%;
+      height:600px;
+      position:absolute;
+    z-index:100;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+  }
+  .loader {
+    border: 7px solid #f3f3f3; /* Light grey */
+    z-index:100;
+    border-top: 7px solid #2654BA; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 1.5s linear infinite;
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+  
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .vehiclepart {
+    position:relative; /* making the .tooltip span a container for the tooltip text */
+   
+  }
+  
+  .vehiclepart:before {
+    content: attr(data-tip); /* here's the magic */
+    position:absolute;
+    transform:translateY(-50%);
+   z-index:1;
+    white-space: nowrap;
+    width:auto;
+    padding:12px;
+    border-radius:10px;
+    background:#323D54;
+    color: #fff;
+    text-align:center;
+  top:45px;
+    display:none; /* hide by default */
+  }
+  
+  .vehiclepart:hover:before {
+    display:block;
+  }
+  
+  .vehiclepart.left:before {
+    /* reset defaults */
+    left:initial;
+    margin:initial;
+  
+    /* set new values */
+    
+   
+  }
+  .vehiclepart:after {
+    content: "";
+    position:absolute;
+    display:none;
+  }
+  .vehiclepart:hover:before, .vehiclepart:hover:after {
+    display:block;
+  }
+      
+
  #timeRangeFormDiv{
-  padding: auto;
+  margin-bottom: 2%;
   }
   #timeRangeLabel{
     color: #DBDFEA;
@@ -20,7 +154,10 @@
     font-weight: 200;
     margin-left:5px;
   }
-  
+  #daterange{
+    cursor: pointer;
+  }
+
  #submitDateButton{
  outline: none !important;
  background-color: green;
@@ -52,15 +189,12 @@
   .DashboardDatePicker{
   font-weight: 100;
   letter-spacing: 2px;
-   margin-bottom:10px;
    margin-left:10px;
    height: 35px;
    text-align:center;
    width:275px;
    padding-right:20px;
    padding-left:20px;
- 
-   padding-bottom:5px;
    color:#DBDFEA ;
    background-color:rgba(79, 90, 112,0.5);
    border:none;
@@ -160,21 +294,18 @@
     position: relative;
     border-collapse: collapse;
     border-radius: 10px;
-    top:90px; 
     width: 830px;
     margin: 4%;
  
   }
   #aqitrafficchart{
-   width: 700px; /* Could be more or less, depending on screen size */
-   height: 400px;
+   width: 100%; /* Could be more or less, depending on screen size */
+  
    position: relative;
-   top: 80px;
-   left:100px;
-   background-color:#3A496D;
    font-weight: 300;
    font-size: large;
    text-align: center;
+   overflow: auto;
    padding: 10%;
   }
   .modal {
@@ -194,14 +325,13 @@
  .modal-content {
    background-color:#151E38;
    position: fixed; 
-   top: 70px;
+   top: 10%;
    overflow: auto;
-   margin-left: 18%;
-   margin-right: 18%;/* 15% from the top and centered */
- 
+   margin-left: 10%;
+   margin-right: 10%;/* 15% from the top and centered */
    border-radius: 2%;
-   width: 900px; /* Could be more or less, depending on screen size */
-   height: 700px;
+   width: 80%; /* Could be more or less, depending on screen size */
+   height: 80%;
  }
  
  /* The Close Button */
@@ -214,6 +344,7 @@
    float: right;
    font-size: 28px;
    font-weight: bold;
+   cursor:pointer;
  }
  
  
@@ -228,6 +359,7 @@
  height:10px; 
  }
   .circle{
+    cursor: pointer;
    position:absolute;
    padding-left: 10px;
    width:60px;
@@ -250,6 +382,7 @@
      font-weight: 100;
      color: #DBDFEA;
      font-size: 15px;
+     cursor: pointer;
  
   }
   .sumOfCars{
@@ -4704,7 +4837,7 @@
     position: relative;
   height:48px;
   vertical-align: middle;
-    margin-bottom: 2rem;
+    margin-bottom: 10px;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }

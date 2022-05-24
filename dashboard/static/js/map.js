@@ -145,7 +145,7 @@ for (let i = 0; i < seeDetailsArray.length; i++) {
       sdstring+="<td class='seeDetailsData' style='color:"+AQITextColor(Math.trunc(seeDetailsArray[i].properties.averageAQI))+"'>"+Math.trunc(seeDetailsArray[i].properties.averageAQI)+"</td>";
       sdstring+="<td class='seeDetailsData'>"+printSensorStatus(seeDetailsArray[i].properties.sensors)+"</td>";
       sdstring+="<td class='seeDetailsData'>"+Math.round(((parseFloat(seeDetailsArray[i].properties.averageWaittime)/60) + Number.EPSILON) * 100) / 100 +" Minute(s)</td>";
-      sdstring+="<td class='seeDetailsData'><div class='seeDetailsvehiclePercentageMainBar'><div class='sdsumOfBusses' style='flex-basis:"+vehiclepercdictionary['PercBus']+"%' title='Approx. "+vehiclepercdictionary['PercBus']+"% Busses'></div><div class='sdsumOfTrucks'  style='flex-basis:"+vehiclepercdictionary['PercTruck']+"%' title='Approx. "+vehiclepercdictionary['PercTruck']+"% Trucks'></div><div class='sdsumOfCars'  style='flex-basis:"+vehiclepercdictionary['PercCar']+"%' title='Approx. "+vehiclepercdictionary['PercCar']+"% Cars'></div></div></td>";
+      sdstring+="<td class='seeDetailsData'><div class='seeDetailsvehiclePercentageMainBar'><div class='sdsumOfBusses vehiclepart left' style='flex-basis:"+vehiclepercdictionary['PercBus']+"%' data-tip='Approx. "+vehiclepercdictionary['PercBus']+"% Busses'></div><div class='sdsumOfTrucks vehiclepart left'  style='flex-basis:"+vehiclepercdictionary['PercTruck']+"%' data-tip='Approx. "+vehiclepercdictionary['PercTruck']+"% Trucks'></div><div class='sdsumOfCars vehiclepart left'  style='flex-basis:"+vehiclepercdictionary['PercCar']+"%' data-tip='Approx. "+vehiclepercdictionary['PercCar']+"% Cars'></div></div></td>";
       sdstring+="<td class='seeDetailsData'>"+Object.keys(vehicledictionary).reduce(function(a, b){ return vehicledictionary[a] > vehicledictionary[b] ? a : b })+"</td>";
       sdstring+="<td><button class='showonmapbutton' onclick='buttnClickPan("+sJSON+",["+coordinatesarray+"])'>Show</td>";
       sdstring+="</tr>";
@@ -204,9 +204,11 @@ function showOverlaypop(featuresensorsarray,coord){
 
 function hideSidePanel(){
   document.getElementById("SidePanel").style.right="-350px";
+  document.getElementById("SidePanel").style.display="none";
+
 }
 function showSidePanel(){
-  document.getElementById("SidePanel").style.visibility="visible";
+  document.getElementById("SidePanel").style.display="block";
 document.getElementById("SidePanel").style.right="5px";
   }
 
@@ -379,7 +381,7 @@ function GenerateAQIGraph(AQIList){
     barHeight=(Number(AQIList[i]['averageAQI'])/500)*100;
     barcolor=AQITextColor(Number(AQIList[i]['averageAQI']));
     barhourstring=AQIList[i]['hourOfDay']+":00:00 and "+AQIList[i]['hourOfDay']+":59:59";
-    renderstring+='<div class="singleBar"><div class="bar"><div class="value" style="height:'+barHeight+'%; background-color:'+barcolor+';" title="Average AQI between '+barhourstring+" is "+Number(AQIList[i]['averageAQI'])+'""></div></div></div>';
+    renderstring+='<div class="singleBar"><div class="bar"><div class="value moveleft" style="height:'+barHeight+'%; background-color:'+barcolor+';" data-tip="Average AQI between '+barhourstring+" is "+Number(AQIList[i]['averageAQI'])+'""></div></div></div>';
     console.log(barHeight);
   }
   return renderstring;
