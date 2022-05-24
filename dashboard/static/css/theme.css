@@ -71,9 +71,9 @@
     outline: none;
     font-size: 15px;
   }
-  .active, .collapsible:hover {
+  /*.active, .collapsible:hover {
     background-color: #ccc;
-  }
+  }*/
   
   #title_bar{
     height: 25px;
