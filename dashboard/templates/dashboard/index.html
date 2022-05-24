@@ -47,12 +47,13 @@
             if (i == -1) {
               citiestoCompare.push(city);
               var type = city.slice(-3);
+              city = city.slice(0,-4)
               var cityFinal;
               if(type == "ind")
               {
-                cityFinal = city.concat("Residential")
+                cityFinal = city.concat("Industrial")
               }
-              else{cityFinal = city.concat("Industrial")}
+              else{cityFinal = city.concat("Residential")}
               const list = document.getElementById('comp');
               const entry = document.createElement('li');
               entry.appendChild(document.createTextNode(cityFinal));
