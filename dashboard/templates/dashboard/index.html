@@ -404,12 +404,23 @@ for (i = 0; i < coll.length; i++) {
     }
   });
 }
+function minimize() {
+    this.classList.toggle("active");
+    console.log("Clicked")
+    var content = document.getElementById("comparisonFooterContent");
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  }
+
 
 </script>
 <div id="comparisonFooterDiv" name="Default options"  display = "none" style ="width: 100%;" >
   
   <div id="title_bar" style ="width: 100%;">
-    <button style ="display: flex;position:absolute; right:3px; width:140px;height:30px;" class="collapsible">-</button><p>Cities to Compare</p> 
+    <button style ="display: flex;position:absolute; right:3px; width:140px;height:30px;" class="collapsible" onclick="minimize()">-</button><p>Cities to Compare</p> 
   <br /><br /><br />
   </div>
   <div id="comparisonFooterContent"  style ="width: 100%;">
