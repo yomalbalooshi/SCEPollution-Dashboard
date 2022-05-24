@@ -40,7 +40,7 @@
   background-color: #273457;
   text-align: center;
   display: flex;
-  border-radius: 20px;
+  /*border-radius: 20px;*/
   right:0;
   justify-content: center;
   overflow: hidden; 
