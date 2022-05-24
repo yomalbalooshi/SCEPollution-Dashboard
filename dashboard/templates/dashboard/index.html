@@ -383,19 +383,34 @@
 
 </script>-->
 <script>
-  minMaxClose('comparisonFooterDiv');
+ /* minMaxClose('comparisonFooterDiv');
 
 let options1 = {
   close: false
 }
-//minMaxClose('element1', options1);
+//minMaxClose('element1', options1);*/
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
 </script>
 <div id="comparisonFooterDiv" name="Default options"  display = "none" style ="width: 100%;" >
   
-  <!---<div id="title_bar" style ="width: 100%;">
-    <div id="button">-</div><p>Cities to Compare</p> 
+  <div id="title_bar" style ="width: 100%;">
+    <div id="button" style ="right: 5px;" class="collapsible">-</div><p>Cities to Compare</p> 
   <br /><br /><br />
-  </div>-->
+  </div>
   <div id="comparisonFooterContent"  style ="width: 100%;">
     <ul style="list-style: none;" id="comp"></ul>
 

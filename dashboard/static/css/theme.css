@@ -43,7 +43,7 @@
   border-radius: 20px;
   right:0;
   justify-content: center;
-  
+  overflow: hidden;  
   }
 
   #comparisonFooterDiv{
@@ -61,6 +61,21 @@
   
 
   }
+  .collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+  .active, .collapsible:hover {
+    background-color: #ccc;
+  }
+  
   #title_bar{
     height: 25px;
     width: 100%;
