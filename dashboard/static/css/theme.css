@@ -41,7 +41,6 @@
   display: flex;
   border-radius: 20px;
   right:0;
-  height: 70px;
   justify-content: center;
   
   }
@@ -49,7 +48,7 @@
   #comparisonFooterDiv{
   position:fixed;   
   bottom: 0;
-  height: 70px;
+  height: 50px;
   /*margin:  0px;*/
   display: flex;
   margin: auto;
