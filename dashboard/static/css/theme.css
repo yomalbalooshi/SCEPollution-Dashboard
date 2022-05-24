@@ -67,18 +67,19 @@
   #title_bar
   {
     text-align: center;
+    margin: 15px;
   }
   .collapsible {
     /*color: #eee;*/
     background-color:#3A496D ;
     color:#DBDFEA ;
     cursor: pointer;
-    padding: 10px;
+    padding: 0px;
     width: 100%;
     border: none;
     text-align: left;
     outline: none;
-    font-size: 40px;
+    font-size: 20px;
   }
   /*.active, .collapsible:hover {
     background-color: #ccc;
