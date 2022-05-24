@@ -48,7 +48,7 @@
   #comparisonFooterDiv{
   position:fixed;   
   bottom: 0;
-  height: auto;
+  height: 70px;
   /*margin:  0px;*/
   display: flex;
   margin: auto;

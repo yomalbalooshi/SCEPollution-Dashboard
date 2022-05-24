@@ -45,8 +45,8 @@
               list.appendChild(entry);
               document.getElementById('comparisonFooterDiv').style.display = "block";
               var heightpx = document.getElementById('comparisonFooterDiv').style.height;
-              var height = heightpx.replace("rem", "")
-              document.getElementById('comparisonFooterDiv').style.height = (parseFloat(height)+10) + "rem";
+              var height = heightpx.replace("px", "")
+              document.getElementById('comparisonFooterDiv').style.height = (parseFloat(height)+50) + "px";
 
             }
             //console.log(c);
@@ -329,7 +329,7 @@
            <!---<span class="overlay-text" id="FeatureCityID"></span><br>
            <span class="overlay-text" id="FeatureIntersectionID"></span><br>
        ---></div>
-       <button id="comparsionButton" class='AddToCompareTableButton' style ="width: 250px;" onClick="showComparisonModal()">show Comparison Modal</button>
+       <!--<button id="comparsionButton" class='AddToCompareTableButton' style ="width: 250px;" onClick="showComparisonModal()">show Comparison Modal</button>-->
        <button id="pan-to-london" onclick="buttnClickPan()">Pan to London</button>
        <button onClick="buttnClick()">DocDB Call</button>
    
@@ -343,14 +343,14 @@
 
   <!--- Comparison Footer Container
   ---->
-<div id="comparisonFooterDiv" display = "none" style ="width: 100%;bottom:0;">
-  <div id="comparisonFooterContent"  style ="width: 100%;bottom:0;">
+<div id="comparisonFooterDiv" display = "none" style ="width: 100%;">
+  <div id="comparisonFooterContent"  style ="width: 100%;">
     <ul style="list-style: none;" id="comp"></ul>
 
-    <!---<button id="comparsionButton" class='AddToCompareTableButton' style ="width: 250px;bottom:50px;display: flex; " onClick="showComparisonModal()">show Comparison Modal</button>
-    -->
+    <button id="comparsionButton" class='AddToCompareTableButton' style ="width: 250px;bottom:50px;display: flex;bottom:0; position:absolute;" onClick="showComparisonModal()">show Comparison Modal</button>
+   <!---
     <button id="comparsionButton"  class='AddToCompareTableButton' style ="width: 250px;position:absolute;bottom:0;right:0; " onClick="showComparisonModal()">show Comparison Modal</button>
-
+ -->
 
     
   </div>
