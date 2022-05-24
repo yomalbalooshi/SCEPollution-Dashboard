@@ -2,7 +2,9 @@
 <html>
     <head>
         {% load static %}
+
         <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js">
+
           $('input[name="daterange"]').ajax({
             url: "url",
             type: "get",
@@ -104,6 +106,7 @@
               document.getElementById("intersectionModalTimeRange").innerHTML = startDate + " - " + endDate;
 
             }
+            window.onload=function(){$('#loadingscreen').hide();}
             /*function closeComp()
             {
               citiestoCompare = [];
@@ -300,10 +303,13 @@
      
     function initpage(){
       hideSidePanel();
+      $('#loadingscreen').show();
     $('#mainDashboardCitiesTable').empty();
     $('#map').empty();
     initmap();
     getMainDashboardElements();
+    $('#loadingscreen').hide();
+    
     }
    
         var intersectionfile = "{% get_media_prefix %}GeoJSON/intersections.GeoJSON";
