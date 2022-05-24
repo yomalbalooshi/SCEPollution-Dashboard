@@ -11,6 +11,7 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ 
  .DashboardDatePicker{
   margin-bottom:10px;
   margin-left:10px;
@@ -51,7 +52,7 @@
   position:fixed;   
   bottom: 0;
   height: auto;
-  cursor: pointer;
+  
   /*margin:  0px;*/
   display: flex;
   margin: auto;
