@@ -411,7 +411,7 @@ function minimize() {
     var content = document.getElementById("comparisonFooterContent");
     if (content.style.display === "block") {
       content.style.display = "none";
-      document.getElementsByClassName("collapsible").innerText = "^"
+      document.getElementsById("symbol").innerText = "^"
     } else {
       content.style.display = "block";
     }
@@ -422,7 +422,7 @@ function minimize() {
 <div id="comparisonFooterDiv" name="Default options"  display = "none" style ="width: 100%;" >
   
   <div id="title_bar" style ="height: 40px;">
-    <input type="button" style ="display: flex;position:absolute; right:3px; width:20px;height:30px;" class="collapsible" onclick="minimize()" value="˅"></input><p>Cities to Compare</p> 
+    <button style ="display: flex;position:absolute; right:3px; width:20px;height:30px;" class="collapsible" onclick="minimize()"><p id="symbol">˅</p></button><p>Cities to Compare</p> 
   <br /><br /><br />
   </div>
   <div id="comparisonFooterContent"  style ="width: 100%;">
