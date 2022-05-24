@@ -29,8 +29,9 @@ client = boto3.client('timestream-query', region_name='us-east-1' )
 ts_query=''
 startDate=''
 endDate=''
-tsQueryStartDate='2021-10-22'
-tsQueryEndDate='2021-10-22'
+tsQueryStartDate=''
+tsQueryEndDate=''
+timestreamtableresult=''
 cityQuery='Select city,  ROUND(avg(AQI),0) as averageAQI,cityType, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars from dummySensorDB."sensorReadings" where time BETWEEN TIMESTAMP \''+tsQueryStartDate+' 00:00:00.000000000\' AND TIMESTAMP \''+tsQueryEndDate+' 23:59:59.000000000\' Group by city,cityType ORDER BY averageAQI DESC'
 intersectionQuery='Select city, cityType, ROUND(avg(AQI),0) as averageAQI, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars,intersectionId from dummySensorDB."sensorReadings" where time BETWEEN TIMESTAMP \''+tsQueryStartDate+' 00:00:00.000000000\' AND TIMESTAMP \''+tsQueryEndDate+' 23:59:59.000000000\'  Group by city,intersectionId,cityType'
 
@@ -46,13 +47,31 @@ def mainTimestreamQueryCall(query): #Used to receive timestream Query results
     ts_json= json.dumps(rqst)
     return ts_json
 
-
+def datetimeconvert(userDate):
+    newDate = datetime.datetime.strptime(userDate, "%Y/%m/%d").strftime("%Y-%m-%d")
+    return newDate
+    
 def date(request):
     #response_data = {}
     if request.method == 'POST':
       startDate = request.POST.get("start")
       endDate = request.POST.get("end")
-      
+      global tsQueryStartDate
+      global tsQueryEndDate
+      global cityQuery
+      global intersectionQuery
+      global ts_query
+      global timestreamtableresult
+      tsQueryStartDate=datetimeconvert(startDate)
+      tsQueryEndDate=datetimeconvert(endDate)
+      cityQuery='Select city,  ROUND(avg(AQI),0) as averageAQI,cityType, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars from dummySensorDB."sensorReadings" where time BETWEEN TIMESTAMP \''+tsQueryStartDate+' 00:00:00.000000000\' AND TIMESTAMP \''+tsQueryEndDate+' 23:59:59.000000000\' Group by city,cityType ORDER BY averageAQI DESC'
+      intersectionQuery='Select city, cityType, ROUND(avg(AQI),0) as averageAQI, ROUND(avg(waittime),0) as averageWaittime, sum(cars+busses+trucks) as sumOfVehicles, sum(busses) as sumOfBusses,sum(trucks) as sumOfTrucks,sum(cars) as sumOfCars,intersectionId from dummySensorDB."sensorReadings" where time BETWEEN TIMESTAMP \''+tsQueryStartDate+' 00:00:00.000000000\' AND TIMESTAMP \''+tsQueryEndDate+' 23:59:59.000000000\'  Group by city,intersectionId,cityType'
+      ts_query = mainTimestreamQueryCall(cityQuery)
+      cityFileGeneration(ts_query)
+      timestreamtableresult= tableCreationHTML(ts_query)
+      tsIntersectoinQuery=mainTimestreamQueryCall(intersectionQuery)
+      intersectionFileGeneration(tsIntersectoinQuery)
+      return render(request, "dashboard/index.html")
       #response_data['start'] = startDate
       #response_data['end'] = endDate
       #return HttpResponse(
@@ -64,7 +83,6 @@ def date(request):
     #        json.dumps({"nothing to see": "this isn't happening"}),
     #        content_type="application/json"
     #    )
-    return render(request, "dashboard/index.html")
 
 def doccall(request): #queryCall for documentDB, Temporary
     t=''
@@ -217,6 +235,7 @@ def GeoJSONDataCreation(tsqueryresponse):
       j+=1
     queryDictionaryList.append(tempdic.copy())
   return queryDictionaryList
+
 def intersectionGeoJSONAppend(tsquery):
     filename = os.path.join(settings.MEDIA_ROOT, "GeoJSON/intersections.GeoJSON") 
     f = default_storage.open(os.path.join(settings.MEDIA_ROOT, "GeoJSON/intersections.GeoJSON"), 'w+')
@@ -299,7 +318,7 @@ def tableCreationHTML(ts_query): #Main dashboard table generation
        vehiclesPercArray['percOfCars']=round((float(vehiclesSumArray.get("Cars"))/float(sumOfVehicles))*100, 3)
        vehiclesPercArray['percOfTrucks']=round((float(vehiclesSumArray.get("Trucks"))/float(sumOfVehicles))*100, 3)
        vehiclesPercArray['percOfBusses']=round((float(vehiclesSumArray.get("Busses"))/float(sumOfVehicles))*100, 3)
-       jsontrial+="<td class='MainTableRowData'><div class='vehiclePercentageMainBar'><div class='sumOfBusses' style='flex-basis:"+str(vehiclesPercArray['percOfBusses'])+"%' title='Approx. "+str(vehiclesPercArray['percOfBusses'])+"% Busses'></div><div class='sumOfTrucks'  style='flex-basis:"+str(vehiclesPercArray['percOfTrucks'])+"%' title='Approx. "+str(vehiclesPercArray['percOfTrucks'])+"% Trucks'></div><div class='sumOfCars'  style='flex-basis:"+str(vehiclesPercArray['percOfCars'])+"%' title='Approx. "+str(vehiclesPercArray['percOfCars'])+"% Cars'></div></div></td>"
+       jsontrial+="<td class='MainTableRowData'><div class='vehiclePercentageMainBar'><div class='sumOfBusses vehiclepart left' style='flex-basis:"+str(vehiclesPercArray['percOfBusses'])+"%' data-tip='Approx. "+str(vehiclesPercArray['percOfBusses'])+"% Busses'></div><div class='sumOfTrucks vehiclepart left'  style='flex-basis:"+str(vehiclesPercArray['percOfTrucks'])+"%' data-tip='Approx. "+str(vehiclesPercArray['percOfTrucks'])+"% Trucks'></div><div class='sumOfCars vehiclepart left'  style='flex-basis:"+str(vehiclesPercArray['percOfCars'])+"%' data-tip='Approx. "+str(vehiclesPercArray['percOfCars'])+"% Cars'></div></div></td>"
        jsontrial+="<td class='MainTableRowData'>"+str(fin_max)+"</td>"
        jsontrial+="<td><button class='AddToCompareTableButton' value='"+city+ " - " +cityType+"' onClick='Add(value)'>Add to Compare</button></td>"
        jsontrial+="</tr>"
@@ -308,12 +327,8 @@ def tableCreationHTML(ts_query): #Main dashboard table generation
   return jsontrial
 
 def res(request):
-    ts_query = mainTimestreamQueryCall(cityQuery)
-    result= tableCreationHTML(ts_query)
-    cityFileGeneration(ts_query)
-    tsIntersectoinQuery=mainTimestreamQueryCall(intersectionQuery)
-    intersectionFileGeneration(tsIntersectoinQuery)
-    return HttpResponse(result)
+    global timestreamtableresult
+    return HttpResponse(timestreamtableresult)
 
 
 # Create QuickSight and STS clients
@@ -338,11 +353,13 @@ def generateEmbedUrlForAnonymousUser(accountId, quicksightNamespace, authorizedR
 
     
 def AQITimestreamrequest(nameTypeDict):
+    global tsQueryStartDate
+    global tsQueryEndDate
     printresult=''
     queryresult=''
     city=nameTypeDict['city']
     cityType=nameTypeDict['cityType']
-    query="Select ROUND(avg(AQI),0) as averageAQI, EXTRACT(hour from time) as hourOfDay from dummySensorDB.\"sensorReadings\" WHERE city='"+city+"' AND cityType='"+cityType+"' AND time BETWEEN TIMESTAMP '2021-08-09 00:00:00.000000000' AND TIMESTAMP '2021-08-10 00:00:00.000000000' Group by EXTRACT(hour from time) Order by hourOfDay ASC"
+    query="Select ROUND(avg(AQI),0) as averageAQI, EXTRACT(hour from time) as hourOfDay from dummySensorDB.\"sensorReadings\" WHERE city='"+city+"' AND cityType='"+cityType+"' AND time BETWEEN TIMESTAMP '"+tsQueryStartDate+" 00:00:00.000000000' AND TIMESTAMP '"+tsQueryEndDate+" 00:00:00.000000000' Group by EXTRACT(hour from time) Order by hourOfDay ASC"
     queryresult+=mainTimestreamQueryCall(query)
-    printresult=str(queryresult)
+    printresult=str(queryresult+startDate+endDate)
     return printresult

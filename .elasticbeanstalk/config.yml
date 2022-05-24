@@ -1,8 +1,8 @@
 branch-defaults:
   default:
-    environment: Sampleapplication-env-1
+    environment: Testapp-env
 global:
-  application_name: sampleApplication
+  application_name: testapp
   branch: null
   default_ec2_keyname: aws-eb
   default_platform: Python 3.9

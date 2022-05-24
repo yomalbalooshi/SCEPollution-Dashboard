@@ -2,7 +2,9 @@
 <html style="overflow-y: scroll; overflow-x: hidden;">
     <head>
         {% load static %}
+
         <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js">
+
           $('input[name="daterange"]').ajax({
             url: "url",
             type: "get",
@@ -80,23 +82,7 @@
               embeddingContainerComp:""
             };
             var QuickSightEmbedding //= require("amazon-quicksight-embedding-sdk");
-            function mainEmbed(){ 
-              EmbedAQI();
-              EmbedComp();
-              console.log("Embed Main");
-            }
-            function EmbedAQI()
-            {
-            {% block content1 %}
-            embedDashboard("{{AqiDashboard.url}}","{{AqiDashboard.con}}");
-            {% endblock %}
-            }
-            function EmbedComp()
-            {
-            {% block content2 %}
-            embedDashboard("{{CompDashboard.url}}","{{CompDashboard.con}}");
-            {% endblock %}
-            }
+       
             function embedDashboard(url,container) {
 
              
@@ -138,6 +124,7 @@
               document.getElementById("intersectionModalTimeRange").innerHTML = startDate + " - " + endDate;
 
             }
+            window.onload=function(){$('#loadingscreen').hide();}
             /*function closeComp()
             {
               citiestoCompare = [];
@@ -152,8 +139,9 @@
     <body scroll="yes" style="overflow:visible">
       
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#" onclick="logout()">Log out</a>
-        </nav>
+<img src="{% static 'images/MAQIASLogoWeb.svg' %}" id="navBarImg"></img>            
+<a class="navbar-brand" href="#" onclick="logout()">Log out</a>
+          </nav>
         <script type="text/javascript">
           function setCookie(key, value, expiry) {
           var expires = new Date();
@@ -195,15 +183,17 @@
           </script>
        <span></span> 
       <!---  <div><button onClick=(mainEmbed())>Test</button> <p id="test"> </p></div>---->
+     <div id="timeRangeFormDiv">
       <form  method="post" id="dateForm">
         {% csrf_token %}
+     
+        <label for="daterange" id="timeRangeLabel" >Display Time Range:</label>
       <input type="text" name="daterange" value="" id="daterange" class="DashboardDatePicker"/>
       <input type="test" value="" hidden name="start" id="start"/>
       <input type="test" value="" hidden name="end" id="end"/>
-
-      <input type="submit" value="Apply" />
+      <input type="submit" value="Apply" id="submitDateButton"/>
     </form>
-      
+      </div>
       <script>//$('input[name="daterange2"]').daterangepicker();</script>
       
         <script>
@@ -211,6 +201,7 @@
             
           $('#dateForm').on('submit', function(e){
             e.preventDefault();
+            $('#loadingscreen').show();
             console.log("function");
 
           $.ajax({
@@ -223,7 +214,7 @@
           }, 
           success: function() {
 
-          alert('Data Successfully Posted');
+          initpage();
 	
         },
 });
@@ -285,7 +276,9 @@
         </script>
    <!--- Map Container --->
       <div style="background-color:#a9d4f3;">
-         <div id='map' class="map">
+        <div id="loadingscreen">
+          <div class="loader"></div></div>
+         <div id='map' class='map'>
     </div></div>
 
     <!--- Side Panel Skeleton ---->
@@ -344,12 +337,7 @@
            <!---<span class="overlay-text" id="FeatureCityID"></span><br>
            <span class="overlay-text" id="FeatureIntersectionID"></span><br>
        ---></div>
-       <!---<button id="comparsionButton" class='AddToCompareTableButton' style ="width: 250px;" onClick="showComparisonModal()">show Comparison Modal</button>---->
-       <button id="pan-to-london" onclick="buttnClickPan()">Pan to London</button>
-       <button onClick="buttnClick()">DocDB Call</button>
-   
-   <div id="trialId">
-      </div>
+     
    
   <!---Main Dashboard Table Div---->     
       <div id="mainDashboardCitiesTable">
@@ -454,22 +442,24 @@ function minimize() {
        <script src='{% static "js/map.js" %}'></script>
        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
        <script>
-       window.onload=initpage;
+     
     function initpage(){
-    getMainDashboardElements();
+      hideSidePanel();
+    $('#mainDashboardCitiesTable').empty();
+    $('#map').empty();
     initmap();
-    mainEmbed();}
+    getMainDashboardElements();
+    $('#loadingscreen').hide();
+    
+    }
+   
         var intersectionfile = "{% get_media_prefix %}GeoJSON/intersections.GeoJSON";
         var cityfile = "{% get_media_prefix %}GeoJSON/cities.GeoJSON";
         var intersectionspinonline = "{% static 'images/needlepin.svg' %}"; 
         var intersectionspinoffline = "{% static 'images/needlepinoffline.svg' %}";      
-        var goodpin = "{% static 'images/good.svg' %}";
-        var unhealthysgpin = "{% static 'images/unhealthysg.svg' %}";
-        var unhealthypin = "{% static 'images/unhealthy.svg' %}";     
-        var veryunhealthypin = "{% static 'images/veryunhealthy.svg' %}";
-        var hazarduospin = "{% static 'images/Hazarduos.svg' %}";
-        var moderatepin = "{% static 'images/moderate.svg' %}";
+        var citypin = "{% static 'images/unhealthy.svg' %}";
         document.getElementById('comparisonFooterDiv').style.display = "none";
+
 
         </script> 
 
