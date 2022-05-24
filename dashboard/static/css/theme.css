@@ -43,7 +43,8 @@
   border-radius: 20px;
   right:0;
   justify-content: center;
-  overflow: hidden;  
+  overflow: hidden; 
+  transition: all 0.35s ease;
   }
 
   #comparisonFooterDiv{
@@ -56,13 +57,15 @@
   margin: auto;
   vertical-align: bottom;
   width: 100%;
-  
+  transition: all 0.35s ease;
   justify-content: center;
   
 
   }
   .collapsible {
-    color: #eee;
+    /*color: #eee;*/
+    background-color:#3A496D ;
+    color:#DBDFEA ;
     cursor: pointer;
     padding: 18px;
     width: 100%;
