@@ -46,6 +46,13 @@
             var i = citiestoCompare.indexOf(city);
             if (i == -1) {
               citiestoCompare.push(city);
+              var type = city.slice(-3);
+              var cityFinal;
+              if(type == "ind")
+              {
+                cityFinal = city.concat("Residential")
+              }
+              else{cityFinal = city.concat(Industrial)}
               const list = document.getElementById('comp');
               const entry = document.createElement('li');
               entry.appendChild(document.createTextNode(city));
