@@ -343,7 +343,22 @@
 
   <!--- Comparison Footer Container
   ---->
-<div id="comparisonFooterDiv" display = "none" style ="width: 100%;">
+  <script>
+   $("#button").click(function(){
+    if($(this).html() == "-"){
+        $(this).html("+");
+    }
+    else{
+        $(this).html("-");
+    }
+    $("#box").slideToggle();
+}); 
+  </script>
+<div id="comparisonFooterDiv" display = "none" style ="width: 100%;" >
+  <div id="title_bar">
+    <p>Cities to Compare</p> 
+    <div id="button">-</div>
+  </div>
   <div id="comparisonFooterContent"  style ="width: 100%;">
     <ul style="list-style: none;" id="comp"></ul>
 
