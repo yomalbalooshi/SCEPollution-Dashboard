@@ -49,6 +49,7 @@
   position:fixed;   
   bottom: 0;
   height: auto;
+  cursor: pointer;
   /*margin:  0px;*/
   display: flex;
   margin: auto;

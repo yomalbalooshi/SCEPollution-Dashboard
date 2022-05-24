@@ -357,12 +357,29 @@
     $("#comparisonFooterContent").slideToggle();
 }); 
   </script>
+
+<script>
+  var coll = document.getElementsById("comparisonFooterDiv");
+  var i;
+  for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.getElementById("comparisonFooterContent")
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+
+</script>
 <div id="comparisonFooterDiv" display = "none" style ="width: 100%;" >
   
-  <div id="title_bar" style ="width: 100%;">
+  <!---<div id="title_bar" style ="width: 100%;">
     <div id="button">-</div><p>Cities to Compare</p> 
   <br /><br /><br />
-  </div>
+  </div>-->
   <div id="comparisonFooterContent"  style ="width: 100%;">
     <ul style="list-style: none;" id="comp"></ul>
 
