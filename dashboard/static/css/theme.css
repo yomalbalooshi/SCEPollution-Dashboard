@@ -294,8 +294,8 @@
     position: relative;
     border-collapse: collapse;
     border-radius: 10px;
-    width: 830px;
-    margin: 4%;
+    width: 100%;
+    margin: 1%;
  
   }
   #aqitrafficchart{

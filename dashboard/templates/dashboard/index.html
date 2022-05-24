@@ -142,6 +142,7 @@
             
           $('#dateForm').on('submit', function(e){
             e.preventDefault();
+            $('#loadingscreen').show();
             console.log("function");
 
           $.ajax({
@@ -243,11 +244,12 @@
 
         <!-- Modal content -->
         <div class="modal-content">
+          <span id="intersectionModalClose" class="close"  >&times;</span>
           <div id="intersectionModalTitle" class="intersectionModalTitle">
             <div id="intersectionModalCityName" class="intersectionModalCityName"></div>
               <div id="intersectionModalTimeRange" class="intersectionModalTimeRange"><p id="intersectionModalTimeRange"></p></div>
                </div>
-            <span id="intersectionModalClose" class="close"  >&times;</span>
+            
             <div id="aqitrafficchart"></div>
             <div id="SeeDetailsTable">
               
@@ -303,7 +305,6 @@
      
     function initpage(){
       hideSidePanel();
-      $('#loadingscreen').show();
     $('#mainDashboardCitiesTable').empty();
     $('#map').empty();
     initmap();
