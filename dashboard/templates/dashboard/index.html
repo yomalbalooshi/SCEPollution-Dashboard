@@ -357,7 +357,9 @@
     $("#comparisonFooterContent").slideToggle();
 }); 
   </script>---->
-
+  <script src="https://cdn.jsdelivr.net/gh/interactiveJS/interactiveJS@v2.0.1/src/individuals/minMaxClose.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/gh/interactiveJS/interactiveJS@v2.0.1/src/css/minMaxClose.min.css" rel="stylesheet"/>
+<!---
 <script>
   var coll = document.getElementsById("comparisonFooterDiv");
   var i;
@@ -373,8 +375,16 @@
   });
 }
 
+</script>-->
+<script>
+  minMaxClose('comparisonFooterDiv');
+
+let options1 = {
+  close: false
+}
+//minMaxClose('element1', options1);
 </script>
-<div id="comparisonFooterDiv" display = "none" style ="width: 100%;" >
+<div id="comparisonFooterDiv" name="Default options"  display = "none" style ="width: 100%;" >
   
   <!---<div id="title_bar" style ="width: 100%;">
     <div id="button">-</div><p>Cities to Compare</p> 
