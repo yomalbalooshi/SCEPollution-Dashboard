@@ -308,14 +308,14 @@
  text-align: center;
  border-radius: 4px;
  }
- #comparisonFooterDiv{
+ /*#comparisonFooterDiv{
  position: fixed;
  bottom: 0;
  height: 4rem;
  margin: auto 0;
  display: flex;
  justify-content: center;
- width: 100%;}
+ width: 100%;}*/
  .sdsumOfCars{
    background-color: #0082ad;
    flex-grow: 1;
