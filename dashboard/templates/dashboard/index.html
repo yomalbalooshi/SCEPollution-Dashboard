@@ -82,6 +82,26 @@
               embeddingContainerComp:""
             };
             var QuickSightEmbedding //= require("amazon-quicksight-embedding-sdk");
+            function mainEmbed(){ 
+              EmbedAQI();
+              EmbedComp();
+              console.log("Embed Main");
+            }
+
+            function EmbedAQI()
+            {
+            {% block content1 %}
+            embedDashboard("{{AqiDashboard.url}}","{{AqiDashboard.con}}");
+            {% endblock %}
+            }
+            function EmbedComp()
+            {
+            {% block content2 %}
+            embedDashboard("{{CompDashboard.url}}","{{CompDashboard.con}}");
+            {% endblock %}
+            }
+
+
        
             function embedDashboard(url,container) {
 
