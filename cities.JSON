@@ -1,0 +1,383 @@
+{ "citiesdata":[
+    {"cityID":"GENERATEDID",
+      "city": "Manama", 
+      "location": {
+      "coordinates": [50.5861,26.2230],
+      "type": "Point"
+    },
+  
+      "cityType": "res" 
+    }, 
+      {"cityID":"GENERATEDID",
+      "city": "Askar", 
+      "location": {
+      "coordinates": [50.595808,26.0732],
+      "type": "Point"
+    },
+      "cityType": "ind" 
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Muharraq", 
+      "location": {
+      "coordinates": [50.6177,26.2575],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Madinat Hamad", 
+      "location": {
+      "coordinates": [50.4990,26.1140],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Madinat Isa", 
+      "location": {
+      "coordinates": [50.5478,26.1736],
+      "type": "Point"
+    },
+      "cityType": "res" 
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Kaflan", 
+      "location": {
+      "coordinates": [50.5833,26.1833],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Karbabad", 
+      "location": {
+      "coordinates": [50.5294,26.2303],
+      "type": "Point"
+    },
+      "cityType": "res" 
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Jabalat Habashi", 
+      "location": {
+      "coordinates": [50.5275,26.2172],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Ayn al Dar", 
+      "location": {
+      "coordinates": [50.5333,26.2167],
+      "type": "Point"
+    },
+      "cityType": "res" 
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Hillat Abd al Salih", 
+      "location": {
+      "coordinates": [50.5167,26.2214],
+      "type": "Point"
+    },
+      "cityType": "res" 
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Al Muqsha", 
+      "location": {
+      "coordinates": [50.5231,26.2197],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Al Muwaylighah", 
+      "location": {
+      "coordinates": [50.5589,26.2067],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    },  
+    {"cityID":"GENERATEDID",
+      "city": "Jidd Hafs", 
+      "location": {
+      "coordinates": [50.5478,26.2186],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID6",
+      "city": "Al Busaiteen", 
+      "location": {
+      "coordinates": [50.6078,26.2694],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Halat al Naaim", 
+      "location": {
+      "coordinates": [50.6353,26.2389],
+      "type": "Point"
+    },
+      "cityType": "res" 
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Rayya", 
+      "location": {
+      "coordinates": [50.6333,26.2833],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Arad", 
+      "location": {
+      "coordinates": [50.6322,26.2561],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Samaheej", 
+      "location": {
+      "coordinates": [50.6350,26.2800],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Al Dair", 
+      "location": {
+      "coordinates": [50.6236,26.2842],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Halat al Sultah", 
+      "location": {
+      "coordinates": [50.6386,26.2428],
+      "type": "Point"
+    },
+      "cityType": "res" 
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Az Zimmah", 
+      "location": {
+      "coordinates": [50.6469,26.2553],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Qalali", 
+      "location": {
+      "coordinates": [50.6503,26.2733],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Halat al Khulayfat", 
+      "location": {
+      "coordinates": [50.6333,26.2500],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Umm ash Shajar", 
+      "location": {
+      "coordinates": [50.6558,26.2283],
+      "type": "Point"
+    },
+      "cityType": "res" 
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Halah", 
+      "location": {
+      "coordinates": [50.6214,26.1733],
+      "type": "Point"
+    },
+      "cityType": "res" 
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Marquban", 
+      "location": {
+      "coordinates": [50.6183,26.1642],
+      "type": "Point"
+    },
+      "cityType": "res" 
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Sufalah", 
+      "location": {
+      "coordinates": [50.6256,26.1628],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Halat Umm al Bayd", 
+      "location": {
+      "coordinates": [50.6333,26.1167],
+      "type": "Point"
+    },
+      "lat": "26.1167", 
+      "long": "50.6333",
+      "cityType": "res" 
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Al Akr", 
+      "location": {
+      "coordinates": [50.6103,26.1431],
+      "type": "Point"
+    },
+      "cityType": "res" 
+    },
+    {
+      "cityID":"GENERATEDID",
+      "city": "Jidd Ali", 
+      "location": {
+      "coordinates": [50.5603,26.1792],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Sitra", 
+      "location": {
+      "coordinates": [50.6206,26.1547],
+      "type": "Point"
+    }, 
+      "cityType": "ind"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Sitra", 
+      "location": {
+      "coordinates": [50.6146,26.1631],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Jurdab", 
+      "location": {
+      "coordinates": [50.5753,26.1694],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Sanad", 
+      "location": {
+      "coordinates": [50.5819,26.1503],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Al Kharijiyah", 
+      "location": {
+      "coordinates": [50.6047,26.1636],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Kawrah", 
+      "location": {
+      "coordinates": [50.5667,26.1833],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Al Hujayr", 
+      "location": {
+      "coordinates": [50.5500,26.1833],
+      "type": "Point"
+    },
+      "cityType": "res"
+    },
+    {"cityID":"GENERATEDID",
+      "city": "Mahazzah", 
+      "location": {
+      "coordinates": [50.6261,26.1694],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Al Nuwaydirat", 
+      "location": {
+      "coordinates": [50.5975,26.1347],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Wadiyan", 
+      "location": {
+      "coordinates": [50.6160,26.1580],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Al Jubaylat", 
+      "location": {
+      "coordinates": [50.5533,26.1819],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Salmabad", 
+      "location": {
+      "coordinates": [50.5247,26.1831],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Al Qaryah", 
+      "location": {
+      "coordinates": [50.6106,26.1722],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Tubli", 
+      "location": {
+      "coordinates": [50.5494,26.1869],
+      "type": "Point"
+    }, 
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Ar Riffa", 
+      "location": {
+      "coordinates": [50.5550,26.1300],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "‘Aali", 
+      "location": {
+      "coordinates": [50.5164,26.1619],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }, 
+    {"cityID":"GENERATEDID",
+      "city": "Al Qadam", 
+      "location": {
+      "coordinates": [50.5192,26.2156],
+      "type": "Point"
+    },
+      "cityType": "res"
+    }
+  ]
+  }
