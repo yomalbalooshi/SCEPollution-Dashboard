@@ -86,7 +86,7 @@ def date(request):
 
 def doccall(request): #queryCall for documentDB, Temporary
     t=''
-    cl = pymongo.MongoClient('mongodb://docDBUser:12345678@trafficpollutiondbreg.cluster-cciqodtzbuum.us-east-1.docdb.amazonaws.com:27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false')
+    cl = pymongo.MongoClient('DocumentDB CLUSTER LINK')
     db = cl.test
     col = db['intersectioncollection']
     x = col.find({"cityID" : "CITYID"})
@@ -96,7 +96,7 @@ def doccall(request): #queryCall for documentDB, Temporary
     
 def docDBQuery(queryDictionary,collectionname): #queryCall for documentDB, takes dictionary of {"key":"value"} as input
     t=''
-    cl = pymongo.MongoClient('mongodb://docDBUser:12345678@trafficpollutiondbreg.cluster-cciqodtzbuum.us-east-1.docdb.amazonaws.com:27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false')
+    cl = pymongo.MongoClient('DocumentDB CLUSTER LINK')
     db = cl.test
     col = db[collectionname]
     x = col.find_one(queryDictionary)

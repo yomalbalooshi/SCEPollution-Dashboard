@@ -1,0 +1,65 @@
+DocumentDB:
+
+
+    City Collection:
+         {"cityID":"GENERATEDID",
+          "city": "Manama", 
+          "location": {
+                "coordinates": [50.5861,26.2230],
+                "type": "Point"
+            }
+          "cityType": "res" 
+          }
+
+
+
+    Intersection Collection:
+         {"intersectionID" : "GENERATEDID", 
+          "location" : { 
+                "coordinates" : [ 50.58213, 26.232337 ], 
+                "type" : "Point"  
+            }, 
+            "cityID" : "GENERATEDID", 
+            "sensors" : [ 
+                  { "sensorID" : "GENERATEDID", 
+                    "lastPingTime" : ISODate("2022-04-17T22:44:32.749Z") 
+                  },
+                  { "sensorID" : "GENERATEDID", 
+                    "lastPingTime" : ISODate("2022-04-17T22:44:32.749Z") 
+                  },
+                  { "sensorID" : "GENERATEDID", 
+                    "lastPingTime" : ISODate("2022-04-17T22:44:32.749Z") 
+                  },
+                  { "sensorID" : "GENERATEDID", 
+                    "lastPingTime" : ISODate("2022-04-17T22:44:32.749Z") 
+                  } 
+                ] 
+          }
+
+
+
+Timestream:
+
+    {
+        'Dimensions':[
+                      {'Name': 'city', 'Value': 'Sitra'}, 
+                      {'Name': 'sensorId', 'Value': 'GENERATEDID'},  
+                      {'Name': 'intersectionId', 'Value': 'GENERATEDID'}, 
+                      {'Name': 'cityType', 'Value': 'ind'}
+                    ],
+        'MeasureName': 'dummy_metrics',
+        'MeasureValueType': 'MULTI',
+        'MeasureValues': [
+                      {'Name': 'CO','Value': 11.0, 'Type': 'DOUBLE'},
+                      {'Name': 'cars','Value': 90,'Type': 'BIGINT'},
+                      {'Name': 'busses', 'Value': 40,'Type': 'BIGINT'},
+                      {'Name': 'trucks', 'Value': 60,'Type': 'BIGINT'},
+                      {'Name': 'waittime', 'Value': 270,'Type': 'BIGINT'},
+                      {'Name': 'AQI', 'Value': 126,'Type': 'BIGINT'}
+                       ],
+        'Time': '2020-10-10 09:00:00',
+        }
+
+
+        
+    
